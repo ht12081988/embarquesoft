@@ -19,7 +19,7 @@ export default function Profile() {
     <div className="flex flex-col flex-1 bg-gray-50 min-h-full relative">
       
       {/* Header Section */}
-      <div className="bg-primary pt-[env(safe-area-inset-top,44px)] md:pt-10 pb-6 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 relative">
+      <div className="bg-primary pt-16 md:pt-10 pb-6 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 relative">
         <div className="flex items-center justify-between">
           <button 
             onClick={() => activeView === "menu" ? router.back() : setActiveView("menu")} 
@@ -231,3 +231,5 @@ export default function Profile() {
     </div>
   );
 }
+
+

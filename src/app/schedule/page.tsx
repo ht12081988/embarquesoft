@@ -40,7 +40,7 @@ export default function SchedulePickupList() {
   return (
     <div className="flex flex-col flex-1 bg-white min-h-full">
       {/* Header Section */}
-      <div className="bg-primary pt-[env(safe-area-inset-top,44px)] md:pt-10 pb-6 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 relative">
+      <div className="bg-primary pt-16 md:pt-10 pb-6 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 relative">
         <div className="flex items-center justify-between mb-6">
           <button onClick={() => router.back()} className="p-2 -ml-2 active:scale-95 transition-transform cursor-pointer">
             <ArrowLeft size={20} />
@@ -118,3 +118,5 @@ export default function SchedulePickupList() {
     </div>
   );
 }
+
+

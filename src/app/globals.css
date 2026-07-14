@@ -6,6 +6,7 @@
   --primary: #06122f;
   --primary-foreground: #ffffff;
   --secondary: #f4f0fa;
+  --safe-top: env(safe-area-inset-top, 44px);
 }
 
 html {
@@ -27,5 +28,8 @@ html {
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+  .pt-safe-offset {
+    padding-top: calc(var(--safe-top, 44px) + 24px);
   }
 }

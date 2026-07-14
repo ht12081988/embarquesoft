@@ -83,12 +83,11 @@ export default function Login() {
   return (
     <div className="flex flex-col flex-1 bg-white min-h-full">
       {/* Top Header Section */}
-      <div className="bg-primary pt-[env(safe-area-inset-top,44px)] md:pt-10 pb-8 px-5 flex flex-col items-center justify-center shrink-0 rounded-b-[24px] text-white shadow-md z-10 relative">
-        <div className="bg-white px-8 py-3 rounded-full flex items-center justify-center gap-2 shadow-sm mb-4">
+      <div className="bg-primary pt-16 md:pt-10 pb-8 px-5 flex flex-col items-center justify-center shrink-0 rounded-b-[24px] text-white shadow-md z-10 relative">
+        <div className="bg-white px-8 py-3 rounded-full flex items-center justify-center gap-2 shadow-sm">
           <Hexagon size={24} className="text-[#990000] fill-[#990000]/20" />
           <span className="text-[#990000] font-black text-2xl tracking-tight">Salcedo</span>
         </div>
-        <p className="font-bold text-[14px] text-white/90 tracking-wide">(212) 234 - 6942 | (212) 444 - 8574</p>
       </div>
 
       {/* Main Content Area */}
@@ -472,3 +471,4 @@ export default function Login() {
     </div>
   );
 }
+

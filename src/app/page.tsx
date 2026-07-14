@@ -33,7 +33,7 @@ export default function Home() {
   return (
     <div className="flex flex-col flex-1 bg-white min-h-full">
       {/* Header Section (from wireframe) */}
-      <div className="bg-primary pt-[env(safe-area-inset-top,44px)] md:pt-10 pb-6 px-6 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 relative">
+      <div className="bg-primary pt-16 md:pt-10 pb-6 px-6 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 relative">
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center gap-2">
             <span className="flex items-center gap-1.5 font-bold text-lg tracking-tight bg-white px-4 py-1 rounded-full text-primary shadow-sm">
@@ -141,3 +141,5 @@ export default function Home() {
     </div>
   );
 }
+
+

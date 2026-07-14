@@ -17,10 +17,7 @@ export default function DeviceFrame({ children }: { children: React.ReactNode })
 
   return (
     <div className="bg-background w-full h-[100dvh] relative flex flex-col overflow-hidden md:h-[min(844px,95vh)] md:w-auto md:aspect-[390/844] md:rounded-[32px] md:shadow-2xl md:border-[8px] md:border-black">
-      {/* Top Safe Area (StatusBar / Dynamic Island simulation on desktop) */}
-      <div className="hidden md:flex h-12 w-full justify-center pt-2 pb-2 shrink-0 bg-transparent z-50 absolute top-0 left-0 right-0 pointer-events-none">
-        <div className="w-[120px] h-[30px] bg-black rounded-full"></div>
-      </div>
+
       
       {/* Content Area with Animation */}
       <div className="flex-1 overflow-y-auto no-scrollbar relative w-full flex flex-col bg-background">
