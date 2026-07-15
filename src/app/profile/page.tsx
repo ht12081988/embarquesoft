@@ -1,19 +1,22 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowLeft, User, Lock, LogOut, ChevronRight, Save, X } from "lucide-react";
+import { ArrowLeft, ChevronRight, Save, X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/auth";
 
 export default function Profile() {
   const router = useRouter();
+  const { logout } = useAuth();
   const [activeView, setActiveView] = useState<"menu" | "profile" | "password">("menu");
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const handleLogout = () => {
-    // Perform logout logic here
+    logout();
     setShowLogoutModal(false);
     router.push("/login"); // Assuming there's a login page
   };
+
 
   return (
     <div className="flex flex-col flex-1 bg-gray-50 min-h-full relative">
@@ -50,8 +53,8 @@ export default function Profile() {
             
             {/* Profile Summary Card */}
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col items-center justify-center gap-3">
-              <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-                <User size={40} strokeWidth={1.5} />
+              <div className="w-20 h-20 flex items-center justify-center shrink-0">
+                <img src="/images/prof_user.png" alt="Avatar" className="w-full h-full object-contain" />
               </div>
               <div className="text-center">
                 <h2 className="text-[#2C3258] text-lg font-bold">Strickland</h2>
@@ -66,8 +69,8 @@ export default function Profile() {
                 className="flex items-center justify-between p-5 border-b border-gray-50 active:bg-gray-50 transition-colors"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center text-blue-600">
-                    <User size={20} />
+                  <div className="w-10 h-10 flex items-center justify-center shrink-0">
+                    <img src="/images/prof_user.png" alt="User Profile" className="w-full h-full object-contain" />
                   </div>
                   <span className="text-[#2C3258] font-bold text-[15px]">User Profile</span>
                 </div>
@@ -79,8 +82,8 @@ export default function Profile() {
                 className="flex items-center justify-between p-5 border-b border-gray-50 active:bg-gray-50 transition-colors"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-orange-50 rounded-full flex items-center justify-center text-orange-600">
-                    <Lock size={20} />
+                  <div className="w-10 h-10 flex items-center justify-center shrink-0">
+                    <img src="/images/prof_lock.png" alt="Change Password" className="w-full h-full object-contain" />
                   </div>
                   <span className="text-[#2C3258] font-bold text-[15px]">Change Password</span>
                 </div>
@@ -92,8 +95,8 @@ export default function Profile() {
                 className="flex items-center justify-between p-5 active:bg-gray-50 transition-colors"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center text-red-600">
-                    <LogOut size={20} />
+                  <div className="w-10 h-10 flex items-center justify-center shrink-0">
+                    <img src="/images/prof_logout.png" alt="Logout" className="w-full h-full object-contain" />
                   </div>
                   <span className="text-red-600 font-bold text-[15px]">Logout</span>
                 </div>
@@ -204,8 +207,8 @@ export default function Profile() {
       {showLogoutModal && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-5 backdrop-blur-sm">
           <div className="bg-white rounded-3xl p-6 w-full max-w-sm flex flex-col items-center text-center shadow-xl transform transition-all">
-            <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center text-red-500 mb-4">
-              <LogOut size={28} />
+            <div className="w-16 h-16 flex items-center justify-center mb-4 shrink-0">
+              <img src="/images/prof_logout.png" alt="Logout" className="w-full h-full object-contain" />
             </div>
             <h3 className="text-[#2C3258] text-lg font-bold mb-2">Logout</h3>
             <p className="text-gray-500 font-medium mb-8">Are you sure you want to log out of your account?</p>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import DeviceFrame from "@/components/DeviceFrame";
+import { AuthProvider } from "@/components/auth";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,10 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="h-full bg-gray-200 flex items-center justify-center m-0 overflow-hidden font-sans">
-        <DeviceFrame>
-          {children}
-        </DeviceFrame>
+        <AuthProvider>
+          <DeviceFrame>
+            {children}
+          </DeviceFrame>
+        </AuthProvider>
       </body>
     </html>
   );
 }
+

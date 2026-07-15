@@ -3,14 +3,26 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, ArrowLeft, Hexagon } from "lucide-react";
+import { useAuth } from "@/components/auth";
 
 type Step = "login" | "forgot_phone" | "forgot_otp" | "forgot_reset" | "register_details" | "register_otp" | "register_password";
 
 export default function Login() {
   const router = useRouter();
+  const { login } = useAuth();
   const [step, setStep] = useState<Step>("login");
   const [showPassword, setShowPassword] = useState(false);
   const [countdown, setCountdown] = useState(60);
+
+  // Check query params to load register screen directly
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("register") === "true") {
+        setStep("register_details");
+      }
+    }
+  }, []);
 
   // Registration states
   const [regFirstName, setRegFirstName] = useState("");
@@ -34,6 +46,7 @@ export default function Login() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    login();
     router.push("/");
   };
 
@@ -76,12 +89,13 @@ export default function Login() {
 
   const handleCreateAccount = (e: React.FormEvent) => {
     e.preventDefault();
-    // After creating account, go to login
-    setStep("login");
+    login(); // Log user in immediately upon successful registration
+    router.push("/");
   };
 
   return (
     <div className="flex flex-col flex-1 bg-white min-h-full">
+
       {/* Top Header Section */}
       <div className="bg-primary pt-16 md:pt-10 pb-8 px-5 flex flex-col items-center justify-center shrink-0 rounded-b-[24px] text-white shadow-md z-10 relative">
         <div className="bg-white px-8 py-3 rounded-full flex items-center justify-center gap-2 shadow-sm">
