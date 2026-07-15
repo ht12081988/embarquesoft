@@ -92,7 +92,7 @@ export default function Home() {
           <div className="flex items-center justify-between mb-3 px-1">
             <div className="flex items-center gap-2 text-orange-600 font-bold">
               <Tag size={18} fill="currentColor" className="text-orange-500" />
-              <span className="tracking-wide uppercase text-sm">Special Deals</span>
+              <span className="tracking-wide uppercase text-sm">Deals</span>
             </div>
             
             {/* Navigation Buttons */}

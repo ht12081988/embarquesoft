@@ -9,7 +9,7 @@ export default function BottomNav() {
   const pathname = usePathname();
 
   const tabs = [
-    { name: "Overview", href: "/", icon: Home },
+    { name: "Home", href: "/", icon: Home },
     { name: "Pickup", href: "/schedule/new", icon: Plus },
     { name: "Profile", href: "/profile", icon: User },
   ];
