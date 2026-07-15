@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 export default function NewSchedulePickup() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<"pickup" | "shipto">("pickup");
+  const [activeTab, setActiveTab] = useState<"pickup" | "shipto" | "customer">("pickup");
 
   return (
     <div className="flex flex-col flex-1 bg-white min-h-full">
@@ -31,6 +31,12 @@ export default function NewSchedulePickup() {
             Pickup
           </button>
           <button 
+            onClick={() => setActiveTab("customer")}
+            className={`flex-1 py-2 text-sm font-bold rounded-lg transition-colors ${activeTab === 'customer' ? 'bg-white text-primary shadow-sm' : 'text-white'}`}
+          >
+            Customer
+          </button>
+          <button 
             onClick={() => setActiveTab("shipto")}
             className={`flex-1 py-2 text-sm font-bold rounded-lg transition-colors ${activeTab === 'shipto' ? 'bg-white text-primary shadow-sm' : 'text-white'}`}
           >
@@ -48,6 +54,51 @@ export default function NewSchedulePickup() {
 
           {activeTab === "pickup" ? (
             /* PICKUP TAB FIELDS */
+            <>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[#2C3258] font-bold text-[13px]">Select Category</label>
+                <select className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none">
+                  <option value="Supply">Supply</option>
+                  <option value="Move">Move</option>
+                  <option value="AI pickup">AI pickup</option>
+                </select>
+              </div>
+
+              <div className="flex gap-3 flex-wrap">
+                <div className="flex flex-col gap-1.5 flex-1 min-w-[45%]">
+                  <label className="text-[#2C3258] font-bold text-[13px]">Item 1</label>
+                  <input type="text" placeholder="Item 1" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
+                </div>
+                <div className="flex flex-col gap-1.5 flex-1 min-w-[45%]">
+                  <label className="text-[#2C3258] font-bold text-[13px]">Item 2</label>
+                  <input type="text" placeholder="Item 2" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
+                </div>
+                <div className="flex flex-col gap-1.5 flex-1 min-w-[45%]">
+                  <label className="text-[#2C3258] font-bold text-[13px]">Box</label>
+                  <input type="text" placeholder="Box" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
+                </div>
+                <div className="flex flex-col gap-1.5 flex-1 min-w-[45%]">
+                  <label className="text-[#2C3258] font-bold text-[13px]">Barrel</label>
+                  <input type="text" placeholder="Barrel" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
+                </div>
+                <div className="flex flex-col gap-1.5 flex-1 min-w-[100%]">
+                  <label className="text-[#2C3258] font-bold text-[13px]">Tap</label>
+                  <input type="text" placeholder="Tap" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[#2C3258] font-bold text-[13px]">Tentative Pickup DT/TM</label>
+                <input type="datetime-local" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[#2C3258] font-bold text-[13px]">Comments</label>
+                <textarea placeholder="Enter Comments here." rows={3} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400 resize-none"></textarea>
+              </div>
+            </>
+          ) : activeTab === "customer" ? (
+            /* CUSTOMER TAB FIELDS */
             <>
               <div className="flex flex-col gap-1.5">
                 <label className="text-[#2C3258] font-bold text-[13px]">Country <span className="text-red-500">*</span></label>
@@ -149,24 +200,6 @@ export default function NewSchedulePickup() {
                 <input type="email" placeholder="gregory@yahoo.com" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
               </div>
 
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-bold text-[13px]">Tentative Pickup DT/TM</label>
-                <input type="datetime-local" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-bold text-[13px]">Select Category</label>
-                <select className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none">
-                  <option>Package</option>
-                  <option>Barrel</option>
-                  <option>Box</option>
-                </select>
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-bold text-[13px]">Comments</label>
-                <textarea placeholder="Enter Comments here." rows={3} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400 resize-none"></textarea>
-              </div>
             </>
           ) : (
             /* SHIPTO TAB FIELDS */

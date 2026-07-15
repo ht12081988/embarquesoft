@@ -69,7 +69,7 @@ export default function SchedulePickupList() {
         {/* Pickup Cards */}
         <div className="flex flex-col gap-4">
           {filteredPickups.map((pickup) => (
-            <div key={pickup.id} className="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col overflow-hidden shrink-0">
+            <Link href={`/schedule/${pickup.id}`} key={pickup.id} className="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col overflow-hidden shrink-0 hover:shadow-md transition-shadow active:scale-[0.99] block">
               <div className="bg-[#EDEAFD] px-4 py-3 border-b border-gray-100 flex justify-between items-center">
                 <div className="flex items-center gap-2">
                   <Calendar size={16} className="text-[#2C3258]" />
@@ -111,7 +111,7 @@ export default function SchedulePickupList() {
                   </div>
                 )}
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
