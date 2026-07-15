@@ -357,7 +357,7 @@ export default function Login() {
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[#2C3258] font-medium text-[13px]">Telephone Number <span className="text-red-500">*</span></label>
+                    <label className="text-[#2C3258] font-medium text-[13px]">Telephone Number</label>
                     <div className="flex border border-gray-200 rounded-xl overflow-hidden focus-within:border-primary focus-within:ring-1 focus-within:ring-primary bg-[#F9F9FB]">
                       <div className="bg-gray-100 border-r border-gray-200 px-3 py-2.5 flex items-center gap-2">
                         <span className="text-[#2C3258] font-bold">+1</span>
