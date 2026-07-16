@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Tag, Bell, LogOut, Search, User, MapPin } from 'lucide-react';
+import { LayoutDashboard, Tag, Bell, LogOut, Search, User, MapPin, ChevronDown, ChevronRight, Smartphone, MessageSquare } from 'lucide-react';
 import './admin.css';
 
 export default function TenantAdminLayout({
@@ -12,11 +12,13 @@ export default function TenantAdminLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const [isCustomerAppExpanded, setIsCustomerAppExpanded] = useState(true);
 
   const navItems = [
     { name: 'Deals', href: '/tenentadmin/deals', icon: Tag },
     { name: 'Push Notifications', href: '/tenentadmin/push-notifications', icon: Bell },
     { name: 'Branch Locations', href: '/tenentadmin/locations', icon: MapPin },
+    { name: 'Inquiries', href: '/tenentadmin/inquiries', icon: MessageSquare },
   ];
 
   return (
@@ -37,19 +39,37 @@ export default function TenantAdminLayout({
           <div style={{ padding: '0 20px', marginBottom: '10px', fontSize: '0.75rem', color: '#a0a6d4', textTransform: 'uppercase', fontWeight: 'bold' }}>
             Menu
           </div>
-          {navItems.map((item) => {
-            const isActive = pathname === item.href || pathname.startsWith(item.href);
-            return (
-              <Link 
-                key={item.name} 
-                href={item.href}
-                className={`admin-nav-item ${isActive ? 'active' : ''}`}
-              >
-                <item.icon size={20} />
-                {item.name}
-              </Link>
-            );
-          })}
+
+          <div className="admin-sidebar-group">
+            <button 
+              onClick={() => setIsCustomerAppExpanded(!isCustomerAppExpanded)}
+              className="admin-sidebar-group-btn"
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <Smartphone size={20} />
+                Customer App
+              </div>
+              {isCustomerAppExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+            </button>
+            
+            {isCustomerAppExpanded && (
+              <div className="admin-sidebar-group-content">
+                {navItems.map((item) => {
+                  const isActive = pathname === item.href || pathname.startsWith(item.href);
+                  return (
+                    <Link 
+                      key={item.name} 
+                      href={item.href}
+                      className={`admin-nav-item ${isActive ? 'active' : ''}`}
+                    >
+                      <item.icon size={20} />
+                      {item.name}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </nav>
       </aside>
 
