@@ -62,14 +62,14 @@ export default function Home() {
             </span>
           </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1">
             {/* Contact Us Icon */}
             <button 
               onClick={() => setShowContactModal(true)}
               className="active:scale-95 transition-transform hover:opacity-90"
               title="Contact Us"
             >
-              <img src="/images/hdr_contact.png" alt="Contact" className="w-7 h-7 object-contain" />
+              <img src="/images/hdr_contact.png" alt="Contact" className="w-10 h-10 object-contain" />
             </button>
             
             {/* WhatsApp Icon */}
@@ -80,13 +80,13 @@ export default function Home() {
               className="active:scale-95 transition-transform hover:opacity-90"
               title="WhatsApp Chat"
             >
-              <img src="/images/hdr_whatsapp.png" alt="WhatsApp" className="w-7 h-7 object-contain" />
+              <img src="/images/hdr_whatsapp.png" alt="WhatsApp" className="w-10 h-10 object-contain" />
             </a>
 
             {/* Bell Icon - Restricted to Logged In users */}
             {isLoggedIn && (
               <Link href="/notifications" className="relative active:scale-95 transition-transform hover:opacity-90">
-                <img src="/images/hdr_bell.png" alt="Notifications" className="w-7 h-7 object-contain" />
+                <img src="/images/hdr_bell.png" alt="Notifications" className="w-10 h-10 object-contain" />
                 <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full border border-primary"></span>
               </Link>
             )}
@@ -165,7 +165,7 @@ export default function Home() {
                     : 'active:scale-95 shadow-md hover:shadow-lg'
                 }`}
               >
-                <div className="w-12 h-12 flex items-center justify-center shrink-0">
+                <div className="w-16 h-16 flex items-center justify-center shrink-0">
                   <img src={item.imageSrc} alt={item.label} className="w-full h-full object-contain" />
                 </div>
                 <span className="text-[11px] font-bold text-[#2C3258] leading-tight">{item.label}</span>
@@ -218,7 +218,7 @@ export default function Home() {
                 </div>
                 
                 {/* Image Section below */}
-                <div className="w-full h-24 bg-gray-100 flex items-center justify-center relative">
+                <div className="w-full h-40 bg-gray-100 flex items-center justify-center relative">
                   <img 
                     src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=600&h=200"
                     alt="Special Deal Placeholder"

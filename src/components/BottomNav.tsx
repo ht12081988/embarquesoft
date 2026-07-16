@@ -24,7 +24,7 @@ export default function BottomNav() {
 
   return (
     <div className={`shrink-0 bg-white shadow-[0_-5px_15px_-5px_rgba(0,0,0,0.1)] border-t border-gray-100 px-2 pb-[env(safe-area-inset-bottom,16px)] md:pb-6 pt-2 z-50 transition-all duration-300 ${isPopupOpen ? 'blur-[3px] opacity-40 pointer-events-none saturate-50' : ''}`}>
-      <div className="flex justify-between items-center h-12">
+      <div className="flex justify-between items-center h-16">
         {tabs.map((tab) => {
           const isActive = pathname === tab.href || (tab.href !== "/" && pathname.startsWith(tab.href));
           return (
@@ -36,8 +36,8 @@ export default function BottomNav() {
                 isActive ? 'scale-105 saturate-100 opacity-100' : 'opacity-55 saturate-50 hover:opacity-75'
               }`}
             >
-              <img src={tab.imageSrc} alt={tab.name} className="w-7 h-7 object-contain" />
-              <span className={`text-[9px] font-bold ${isActive ? 'text-primary' : 'text-gray-500'}`}>{tab.name}</span>
+              <img src={tab.imageSrc} alt={tab.name} className="w-12 h-12 object-contain" />
+              <span className={`text-[11px] font-bold ${isActive ? 'text-primary' : 'text-gray-500'}`}>{tab.name}</span>
             </a>
           );
         })}
