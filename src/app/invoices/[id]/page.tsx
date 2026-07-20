@@ -31,7 +31,7 @@ export default function InvoiceDetails() {
               className="flex items-center gap-1.5 text-xs font-bold text-white bg-primary px-2.5 py-1 rounded-full shadow-sm active:scale-95 transition-transform"
             >
               <Truck size={14} />
-              <span>Track</span>
+              <span>Tracking</span>
             </Link>
           </div>
           <div className="p-4 flex flex-col gap-3">

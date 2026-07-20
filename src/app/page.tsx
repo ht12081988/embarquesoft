@@ -42,13 +42,128 @@ export default function Home() {
     }
   };
 
-  const menuItems = [
-    { id: 'C', label: 'Locations', imageSrc: '/images/locations.png', href: '/locations' },
-    { id: 'A', label: 'My Invoices', imageSrc: '/images/invoices.png', href: '/invoices' },
-    { id: 'B', label: 'Schedule Pickup', imageSrc: '/images/pickup.png', href: '/schedule' },
-    { id: 'D', label: 'File A Claim', imageSrc: '/images/claim.png', href: '/claim' },
-    { id: 'F', label: 'My ShipTo', imageSrc: '/images/shipto.png', href: '/shiptos' },
+  const row1Items = [
+    { id: 'Contact', label: 'Contact Us', imageSrc: '/images/hdr_contact.png', isProtected: false, action: () => setShowContactModal(true) },
+    { id: 'C', label: 'Locations', imageSrc: '/images/locations.png', href: '/locations', isProtected: false },
+    { id: 'A', label: 'My Invoices', imageSrc: '/images/invoices.png', href: '/invoices', isProtected: true },
   ];
+
+  const row2Items = [
+    { id: 'B', label: 'Schedule Pickup', imageSrc: '/images/pickup.png', href: '/schedule', isProtected: true },
+    { id: 'G', label: 'Quote', imageSrc: '/images/quote.png', href: '/quote', isProtected: false },
+    { id: 'F', label: 'My ShipTo', imageSrc: '/images/shipto.png', href: '/shiptos', isProtected: true },
+    { id: 'D', label: 'File A Claim', imageSrc: '/images/claim.png', href: '/claim', isProtected: true },
+  ];
+
+  const row2Ref = useRef<HTMLDivElement>(null);
+  const gridItemRef = useRef<HTMLAnchorElement & HTMLButtonElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragMoved, setDragMoved] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeftState, setScrollLeftState] = useState(0);
+  const [itemWidth, setItemWidth] = useState<number | null>(null);
+
+  React.useEffect(() => {
+    if (!gridItemRef.current) return;
+    const observer = new ResizeObserver((entries) => {
+      if (entries[0]) {
+        // Use bounding client rect to get the full width including padding and borders
+        const width = (entries[0].target as HTMLElement).offsetWidth;
+        setItemWidth(width);
+      }
+    });
+    observer.observe(gridItemRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const startDragging = (e: React.MouseEvent) => {
+    if (!row2Ref.current) return;
+    setIsDragging(true);
+    setDragMoved(false);
+    setStartX(e.pageX - row2Ref.current.offsetLeft);
+    setScrollLeftState(row2Ref.current.scrollLeft);
+  };
+
+  const stopDragging = () => {
+    setIsDragging(false);
+  };
+
+  const onDrag = (e: React.MouseEvent) => {
+    if (!isDragging || !row2Ref.current) return;
+    e.preventDefault();
+    const x = e.pageX - row2Ref.current.offsetLeft;
+    const walk = (x - startX) * 1.5; // Slightly faster scroll
+    if (Math.abs(walk) > 10) {
+      setDragMoved(true);
+    }
+    row2Ref.current.scrollLeft = scrollLeftState - walk;
+  };
+
+  const renderItem = (item: any, idx?: number) => {
+    const isProtected = item.isProtected;
+    const isBlurred = isProtected && !isLoggedIn;
+
+    const content = (
+      <>
+        <div className="w-16 h-16 flex items-center justify-center shrink-0">
+          <img src={item.imageSrc} alt={item.label} className="w-full h-full object-contain pointer-events-none" />
+        </div>
+        <span className="text-[11px] font-bold text-[#2C3258] leading-tight pointer-events-none">{item.label}</span>
+      </>
+    );
+
+    const className = `bg-white rounded-2xl p-3.5 shadow-md border border-gray-100 flex flex-col items-center justify-center gap-2 text-center transition-all cursor-pointer min-h-[105px] w-full ${
+      isBlurred 
+        ? 'opacity-65 blur-[0.5px] saturate-75 scale-[0.98]' 
+        : 'active:scale-95 shadow-md hover:shadow-lg'
+    }`;
+
+    if (item.action) {
+      return (
+        <button 
+          ref={idx === 0 ? (gridItemRef as any) : null}
+          key={item.id} 
+          onClick={(e) => {
+            if (dragMoved) {
+              e.preventDefault();
+              e.stopPropagation();
+              return;
+            }
+            if (isProtected && !isLoggedIn) {
+              router.push("/login");
+            } else {
+              item.action();
+            }
+          }}
+          className={className}
+        >
+          {content}
+        </button>
+      );
+    }
+
+    return (
+      <a 
+        ref={idx === 0 ? (gridItemRef as any) : null}
+        key={item.id} 
+        href={item.href}
+        onClick={(e) => {
+          if (dragMoved) {
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+          }
+          if (isProtected && !isLoggedIn) {
+            e.preventDefault();
+            router.push("/login");
+          }
+        }}
+        className={className}
+      >
+        {content}
+      </a>
+    );
+  };
 
   return (
     <div className="flex flex-col flex-1 bg-white min-h-full relative">
@@ -62,15 +177,7 @@ export default function Home() {
             </span>
           </div>
           
-          <div className="flex items-center gap-1">
-            {/* Contact Us Icon */}
-            <button 
-              onClick={() => setShowContactModal(true)}
-              className="active:scale-95 transition-transform hover:opacity-90"
-              title="Contact Us"
-            >
-              <img src="/images/hdr_contact.png" alt="Contact" className="w-10 h-10 object-contain" />
-            </button>
+          <div className="flex items-center gap-2">
             
             {/* WhatsApp Icon */}
             <a 
@@ -80,21 +187,21 @@ export default function Home() {
               className="active:scale-95 transition-transform hover:opacity-90"
               title="WhatsApp Chat"
             >
-              <img src="/images/hdr_whatsapp.png" alt="WhatsApp" className="w-10 h-10 object-contain" />
+              <img src="/images/hdr_whatsapp.png" alt="WhatsApp" className="w-8 h-8 object-contain" />
             </a>
 
             {/* Bell Icon - Restricted to Logged In users */}
             {isLoggedIn && (
               <Link href="/notifications" className="relative active:scale-95 transition-transform hover:opacity-90">
-                <img src="/images/hdr_bell.png" alt="Notifications" className="w-10 h-10 object-contain" />
-                <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full border border-primary"></span>
+                <img src="/images/hdr_bell.png" alt="Notifications" className="w-8 h-8 object-contain" />
+                <span className="absolute -top-1 -right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full border border-primary"></span>
               </Link>
             )}
 
             {/* Language Toggle */}
             <button 
               onClick={toggleLanguage}
-              className="flex items-center gap-1 bg-white/10 hover:bg-white/20 transition-colors px-2.5 py-1 rounded-full text-xs font-bold active:scale-95"
+              className="flex items-center gap-1 bg-white/10 hover:bg-white/20 transition-colors px-3 py-1.5 rounded-full text-sm font-bold active:scale-95"
             >
               <span>{language}</span>
             </button>
@@ -143,34 +250,29 @@ export default function Home() {
           </div>
         )}
 
-        {/* Menu Grid (3 Columns) */}
+        {/* Menu Row 1 (3 Columns) */}
         <div className="grid grid-cols-3 gap-3">
-          {menuItems.map((item) => {
-            const isProtected = item.href !== "/locations";
-            const isBlurred = isProtected && !isLoggedIn;
-            return (
-              <a 
-                key={item.id} 
-                href={item.href}
-                onClick={(e) => {
-                  if (isProtected && !isLoggedIn) {
-                    e.preventDefault();
-                    router.push("/login");
-                  }
-                }}
-                className={`bg-white rounded-2xl p-3.5 shadow-md border border-gray-100 flex flex-col items-center justify-center gap-2 text-center transition-all cursor-pointer min-h-[105px] ${
-                  isBlurred 
-                    ? 'opacity-65 blur-[0.5px] saturate-75 scale-[0.98]' 
-                    : 'active:scale-95 shadow-md hover:shadow-lg'
-                }`}
-              >
-                <div className="w-16 h-16 flex items-center justify-center shrink-0">
-                  <img src={item.imageSrc} alt={item.label} className="w-full h-full object-contain" />
-                </div>
-                <span className="text-[11px] font-bold text-[#2C3258] leading-tight">{item.label}</span>
-              </a>
-            );
-          })}
+          {row1Items.map((item, idx) => renderItem(item, idx))}
+        </div>
+
+        {/* Menu Row 2 (Scrollable) */}
+        <div 
+          ref={row2Ref}
+          onMouseDown={startDragging}
+          onMouseLeave={stopDragging}
+          onMouseUp={stopDragging}
+          onMouseMove={onDrag}
+          className={`flex overflow-x-auto items-stretch gap-3 no-scrollbar py-2 -mx-5 px-5 min-h-[115px] ${isDragging ? 'cursor-grabbing select-none' : 'cursor-grab scroll-smooth'}`}
+        >
+          {row2Items.map((item) => (
+            <div 
+              key={item.id} 
+              className="shrink-0 flex transition-transform duration-300 ease-out"
+              style={{ width: itemWidth ? `${itemWidth}px` : '104px' }}
+            >
+              {renderItem(item)}
+            </div>
+          ))}
         </div>
 
         {/* Deals Section */}

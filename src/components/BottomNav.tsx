@@ -11,7 +11,9 @@ export default function BottomNav() {
 
   const tabs = [
     { name: "Home", href: "/", imageSrc: "/images/nav_home.png", protected: false },
+    { name: "Invoices", href: "/invoices", imageSrc: "/images/invoices.png", protected: true },
     { name: "Pickup", href: "/schedule/new", imageSrc: "/images/nav_pickup.png", protected: true },
+    { name: "ShipTo", href: "/shiptos", imageSrc: "/images/shipto.png", protected: true },
     { name: "Profile", href: "/profile", imageSrc: "/images/nav_profile.png", protected: true },
   ];
 
@@ -36,8 +38,8 @@ export default function BottomNav() {
                 isActive ? 'scale-105 saturate-100 opacity-100' : 'opacity-55 saturate-50 hover:opacity-75'
               }`}
             >
-              <img src={tab.imageSrc} alt={tab.name} className="w-12 h-12 object-contain" />
-              <span className={`text-[11px] font-bold ${isActive ? 'text-primary' : 'text-gray-500'}`}>{tab.name}</span>
+              <img src={tab.imageSrc} alt={tab.name} className="w-7 h-7 object-contain mb-0.5" />
+              <span className={`text-[10px] font-bold tracking-tight ${isActive ? 'text-primary' : 'text-gray-500'}`}>{tab.name}</span>
             </a>
           );
         })}

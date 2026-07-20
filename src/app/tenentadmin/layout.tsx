@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Tag, Bell, LogOut, Search, User, MapPin, ChevronDown, ChevronRight, Smartphone, MessageSquare } from 'lucide-react';
+import { LayoutDashboard, Tag, Bell, LogOut, Search, User, MapPin, ChevronDown, ChevronRight, Smartphone, MessageSquare, FileText } from 'lucide-react';
 import './admin.css';
 
 export default function TenantAdminLayout({
@@ -19,6 +19,7 @@ export default function TenantAdminLayout({
     { name: 'Push Notifications', href: '/tenentadmin/push-notifications', icon: Bell },
     { name: 'Branch Locations', href: '/tenentadmin/locations', icon: MapPin },
     { name: 'Inquiries', href: '/tenentadmin/inquiries', icon: MessageSquare },
+    { name: 'Quotes', href: '/tenentadmin/quotes', icon: FileText },
   ];
 
   return (
