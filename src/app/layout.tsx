@@ -20,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="h-full bg-gray-200 flex items-center justify-center m-0 overflow-hidden font-sans">
+    <html lang="en" className={`${inter.variable} antialiased`}>
+      <body className="m-0 font-sans bg-background text-foreground">
         <AuthProvider>
           <DeviceFrame>
             {children}

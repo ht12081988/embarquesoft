@@ -9,7 +9,7 @@ import { useAuth } from "@/components/auth";
 export default function Home() {
   const router = useRouter();
   const { isLoggedIn, setIsPopupOpen } = useAuth();
-  const [language, setLanguage] = useState("Sp");
+  const [language, setLanguage] = useState("Spanish");
   const [showContactModal, setShowContactModalState] = useState(false);
   const setShowContactModal = (val: boolean) => {
     setShowContactModalState(val);
@@ -29,7 +29,7 @@ export default function Home() {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const toggleLanguage = () => {
-    setLanguage((prev) => (prev === "Sp" ? "En" : "Sp"));
+    setLanguage((prev) => (prev === "Spanish" ? "English" : "Spanish"));
   };
 
   const scroll = (direction: 'left' | 'right') => {
@@ -96,20 +96,19 @@ export default function Home() {
               onClick={toggleLanguage}
               className="flex items-center gap-1 bg-white/10 hover:bg-white/20 transition-colors px-2.5 py-1 rounded-full text-xs font-bold active:scale-95"
             >
-              <Globe size={14} />
               <span>{language}</span>
             </button>
           </div>
         </div>
         
-        <div className="flex flex-col gap-1.5 text-sm font-medium text-white bg-[#2C3258] p-3 rounded-xl shadow-sm mt-2">
-          <p className="flex justify-between items-center">
-            <span>US Phone:</span>
+        <div className="flex justify-between items-center text-xs font-medium text-white bg-[#2C3258] p-3 rounded-xl shadow-sm mt-2">
+          <p className="flex items-center gap-1.5">
+            <span className="text-white/80">US:</span>
             <a href="tel:212-444-8574" className="font-bold tracking-wider text-white active:opacity-70">212-444-8574</a>
           </p>
-          <div className="h-[1px] w-full bg-white/20 my-0.5"></div>
-          <p className="flex justify-between items-center">
-            <span>RD Phone:</span>
+          <div className="w-[1px] h-4 bg-white/30"></div>
+          <p className="flex items-center gap-1.5">
+            <span className="text-white/80">RD:</span>
             <a href="tel:809-222-2123" className="font-bold tracking-wider text-white active:opacity-70">809-222-2123</a>
           </p>
         </div>

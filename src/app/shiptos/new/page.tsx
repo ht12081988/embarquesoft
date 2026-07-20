@@ -93,7 +93,7 @@ export default function NewShipTo() {
             <input type="text" placeholder="Enter Apartment" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
           </div>
 
-          <div className="flex gap-3">
+          <div className="hidden gap-3">
             <div className="flex flex-col gap-1.5 flex-1">
               <label className="text-[#2C3258] font-bold text-[13px]">Latitude</label>
               <input type="text" readOnly placeholder="Enter latitude" className="w-full bg-gray-100 border border-gray-200 rounded-xl px-4 py-2.5 text-gray-500 cursor-not-allowed font-medium outline-none placeholder-gray-400" />

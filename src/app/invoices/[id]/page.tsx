@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { ArrowLeft, Edit } from "lucide-react";
+import { ArrowLeft, Edit, Truck } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function InvoiceDetails() {
   const router = useRouter();
@@ -25,6 +26,13 @@ export default function InvoiceDetails() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col overflow-hidden shrink-0">
           <div className="bg-[#EDEAFD] px-4 py-3 border-b border-gray-100 flex justify-between items-center">
             <h2 className="text-[#2C3258] font-bold text-[15px]">Invoice Info</h2>
+            <Link 
+              href={`/invoices/1/tracking`}
+              className="flex items-center gap-1.5 text-xs font-bold text-white bg-primary px-2.5 py-1 rounded-full shadow-sm active:scale-95 transition-transform"
+            >
+              <Truck size={14} />
+              <span>Track</span>
+            </Link>
           </div>
           <div className="p-4 flex flex-col gap-3">
             <div className="flex justify-between items-center text-[14px]">

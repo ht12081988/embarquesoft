@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowLeft, Search, MapPin } from "lucide-react";
+import { ArrowLeft, Search, MapPin, Map } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function LocationsList() {
@@ -72,9 +72,19 @@ export default function LocationsList() {
         <div className="flex flex-col gap-3">
           {filteredLocations.map((loc) => (
             <div key={loc.id} className="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col overflow-hidden shrink-0">
-              <div className="bg-[#EDEAFD] px-3 py-2.5 border-b border-gray-100 flex items-center gap-2">
-                <MapPin size={16} className="text-[#2C3258]" />
-                <h2 className="text-[#2C3258] font-bold text-[14px]">{loc.branchName}</h2>
+              <div className="bg-[#EDEAFD] px-3 py-2.5 border-b border-gray-100 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <MapPin size={16} className="text-[#2C3258]" />
+                  <h2 className="text-[#2C3258] font-bold text-[14px]">{loc.branchName}</h2>
+                </div>
+                <a 
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${loc.address1} ${loc.city} ${loc.state} ${loc.zip} ${loc.country}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#2C3258] active:scale-95 transition-transform"
+                >
+                  <MapPin size={18} />
+                </a>
               </div>
               <div className="p-3.5 flex flex-col gap-1.5">
                 <p className="text-gray-600 font-medium text-[13px] leading-snug">

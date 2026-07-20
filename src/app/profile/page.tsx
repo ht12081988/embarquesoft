@@ -168,6 +168,20 @@ export default function Profile() {
               </select>
             </div>
 
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[#2C3258] font-bold text-[13px]">License ID</label>
+              <input type="text" defaultValue="132141414" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[#2C3258] font-bold text-[13px]">License ID Upload</label>
+              <div className="w-full h-24 bg-gray-100 rounded-xl flex items-center justify-center border-2 border-dashed border-gray-300 relative cursor-pointer active:bg-gray-200 transition-colors">
+                <button className="bg-[#5c85eb] text-white font-bold text-[14px] px-6 py-2 rounded-lg shadow-sm hover:opacity-90 transition-opacity">
+                  Upload
+                </button>
+              </div>
+            </div>
+
             <button className="bg-[#5c85eb] text-white font-bold text-[15px] py-3 rounded-xl mt-4 shadow-md active:scale-95 transition-transform mb-4">
               Update Profile
             </button>
