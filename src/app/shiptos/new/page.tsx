@@ -1,22 +1,28 @@
 "use client";
 
 import React from "react";
-import { ArrowLeft, Save, X, Image as ImageIcon } from "lucide-react";
+import { ArrowLeft, Image as ImageIcon, Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function NewShipTo() {
   const router = useRouter();
 
+  const selectStyle = {
+    backgroundImage: `url('data:image/svg+xml;utf8,<svg fill="none" viewBox="0 0 24 24" stroke="%239ca3af" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>')`,
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "right 16px center",
+    backgroundSize: "16px"
+  };
+
   return (
     <div className="flex flex-col flex-1 bg-white min-h-full">
       {/* Header Section */}
-      <div className="bg-primary pt-16 md:pt-10 pb-4 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 sticky top-0">
+      <div className="bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] pt-16 md:pt-10 pb-4 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 sticky top-0">
         <div className="flex items-center justify-between mb-2">
           <button onClick={() => router.back()} className="p-2 -ml-2 active:scale-95 transition-transform cursor-pointer">
             <ArrowLeft size={20} />
           </button>
-          <h1 className="text-lg font-bold flex-1 text-center">Add Ship To</h1>
-          <div className="w-10"></div>
+          <h1 className="text-lg font-bold flex-1 text-center pr-8">Add Ship To</h1>
         </div>
       </div>
 
@@ -26,102 +32,98 @@ export default function NewShipTo() {
         <div className="flex flex-col gap-4">
           
           <div className="flex flex-col gap-1.5">
-            <label className="text-[#2C3258] font-bold text-[13px]">Country <span className="text-red-500">*</span></label>
+            <label className="text-[#2C3258] font-bold text-[13px] ml-1">Country <span className="text-red-500">*</span></label>
             <div className="flex gap-2">
-              <select className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none">
-                <option>USA</option>
-                <option>Dominican Republic</option>
+              <select 
+                style={selectStyle}
+                className="flex-1 bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm font-medium outline-none border-none appearance-none"
+              >
+                <option>🇺🇸 USA</option>
+                <option>🇩🇴 Dominican Republic</option>
               </select>
-              <button className="bg-[#2C3258] text-white font-bold px-4 rounded-xl shadow-sm active:scale-95 transition-transform">
+              <button className="bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] text-white font-bold px-5 py-3.5 rounded-xl shadow-sm active:scale-95 transition-transform text-sm">
                 Location
               </button>
             </div>
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[#2C3258] font-bold text-[13px]">Company</label>
-            <input type="text" placeholder="Enter Company Name" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
+            <label className="text-[#2C3258] font-bold text-[13px] ml-1">Company</label>
+            <input type="text" placeholder="Enter Company Name" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" />
           </div>
 
           <div className="flex gap-3">
             <div className="flex flex-col gap-1.5 flex-1">
-              <label className="text-[#2C3258] font-bold text-[13px]">First Name <span className="text-red-500">*</span></label>
-              <input type="text" placeholder="Enter First Name" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
+              <label className="text-[#2C3258] font-bold text-[13px] ml-1">First Name <span className="text-red-500">*</span></label>
+              <input type="text" placeholder="Enter First Name" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" />
             </div>
             <div className="flex flex-col gap-1.5 flex-1">
-              <label className="text-[#2C3258] font-bold text-[13px]">Last Name <span className="text-red-500">*</span></label>
-              <input type="text" placeholder="Enter Last Name" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
+              <label className="text-[#2C3258] font-bold text-[13px] ml-1">Last Name <span className="text-red-500">*</span></label>
+              <input type="text" placeholder="Enter Last Name" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" />
             </div>
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[#2C3258] font-bold text-[13px]">Cellphone <span className="text-red-500">*</span></label>
-            <div className="flex border border-gray-200 rounded-xl overflow-hidden focus-within:border-primary focus-within:ring-1 focus-within:ring-primary bg-white">
-              <div className="bg-gray-50 border-r border-gray-200 px-2 py-2.5 flex items-center gap-1 cursor-pointer">
+            <label className="text-[#2C3258] font-bold text-[13px] ml-1">Cellphone <span className="text-red-500">*</span></label>
+            <div className="flex bg-[#F4F5F7] rounded-xl overflow-hidden border-none">
+              <div className="bg-[#EAEAEE] px-3.5 py-3.5 flex items-center gap-1.5 text-sm font-bold text-[#2C3258]">
                 <span>🇺🇸</span>
-                <span className="text-[#2C3258] font-bold text-sm">+1</span>
-                <span className="text-gray-400 text-[9px]">▼</span>
+                <span>+1</span>
               </div>
-              <input type="tel" placeholder="201-555-0123" className="flex-1 px-4 py-2.5 text-gray-900 font-medium outline-none placeholder-gray-400 bg-transparent" />
+              <input type="tel" placeholder="201-555-0123" className="flex-1 px-4 py-3.5 text-sm text-gray-900 font-medium outline-none placeholder-gray-400 bg-transparent border-none" />
             </div>
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[#2C3258] font-bold text-[13px]">Telephone</label>
-            <div className="flex border border-gray-200 rounded-xl overflow-hidden focus-within:border-primary focus-within:ring-1 focus-within:ring-primary bg-white">
-              <div className="bg-gray-50 border-r border-gray-200 px-2 py-2.5 flex items-center gap-1 cursor-pointer">
+            <label className="text-[#2C3258] font-bold text-[13px] ml-1">Telephone</label>
+            <div className="flex bg-[#F4F5F7] rounded-xl overflow-hidden border-none">
+              <div className="bg-[#EAEAEE] px-3.5 py-3.5 flex items-center gap-1.5 text-sm font-bold text-[#2C3258]">
                 <span>🇺🇸</span>
-                <span className="text-[#2C3258] font-bold text-sm">+1</span>
-                <span className="text-gray-400 text-[9px]">▼</span>
+                <span>+1</span>
               </div>
-              <input type="tel" placeholder="201-555-0123" className="flex-1 px-4 py-2.5 text-gray-900 font-medium outline-none placeholder-gray-400 bg-transparent" />
+              <input type="tel" placeholder="201-555-0123" className="flex-1 px-4 py-3.5 text-sm text-gray-900 font-medium outline-none placeholder-gray-400 bg-transparent border-none" />
             </div>
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[#2C3258] font-bold text-[13px]">Address <span className="text-red-500">*</span></label>
-            <input type="text" placeholder="Select Address 1" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
+            <label className="text-[#2C3258] font-bold text-[13px] ml-1">Address <span className="text-red-500">*</span></label>
+            <input type="text" placeholder="Select Address 1" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[#2C3258] font-bold text-[13px]">Address2</label>
-            <input type="text" placeholder="Enter address2" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
+            <label className="text-[#2C3258] font-bold text-[13px] ml-1">Address 2</label>
+            <input type="text" placeholder="Enter address 2" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[#2C3258] font-bold text-[13px]">Apartment</label>
-            <input type="text" placeholder="Enter Apartment" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
-          </div>
-
-          <div className="hidden gap-3">
-            <div className="flex flex-col gap-1.5 flex-1">
-              <label className="text-[#2C3258] font-bold text-[13px]">Latitude</label>
-              <input type="text" readOnly placeholder="Enter latitude" className="w-full bg-gray-100 border border-gray-200 rounded-xl px-4 py-2.5 text-gray-500 cursor-not-allowed font-medium outline-none placeholder-gray-400" />
-            </div>
-            <div className="flex flex-col gap-1.5 flex-1">
-              <label className="text-[#2C3258] font-bold text-[13px]">Longitude</label>
-              <input type="text" readOnly placeholder="Enter longitude" className="w-full bg-gray-100 border border-gray-200 rounded-xl px-4 py-2.5 text-gray-500 cursor-not-allowed font-medium outline-none placeholder-gray-400" />
-            </div>
+            <label className="text-[#2C3258] font-bold text-[13px] ml-1">Apartment</label>
+            <input type="text" placeholder="Enter Apartment" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[#2C3258] font-bold text-[13px]">Language</label>
-            <select className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none">
-              <option>Bolivia, Plurinational State Of - Castilian</option>
+            <label className="text-[#2C3258] font-bold text-[13px] ml-1">Language</label>
+            <select 
+              style={selectStyle}
+              className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm font-medium outline-none border-none appearance-none"
+            >
               <option>English</option>
               <option>Spanish</option>
+              <option>Bolivia - Castilian</option>
             </select>
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[#2C3258] font-bold text-[13px]">Email ID</label>
-            <input type="email" placeholder="Enter Email" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
+            <label className="text-[#2C3258] font-bold text-[13px] ml-1">Email ID</label>
+            <input type="email" placeholder="Enter Email" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[#2C3258] font-bold text-[13px]">Id Type</label>
-            <select className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none">
-              <option value="">Search Id Type</option>
+            <label className="text-[#2C3258] font-bold text-[13px] ml-1">Id Type</label>
+            <select 
+              style={selectStyle}
+              className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm font-medium outline-none border-none appearance-none"
+            >
+              <option value="">Select ID Type</option>
               <option>Passport</option>
               <option>Driver's License</option>
               <option>State ID</option>
@@ -129,39 +131,31 @@ export default function NewShipTo() {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[#2C3258] font-bold text-[13px]">License Id</label>
-            <input type="text" placeholder="Enter License Id" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
+            <label className="text-[#2C3258] font-bold text-[13px] ml-1">License ID</label>
+            <input type="text" placeholder="Enter License ID" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" />
           </div>
 
           <div className="flex flex-col gap-1.5 mt-2">
-            <label className="text-[#2C3258] font-bold text-[13px]">License Picture</label>
-            <div className="w-32 h-32 bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-300 relative group cursor-pointer active:bg-gray-200 transition-colors">
-              <ImageIcon size={40} className="text-gray-400 group-hover:text-primary transition-colors" />
-              <div className="absolute -right-3 top-1/2 -translate-y-1/2 flex gap-1">
-                 {/* Mocking the red target and upload icon from screenshot */}
-                 <div className="w-6 h-6 bg-white shadow-md rounded-full flex items-center justify-center text-red-500">
-                   <div className="w-3 h-3 border-2 border-red-500 rounded-full flex items-center justify-center">
-                     <div className="w-1 h-1 bg-red-500 rounded-full"></div>
-                   </div>
-                 </div>
-                 <div className="w-6 h-6 bg-white shadow-md rounded-full flex items-center justify-center text-[#2C3258]">
-                   <ImageIcon size={14} />
-                 </div>
+            <label className="text-[#2C3258] font-bold text-[13px] ml-1">License Picture</label>
+            <div className="w-full bg-[#F4F5F7] border-2 border-dashed border-gray-300 rounded-2xl h-32 flex flex-col items-center justify-center gap-2 cursor-pointer active:scale-[0.99] transition-transform">
+              <div className="flex items-center gap-2 bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] text-white font-bold text-xs py-2 px-5 rounded-full shadow-sm">
+                <Upload size={14} />
+                <span>Upload Picture</span>
               </div>
             </div>
           </div>
 
         </div>
         
-        {/* Save and Cancel Buttons at the bottom */}
-        <div className="flex gap-3 mt-8 mb-4">
+        {/* Action Buttons */}
+        <div className="flex gap-3 mt-6 mb-4">
           <button 
             onClick={() => router.back()}
-            className="flex-1 bg-white border border-gray-300 text-gray-700 font-bold text-[15px] py-3 rounded-xl shadow-sm active:scale-95 transition-transform"
+            className="flex-1 bg-[#F4F5F7] text-[#2C3258] font-bold text-[14px] py-3.5 rounded-full active:scale-95 transition-transform"
           >
             Cancel
           </button>
-          <button className="flex-1 bg-[#2C3258] text-white font-bold text-[15px] py-3 rounded-xl shadow-md active:scale-95 transition-transform">
+          <button className="flex-1 bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] text-white font-bold text-[14px] py-3.5 rounded-full shadow-[0_4px_14px_rgba(6,18,70,0.25)] active:scale-95 transition-transform hover:opacity-95">
             Save
           </button>
         </div>
@@ -170,5 +164,3 @@ export default function NewShipTo() {
     </div>
   );
 }
-
-

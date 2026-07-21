@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { ArrowLeft, Save } from "lucide-react";
@@ -10,7 +10,7 @@ export default function NewClaim() {
   return (
     <div className="flex flex-col flex-1 bg-white min-h-full">
       {/* Header Section */}
-      <div className="bg-primary pt-16 md:pt-10 pb-4 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 sticky top-0">
+      <div className="bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] pt-16 md:pt-10 pb-4 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 sticky top-0">
         <div className="flex items-center justify-between mb-2">
           <button onClick={() => router.back()} className="p-2 -ml-2 active:scale-95 transition-transform cursor-pointer">
             <ArrowLeft size={20} />
@@ -54,14 +54,14 @@ export default function NewClaim() {
           <div className="flex flex-col gap-1.5">
             <label className="text-[#2C3258] font-bold text-[13px]">Attach Image</label>
             <div className="w-full bg-[#E5E7EB] border-2 border-dashed border-gray-300 rounded-xl h-32 flex items-center justify-center cursor-pointer active:bg-gray-300 transition-colors">
-              <span className="bg-[#5c85eb] text-white font-bold py-2 px-6 rounded-lg shadow-sm">Upload</span>
+              <span className="bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] text-white font-bold py-2 px-6 rounded-lg shadow-sm">Upload</span>
             </div>
           </div>
 
         </div>
         
         {/* Submit Button */}
-        <button className="bg-[#5c85eb] text-white font-bold text-[15px] py-3 rounded-xl mt-4 shadow-md active:scale-95 transition-transform mb-4">
+        <button className="bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] text-white font-bold text-[15px] py-3 rounded-xl mt-4 shadow-md active:scale-95 transition-transform mb-4">
           Submit Claim
         </button>
 

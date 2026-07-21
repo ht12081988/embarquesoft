@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { ArrowLeft, ChevronRight, Save, X } from "lucide-react";
@@ -22,7 +22,7 @@ export default function Profile() {
     <div className="flex flex-col flex-1 bg-gray-50 min-h-full relative">
       
       {/* Header Section */}
-      <div className="bg-primary pt-16 md:pt-10 pb-6 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 relative">
+      <div className="bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] pt-16 md:pt-10 pb-6 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 relative">
         <div className="flex items-center justify-between">
           <button 
             onClick={() => activeView === "menu" ? router.back() : setActiveView("menu")} 
@@ -176,13 +176,13 @@ export default function Profile() {
             <div className="flex flex-col gap-1.5">
               <label className="text-[#2C3258] font-bold text-[13px]">License ID Upload</label>
               <div className="w-full h-24 bg-gray-100 rounded-xl flex items-center justify-center border-2 border-dashed border-gray-300 relative cursor-pointer active:bg-gray-200 transition-colors">
-                <button className="bg-[#5c85eb] text-white font-bold text-[14px] px-6 py-2 rounded-lg shadow-sm hover:opacity-90 transition-opacity">
+                <button className="bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] text-white font-bold text-[14px] px-6 py-2 rounded-lg shadow-sm hover:opacity-90 transition-opacity">
                   Upload
                 </button>
               </div>
             </div>
 
-            <button className="bg-[#5c85eb] text-white font-bold text-[15px] py-3 rounded-xl mt-4 shadow-md active:scale-95 transition-transform mb-4">
+            <button className="bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] text-white font-bold text-[15px] py-3 rounded-xl mt-4 shadow-md active:scale-95 transition-transform mb-4">
               Update Profile
             </button>
 
@@ -208,7 +208,7 @@ export default function Profile() {
               <input type="password" placeholder="Confirm new password" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" />
             </div>
 
-            <button className="bg-[#5c85eb] text-white font-bold text-[15px] py-3 rounded-xl mt-4 shadow-md active:scale-95 transition-transform mb-4">
+            <button className="bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] text-white font-bold text-[15px] py-3 rounded-xl mt-4 shadow-md active:scale-95 transition-transform mb-4">
               Change Password
             </button>
 

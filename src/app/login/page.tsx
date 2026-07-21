@@ -94,42 +94,119 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col flex-1 bg-white min-h-full">
-
+    <div className="flex flex-col min-h-[100dvh] bg-[#eb5b27] font-sans">
+      
       {/* Top Header Section */}
-      <div className="bg-primary pt-16 md:pt-10 pb-8 px-5 flex flex-col items-center justify-center shrink-0 rounded-b-[24px] text-white shadow-md z-10 relative">
-        <div className="bg-white px-8 py-3 rounded-full flex items-center justify-center gap-2 shadow-sm">
-          <Hexagon size={24} className="text-[#990000] fill-[#990000]/20" />
-          <span className="text-[#990000] font-black text-2xl tracking-tight">Salcedo</span>
+      <div className="flex flex-col px-6 pt-12 pb-12 min-h-[260px] text-white shrink-0 relative z-10">
+        <div className="flex items-center justify-between w-full mb-8 relative">
+          <button onClick={() => {
+              if (step === "login") {
+                router.back();
+              } else if (step === "forgot_phone") {
+                setStep("login");
+              } else if (step === "forgot_otp") {
+                setStep("forgot_phone");
+              } else if (step === "forgot_reset") {
+                setStep("login");
+              } else if (step === "register_details") {
+                setStep("login");
+              } else if (step === "register_otp") {
+                setStep("register_details");
+              } else if (step === "register_password") {
+                setStep("register_details");
+              }
+            }} 
+            className="p-1 -ml-1 text-white relative z-10"
+          >
+            <ArrowLeft size={24} />
+          </button>
+          <span className="font-normal text-[11px] tracking-[0.08em] uppercase text-white absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap">Salcedo</span>
+          {step === "login" ? (
+            <button 
+              onClick={() => {
+                setRegError("");
+                setIsMatched(false);
+                setStep("register_details");
+              }} 
+              className="text-white text-[11px] font-normal relative z-10"
+            >
+              Register
+            </button>
+          ) : (
+            <div className="w-[60px]"></div>
+          )}
+        </div>
+
+        <div className="flex flex-col flex-1 justify-center mt-2">
+          {step === "login" && (
+            <>
+              <h1 className="text-[28px] font-normal mb-1 leading-tight text-white">Log In</h1>
+              <p className="text-white/90 font-medium text-[13px]">Please log in to start your session</p>
+            </>
+          )}
+          {step === "forgot_phone" && (
+            <>
+              <h1 className="text-[28px] font-normal mb-1 leading-tight text-white">Forgot Password</h1>
+              <p className="text-white/90 font-medium text-[13px]">Enter your mobile number to receive an OTP.</p>
+            </>
+          )}
+          {step === "forgot_otp" && (
+            <>
+              <h1 className="text-[28px] font-normal mb-1 leading-tight text-white">Verify OTP</h1>
+              <p className="text-white/90 font-medium text-[13px]">Enter the 4-digit code sent to your mobile number.</p>
+            </>
+          )}
+          {step === "forgot_reset" && (
+            <>
+              <h1 className="text-[28px] font-normal mb-1 leading-tight text-white">Reset Password</h1>
+              <p className="text-white/90 font-medium text-[13px]">Create a new secure password.</p>
+            </>
+          )}
+          {step === "register_details" && (
+            <>
+              <h1 className="text-[28px] font-normal mb-1 leading-tight text-white">Create Account</h1>
+              <p className="text-white/90 font-medium text-[13px]">
+                {isMatched ? "Complete your details below." : "Enter your details to register."}
+              </p>
+            </>
+          )}
+          {step === "register_otp" && (
+            <>
+              <h1 className="text-[28px] font-normal mb-1 leading-tight text-white">Verify OTP</h1>
+              <p className="text-white/90 font-medium text-[13px]">Enter the 4-digit code sent to your mobile number.</p>
+            </>
+          )}
+          {step === "register_password" && (
+            <>
+              <h1 className="text-[28px] font-normal mb-1 leading-tight text-white">Set Password</h1>
+              <p className="text-white/90 font-medium text-[13px]">Create a password for your new account.</p>
+            </>
+          )}
         </div>
       </div>
 
-      {/* Main Content Area */}
-      <div className="flex-1 px-5 pt-8 pb-10 flex flex-col">
+      {/* Main Content Area - White Card */}
+      <div className="flex-1 bg-white rounded-t-[24px] px-6 pt-8 pb-8 flex flex-col z-20 overflow-hidden shadow-[0_-8px_24px_rgba(0,0,0,0.05)]">
         {step === "login" && (
-          <div className="flex flex-col flex-1">
-            <h1 className="text-[#2C3258] text-[28px] font-bold mb-1">Log In</h1>
-            <p className="text-gray-400 font-medium text-[15px] mb-8">Please log in to start your session</p>
-
-            <form onSubmit={handleLogin} className="flex flex-col gap-5 flex-1">
+          <form onSubmit={handleLogin} className="flex flex-col flex-1 mt-6">
+            <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-medium text-[13px]">Mobile Number</label>
-                <div className="flex border border-gray-200 rounded-xl overflow-hidden focus-within:border-primary focus-within:ring-1 focus-within:ring-primary bg-[#F9F9FB]">
-                  <div className="bg-gray-100 border-r border-gray-200 px-3 py-2.5 flex items-center gap-2">
-                    <span className="text-[#2C3258] font-bold">+1</span>
-                  </div>
-                  <input type="tel" placeholder="Enter mobile number" className="flex-1 px-4 py-2.5 text-gray-900 font-medium outline-none placeholder-gray-400 bg-transparent" required />
-                </div>
+                <label className="text-[#2C3258] font-bold text-[13px] ml-1">Mobile number or User</label>
+                <input 
+                  type="text" 
+                  placeholder="Mobile number or User" 
+                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none"
+                  required 
+                />
               </div>
-
               <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-medium text-[13px]">Password</label>
+                <label className="text-[#2C3258] font-bold text-[13px] ml-1">Password</label>
                 <div className="relative">
                   <input 
                     type={showPassword ? "text" : "password"} 
-                    placeholder="Enter your password" 
-                    className="w-full bg-[#F9F9FB] border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400 pr-12"
-                    required
+                    placeholder="Password" 
+                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none pr-12"
+                    required 
                   />
                   <button 
                     type="button"
@@ -139,182 +216,113 @@ export default function Login() {
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
                 </div>
-                <div className="flex justify-end mt-1">
-                  <button 
-                    type="button"
-                    onClick={() => setStep("forgot_phone")}
-                    className="text-primary font-bold text-[13px]"
-                  >
-                    Forgot Password?
-                  </button>
-                </div>
               </div>
+            </div>
 
-              <div className="mt-4">
-                <button type="submit" className="w-full bg-primary text-white font-bold text-[15px] py-3 rounded-full shadow-md active:scale-95 transition-transform">
-                  Log In
-                </button>
-              </div>
-              
-              <div className="flex justify-center mt-2">
-                <p className="text-gray-500 font-medium text-[14px]">
-                  Don't have an account?{' '}
-                  <button 
-                    type="button"
-                    onClick={() => {
-                      setRegError("");
-                      setIsMatched(false);
-                      setStep("register_details");
-                    }}
-                    className="text-primary font-bold"
-                  >
-                    Create Account
-                  </button>
-                </p>
-              </div>
-            </form>
-          </div>
+            <div className="flex justify-end mt-4 mb-6">
+              <button 
+                type="button"
+                onClick={() => setStep("forgot_phone")}
+                className="text-[#1A1A1A] font-semibold text-[11px]"
+              >
+                Forgot Password?
+              </button>
+            </div>
+
+            <button type="submit" className="w-full bg-[#eb5b27] text-white font-semibold text-[12px] py-3.5 rounded-full shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
+              Log In
+            </button>
+          </form>
         )}
 
         {step === "forgot_phone" && (
-          <div className="flex flex-col flex-1">
-            <button onClick={() => setStep("login")} className="self-start p-2 -ml-2 mb-4 text-[#2C3258]">
-              <ArrowLeft size={20} />
+          <form onSubmit={handleSendOTP} className="flex flex-col flex-1 mt-6">
+            <div className="flex flex-col gap-4">
+              <input 
+                type="tel" 
+                placeholder="Mobile Number" 
+                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none"
+                required 
+              />
+            </div>
+            <button type="submit" className="w-full mt-8 bg-[#eb5b27] text-white font-semibold text-[12px] py-3.5 rounded-full shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
+              Send OTP
             </button>
-            <h1 className="text-[#2C3258] text-[28px] font-bold mb-1">Forgot Password</h1>
-            <p className="text-gray-400 font-medium text-[15px] mb-8">Enter your mobile number to receive an OTP.</p>
-
-            <form onSubmit={handleSendOTP} className="flex flex-col gap-5 flex-1">
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-medium text-[13px]">Mobile Number</label>
-                <div className="flex border border-gray-200 rounded-xl overflow-hidden focus-within:border-primary focus-within:ring-1 focus-within:ring-primary bg-[#F9F9FB]">
-                  <div className="bg-gray-100 border-r border-gray-200 px-3 py-2.5 flex items-center gap-2">
-                    <span className="text-[#2C3258] font-bold">+1</span>
-                  </div>
-                  <input type="tel" placeholder="Enter mobile number" className="flex-1 px-4 py-2.5 text-gray-900 font-medium outline-none placeholder-gray-400 bg-transparent" required />
-                </div>
-              </div>
-
-              <div className="mt-4">
-                <button type="submit" className="w-full bg-primary text-white font-bold text-[15px] py-3 rounded-full shadow-md active:scale-95 transition-transform">
-                  Send OTP
-                </button>
-              </div>
-            </form>
-          </div>
+          </form>
         )}
 
         {step === "forgot_otp" && (
-          <div className="flex flex-col flex-1">
-            <button onClick={() => setStep("forgot_phone")} className="self-start p-2 -ml-2 mb-4 text-[#2C3258]">
-              <ArrowLeft size={20} />
-            </button>
-            <h1 className="text-[#2C3258] text-[28px] font-bold mb-1">Verify OTP</h1>
-            <p className="text-gray-400 font-medium text-[15px] mb-8">Enter the 4-digit code sent to your mobile number.</p>
-
-            <form onSubmit={handleVerifyOTP} className="flex flex-col gap-5 flex-1">
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-medium text-[13px]">OTP Code</label>
-                <input 
-                  type="text" 
-                  placeholder="----" 
-                  maxLength={4}
-                  className="w-full bg-[#F9F9FB] border border-gray-200 rounded-xl px-4 py-3.5 text-center text-[24px] tracking-[1em] text-gray-900 font-bold outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-300"
-                  required 
-                />
-              </div>
-
-              <div className="flex justify-center mt-2">
-                {countdown > 0 ? (
-                  <p className="text-gray-500 font-medium text-[14px]">Resend OTP in <span className="font-bold text-primary">{countdown}s</span></p>
-                ) : (
-                  <button type="button" onClick={() => setCountdown(60)} className="text-primary font-bold text-[14px]">
-                    Resend OTP
-                  </button>
-                )}
-              </div>
-
-              <div className="mt-4">
-                <button type="submit" className="w-full bg-primary text-white font-bold text-[15px] py-3 rounded-full shadow-md active:scale-95 transition-transform">
-                  Verify Code
+          <form onSubmit={handleVerifyOTP} className="flex flex-col flex-1 mt-6">
+            <div className="flex flex-col gap-4">
+              <input 
+                type="text" 
+                placeholder="----" 
+                maxLength={4}
+                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-bold text-center tracking-[0.8em] text-[20px] placeholder-gray-300 border-none"
+                required 
+              />
+            </div>
+            <div className="flex justify-center mt-4 mb-4">
+              {countdown > 0 ? (
+                <p className="text-gray-500 font-medium text-[14px]">Resend OTP in <span className="font-bold text-[#eb5b27]">{countdown}s</span></p>
+              ) : (
+                <button type="button" onClick={() => setCountdown(60)} className="text-[#eb5b27] font-bold text-[14px]">
+                  Resend OTP
                 </button>
-              </div>
-            </form>
-          </div>
+              )}
+            </div>
+            <button type="submit" className="w-full mt-4 bg-[#eb5b27] text-white font-semibold text-[12px] py-3.5 rounded-full shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
+              Verify Code
+            </button>
+          </form>
         )}
 
         {step === "forgot_reset" && (
-          <div className="flex flex-col flex-1">
-            <button onClick={() => setStep("login")} className="self-start p-2 -ml-2 mb-4 text-[#2C3258]">
-              <ArrowLeft size={20} />
+          <form onSubmit={handleResetPassword} className="flex flex-col flex-1 mt-6">
+            <div className="flex flex-col gap-4">
+              <input 
+                type="password" 
+                placeholder="New Password" 
+                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none"
+                required 
+              />
+              <input 
+                type="password" 
+                placeholder="Confirm Password" 
+                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none"
+                required 
+              />
+            </div>
+            <button type="submit" className="w-full mt-8 bg-[#eb5b27] text-white font-semibold text-[12px] py-3.5 rounded-full shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
+              Reset & Log In
             </button>
-            <h1 className="text-[#2C3258] text-[28px] font-bold mb-1">Reset Password</h1>
-            <p className="text-gray-400 font-medium text-[15px] mb-8">Create a new secure password.</p>
-
-            <form onSubmit={handleResetPassword} className="flex flex-col gap-5 flex-1">
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-medium text-[13px]">New Password</label>
-                <input 
-                  type="password" 
-                  placeholder="Enter new password" 
-                  className="w-full bg-[#F9F9FB] border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400"
-                  required 
-                />
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-medium text-[13px]">Confirm Password</label>
-                <input 
-                  type="password" 
-                  placeholder="Confirm new password" 
-                  className="w-full bg-[#F9F9FB] border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400"
-                  required 
-                />
-              </div>
-
-              <div className="mt-4">
-                <button type="submit" className="w-full bg-primary text-white font-bold text-[15px] py-3 rounded-full shadow-md active:scale-95 transition-transform">
-                  Reset & Log In
-                </button>
-              </div>
-            </form>
-          </div>
+          </form>
         )}
 
-        {/* REGISTRATION FLOW */}
         {step === "register_details" && (
-          <div className="flex flex-col flex-1">
-            <button onClick={() => setStep("login")} className="self-start p-2 -ml-2 mb-4 text-[#2C3258]">
-              <ArrowLeft size={20} />
-            </button>
-            <h1 className="text-[#2C3258] text-[28px] font-bold mb-1">Create Account</h1>
-            <p className="text-gray-400 font-medium text-[15px] mb-6">
-              {isMatched ? "Complete your details below." : "Enter your details to register."}
-            </p>
-
-            <form onSubmit={handleRegisterDetails} className="flex flex-col gap-5 flex-1">
-              
-              <div className="flex gap-3">
+          <form onSubmit={handleRegisterDetails} className="flex flex-col flex-1 overflow-y-auto no-scrollbar pb-6">
+            <div className="flex flex-col gap-4">
+              <div className="flex gap-4">
                 <div className="flex flex-col gap-1.5 flex-1">
-                  <label className="text-[#2C3258] font-medium text-[13px]">First Name</label>
+                  <label className="text-[#2C3258] font-bold text-[13px] ml-1">First Name</label>
                   <input 
                     type="text" 
                     value={regFirstName}
                     onChange={(e) => setRegFirstName(e.target.value)}
                     placeholder="First Name" 
-                    className="w-full bg-[#F9F9FB] border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400 disabled:opacity-50 disabled:bg-gray-100"
+                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none disabled:opacity-50"
                     required 
                     disabled={isMatched}
                   />
                 </div>
                 <div className="flex flex-col gap-1.5 flex-1">
-                  <label className="text-[#2C3258] font-medium text-[13px]">Last Name</label>
+                  <label className="text-[#2C3258] font-bold text-[13px] ml-1">Last Name</label>
                   <input 
                     type="text" 
                     value={regLastName}
                     onChange={(e) => setRegLastName(e.target.value)}
                     placeholder="Last Name" 
-                    className="w-full bg-[#F9F9FB] border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400 disabled:opacity-50 disabled:bg-gray-100"
+                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none disabled:opacity-50"
                     required 
                     disabled={isMatched}
                   />
@@ -322,167 +330,132 @@ export default function Login() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-medium text-[13px]">Cell Number <span className="text-red-500">*</span></label>
-                <div className={`flex border border-gray-200 rounded-xl overflow-hidden focus-within:border-primary focus-within:ring-1 focus-within:ring-primary ${isMatched ? 'bg-gray-100 opacity-50' : 'bg-[#F9F9FB]'}`}>
-                  <div className="bg-gray-100 border-r border-gray-200 px-3 py-2.5 flex items-center gap-2">
-                    <span className="text-[#2C3258] font-bold">+1</span>
-                  </div>
-                  <input 
-                    type="tel" 
-                    value={regMobile}
-                    onChange={(e) => setRegMobile(e.target.value)}
-                    placeholder="9999999999" 
-                    className="flex-1 px-4 py-2.5 text-gray-900 font-medium outline-none placeholder-gray-400 bg-transparent disabled:bg-transparent" 
-                    required 
-                    disabled={isMatched}
-                  />
-                </div>
+                <label className="text-[#2C3258] font-bold text-[13px] ml-1">Cell Number</label>
+                <input 
+                  type="tel" 
+                  value={regMobile}
+                  onChange={(e) => setRegMobile(e.target.value)}
+                  placeholder="Cell Number" 
+                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none disabled:opacity-50"
+                  required 
+                  disabled={isMatched}
+                />
               </div>
 
               {isMatched && (
                 <>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[#2C3258] font-medium text-[13px]">Address 1 <span className="text-red-500">*</span></label>
-                    <input type="text" placeholder="Address 1" className="w-full bg-[#F9F9FB] border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" required />
+                    <label className="text-[#2C3258] font-bold text-[13px] ml-1">Address 1</label>
+                    <input type="text" placeholder="Address 1" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" required />
                   </div>
 
-                  <div className="flex gap-3">
+                  <div className="flex gap-4">
                     <div className="flex flex-col gap-1.5 flex-1">
-                      <label className="text-[#2C3258] font-medium text-[13px]">City <span className="text-red-500">*</span></label>
-                      <input type="text" placeholder="City" className="w-full bg-[#F9F9FB] border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" required />
+                      <label className="text-[#2C3258] font-bold text-[13px] ml-1">City</label>
+                      <input type="text" placeholder="City" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" required />
                     </div>
                     <div className="flex flex-col gap-1.5 flex-1">
-                      <label className="text-[#2C3258] font-medium text-[13px]">State <span className="text-red-500">*</span></label>
-                      <input type="text" placeholder="State" className="w-full bg-[#F9F9FB] border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" required />
+                      <label className="text-[#2C3258] font-bold text-[13px] ml-1">State</label>
+                      <input type="text" placeholder="State" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" required />
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[#2C3258] font-medium text-[13px]">Zip <span className="text-red-500">*</span></label>
-                    <select className="w-full bg-[#F9F9FB] border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none" required>
+                    <label className="text-[#2C3258] font-bold text-[13px] ml-1">Zip Country</label>
+                    <select className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none appearance-none" required defaultValue="">
+                      <option value="" disabled>Select Zip Country</option>
                       <option value="USA">USA</option>
                       <option value="DOM">Dominican Republic</option>
                     </select>
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[#2C3258] font-medium text-[13px]">Email ID <span className="text-red-500">*</span></label>
-                    <input type="email" placeholder="Enter Email" className="w-full bg-[#F9F9FB] border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400" required />
+                    <label className="text-[#2C3258] font-bold text-[13px] ml-1">Email ID</label>
+                    <input type="email" placeholder="Email ID" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" required />
                   </div>
-
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[#2C3258] font-medium text-[13px]">Telephone Number</label>
-                    <div className="flex border border-gray-200 rounded-xl overflow-hidden focus-within:border-primary focus-within:ring-1 focus-within:ring-primary bg-[#F9F9FB]">
-                      <div className="bg-gray-100 border-r border-gray-200 px-3 py-2.5 flex items-center gap-2">
-                        <span className="text-[#2C3258] font-bold">+1</span>
-                      </div>
-                      <input type="tel" placeholder="9999999999" className="flex-1 px-4 py-2.5 text-gray-900 font-medium outline-none placeholder-gray-400 bg-transparent" required />
-                    </div>
+                    <label className="text-[#2C3258] font-bold text-[13px] ml-1">Telephone Number</label>
+                    <input type="tel" placeholder="Telephone Number" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" required />
                   </div>
-
+                  
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[#2C3258] font-medium text-[13px]">Country <span className="text-red-500">*</span></label>
-                    <select className="w-full bg-[#F9F9FB] border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none" required>
+                    <label className="text-[#2C3258] font-bold text-[13px] ml-1">Country</label>
+                    <select className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none appearance-none" required defaultValue="">
+                      <option value="" disabled>Select Country</option>
                       <option value="USA">USA</option>
                       <option value="DOM">Dominican Republic</option>
                     </select>
                   </div>
                 </>
               )}
+            </div>
 
-              {regError && (
-                <div className="bg-red-50 text-red-600 font-medium text-sm p-4 rounded-xl border border-red-100">
-                  {regError}
-                </div>
-              )}
-
-              <div className="mt-4">
-                <button type="submit" className="w-full bg-primary text-white font-bold text-[15px] py-3 rounded-full shadow-md active:scale-95 transition-transform">
-                  Continue
-                </button>
+            {regError && (
+              <div className="mt-4 bg-red-50 text-red-600 font-medium text-sm p-4 rounded-xl border border-red-100">
+                {regError}
               </div>
-            </form>
-          </div>
+            )}
+
+            <button type="submit" className="w-full mt-8 shrink-0 bg-[#eb5b27] text-white font-semibold text-[12px] py-3.5 rounded-full shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
+              Continue
+            </button>
+          </form>
         )}
 
         {step === "register_otp" && (
-          <div className="flex flex-col flex-1">
-            <button onClick={() => setStep("register_details")} className="self-start p-2 -ml-2 mb-4 text-[#2C3258]">
-              <ArrowLeft size={20} />
-            </button>
-            <h1 className="text-[#2C3258] text-[28px] font-bold mb-1">Verify OTP</h1>
-            <p className="text-gray-400 font-medium text-[15px] mb-8">Enter the 4-digit code sent to your mobile number.</p>
-
-            <form onSubmit={handleVerifyRegOTP} className="flex flex-col gap-5 flex-1">
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-medium text-[13px]">OTP Code</label>
-                <input 
-                  type="text" 
-                  placeholder="----" 
-                  maxLength={4}
-                  className="w-full bg-[#F9F9FB] border border-gray-200 rounded-xl px-4 py-3.5 text-center text-[24px] tracking-[1em] text-gray-900 font-bold outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-300"
-                  required 
-                />
-              </div>
-
-              <div className="flex justify-center mt-2">
-                {countdown > 0 ? (
-                  <p className="text-gray-500 font-medium text-[14px]">Resend OTP in <span className="font-bold text-primary">{countdown}s</span></p>
-                ) : (
-                  <button type="button" onClick={() => setCountdown(60)} className="text-primary font-bold text-[14px]">
-                    Resend OTP
-                  </button>
-                )}
-              </div>
-
-              <div className="mt-4">
-                <button type="submit" className="w-full bg-primary text-white font-bold text-[15px] py-3 rounded-full shadow-md active:scale-95 transition-transform">
-                  Verify Code
+          <form onSubmit={handleVerifyRegOTP} className="flex flex-col flex-1 mt-6">
+            <div className="flex flex-col gap-4">
+              <input 
+                type="text" 
+                placeholder="----" 
+                maxLength={4}
+                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-bold text-center tracking-[0.8em] text-[20px] placeholder-gray-300 border-none"
+                required 
+              />
+            </div>
+            <div className="flex justify-center mt-4 mb-4">
+              {countdown > 0 ? (
+                <p className="text-gray-500 font-medium text-[14px]">Resend OTP in <span className="font-bold text-[#eb5b27]">{countdown}s</span></p>
+              ) : (
+                <button type="button" onClick={() => setCountdown(60)} className="text-[#eb5b27] font-bold text-[14px]">
+                  Resend OTP
                 </button>
-              </div>
-            </form>
-          </div>
+              )}
+            </div>
+            <button type="submit" className="w-full mt-4 bg-[#eb5b27] text-white font-semibold text-[12px] py-3.5 rounded-full shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
+              Verify Code
+            </button>
+          </form>
         )}
 
         {step === "register_password" && (
-          <div className="flex flex-col flex-1">
-            <button onClick={() => setStep("register_details")} className="self-start p-2 -ml-2 mb-4 text-[#2C3258]">
-              <ArrowLeft size={20} />
+          <form onSubmit={handleCreateAccount} className="flex flex-col flex-1 mt-6">
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[#2C3258] font-bold text-[13px] ml-1">Password</label>
+                <input 
+                  type="password" 
+                  placeholder="Password" 
+                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none"
+                  required 
+                />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[#2C3258] font-bold text-[13px] ml-1">Confirm Password</label>
+                <input 
+                  type="password" 
+                  placeholder="Confirm Password" 
+                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none"
+                  required 
+                />
+              </div>
+            </div>
+            <button type="submit" className="w-full mt-8 bg-[#eb5b27] text-white font-semibold text-[12px] py-3.5 rounded-full shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
+              Complete Registration
             </button>
-            <h1 className="text-[#2C3258] text-[28px] font-bold mb-1">Set Password</h1>
-            <p className="text-gray-400 font-medium text-[15px] mb-8">Create a password for your new account.</p>
-
-            <form onSubmit={handleCreateAccount} className="flex flex-col gap-5 flex-1">
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-medium text-[13px]">Password</label>
-                <input 
-                  type="password" 
-                  placeholder="Enter password" 
-                  className="w-full bg-[#F9F9FB] border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400"
-                  required 
-                />
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-medium text-[13px]">Confirm Password</label>
-                <input 
-                  type="password" 
-                  placeholder="Confirm password" 
-                  className="w-full bg-[#F9F9FB] border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-gray-400"
-                  required 
-                />
-              </div>
-
-              <div className="mt-4">
-                <button type="submit" className="w-full bg-primary text-white font-bold text-[15px] py-3 rounded-full shadow-md active:scale-95 transition-transform">
-                  Complete Registration
-                </button>
-              </div>
-            </form>
-          </div>
+          </form>
         )}
       </div>
     </div>
   );
 }
-

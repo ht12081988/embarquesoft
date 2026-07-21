@@ -1,9 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Plus, Search, Edit2, Trash2, X, Image as ImageIcon, Globe, User } from 'lucide-react';
-
-type DealType = 'global' | 'my';
+import { Plus, Search, Edit2, Trash2, X, Image as ImageIcon } from 'lucide-react';
 
 interface Deal {
   id: string;
@@ -11,35 +9,32 @@ interface Deal {
   expiryDate: string;
   image: string;
   sequence: number;
-  type: DealType;
 }
 
-export default function DealsPage() {
+export default function SuperAdminDealsPage() {
   const [deals, setDeals] = useState<Deal[]>([
-    { id: '1', title: 'Super Admin Summer Sale', expiryDate: '2026-08-31', image: 'summer.jpg', sequence: 1, type: 'global' },
-    { id: '2', title: 'Free Shipping Weekend', expiryDate: '2026-07-20', image: 'shipping.jpg', sequence: 3, type: 'my' },
-    { id: '3', title: 'Holiday Discount 15%', expiryDate: '2026-12-31', image: 'holiday.jpg', sequence: 4, type: 'my' },
+    { id: '1', title: 'Summer Special 20% Off', expiryDate: '2026-08-31', image: 'summer.jpg', sequence: 1 },
+    { id: '2', title: 'Free Shipping Weekend', expiryDate: '2026-07-20', image: 'shipping.jpg', sequence: 2 },
   ]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingDeal, setEditingDeal] = useState<Deal | null>(null);
 
-  // Form State — type is always 'my' for tenant
+  // Form State
   const [formData, setFormData] = useState({
     title: '',
     expiryDate: '',
     image: '',
     sequence: 1,
-    type: 'my' as DealType,
   });
 
-  const filteredDeals = deals.filter(deal =>
+  const filteredDeals = deals.filter(deal => 
     deal.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const openAddModal = () => {
     setEditingDeal(null);
-    setFormData({ title: '', expiryDate: '', image: '', sequence: deals.length + 1, type: 'my' });
+    setFormData({ title: '', expiryDate: '', image: '', sequence: deals.length + 1 });
     setIsModalOpen(true);
   };
 
@@ -62,40 +57,23 @@ export default function DealsPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (editingDeal) {
-      setDeals(deals.map(d => d.id === editingDeal.id ? { ...formData, id: editingDeal.id, type: 'my' } : d));
+      setDeals(deals.map(d => d.id === editingDeal.id ? { ...formData, id: editingDeal.id } : d));
     } else {
-      setDeals([...deals, { ...formData, id: Date.now().toString(), type: 'my' }]);
+      setDeals([...deals, { ...formData, id: Date.now().toString() }]);
     }
     closeModal();
   };
-
-  const TypeBadge = ({ type }: { type: DealType }) => (
-    <span style={{
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: '4px',
-      padding: '3px 10px',
-      borderRadius: '999px',
-      fontSize: '0.75rem',
-      fontWeight: 600,
-      backgroundColor: type === 'global' ? '#ede9fe' : '#dbeafe',
-      color: type === 'global' ? '#7c3aed' : '#1d4ed8',
-    }}>
-      {type === 'global' ? <Globe size={11} /> : <User size={11} />}
-      {type === 'global' ? 'Global Deal' : 'My Deal'}
-    </span>
-  );
 
   return (
     <div>
       <div className="admin-card">
         <div className="admin-card-header">
-          <h1 className="admin-card-title">Deals Management</h1>
+          <h1 className="admin-card-title">Deals Management (Super Admin)</h1>
           <div style={{ display: 'flex', gap: '12px' }}>
             <div style={{ position: 'relative' }}>
-              <input
-                type="text"
-                placeholder="Search deals..."
+              <input 
+                type="text" 
+                placeholder="Search deals..." 
                 className="admin-form-control"
                 style={{ paddingLeft: '32px', width: '250px' }}
                 value={searchQuery}
@@ -116,7 +94,6 @@ export default function DealsPage() {
                 <th>Sequence</th>
                 <th>Image</th>
                 <th>Title</th>
-                <th>Type</th>
                 <th>Expiry Date</th>
                 <th>Actions</th>
               </tr>
@@ -132,27 +109,22 @@ export default function DealsPage() {
                       </div>
                     </td>
                     <td style={{ fontWeight: 500 }}>{deal.title}</td>
-                    <td><TypeBadge type={deal.type} /></td>
                     <td>{deal.expiryDate}</td>
                     <td>
-                      {deal.type === 'my' ? (
-                        <div style={{ display: 'flex', gap: '8px' }}>
-                          <button className="admin-btn-icon" onClick={() => openEditModal(deal)} title="Edit">
-                            <Edit2 size={16} />
-                          </button>
-                          <button className="admin-btn-icon" onClick={() => handleDelete(deal.id)} title="Delete" style={{ color: 'var(--admin-danger)' }}>
-                            <Trash2 size={16} />
-                          </button>
-                        </div>
-                      ) : (
-                        <span style={{ fontSize: '0.75rem', color: '#94a3b8', fontStyle: 'italic' }}>Managed by Super Admin</span>
-                      )}
+                      <div style={{ display: 'flex', gap: '8px' }}>
+                        <button className="admin-btn-icon" onClick={() => openEditModal(deal)} title="Edit">
+                          <Edit2 size={16} />
+                        </button>
+                        <button className="admin-btn-icon" onClick={() => handleDelete(deal.id)} title="Delete" style={{ color: 'var(--admin-danger)' }}>
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={6} style={{ textAlign: 'center', padding: '20px' }}>No deals found.</td>
+                  <td colSpan={5} style={{ textAlign: 'center', padding: '20px' }}>No deals found.</td>
                 </tr>
               )}
             </tbody>
@@ -170,49 +142,31 @@ export default function DealsPage() {
             </div>
             <form onSubmit={handleSubmit}>
               <div className="admin-modal-body">
-                {/* Type field — always My Deal, read-only */}
-                <div className="admin-form-group">
-                  <label className="admin-form-label">Type</label>
-                  <div style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    padding: '6px 14px',
-                    borderRadius: '999px',
-                    fontSize: '0.8rem',
-                    fontWeight: 600,
-                    backgroundColor: '#dbeafe',
-                    color: '#1d4ed8',
-                  }}>
-                    <User size={13} /> My Deal
-                  </div>
-                </div>
-
                 <div className="admin-form-group">
                   <label className="admin-form-label">Title</label>
-                  <input
-                    type="text"
-                    className="admin-form-control"
-                    required
+                  <input 
+                    type="text" 
+                    className="admin-form-control" 
+                    required 
                     value={formData.title}
                     onChange={(e) => setFormData({...formData, title: e.target.value})}
                   />
                 </div>
                 <div className="admin-form-group">
                   <label className="admin-form-label">Expiry Date</label>
-                  <input
-                    type="date"
-                    className="admin-form-control"
-                    required
+                  <input 
+                    type="date" 
+                    className="admin-form-control" 
+                    required 
                     value={formData.expiryDate}
                     onChange={(e) => setFormData({...formData, expiryDate: e.target.value})}
                   />
                 </div>
                 <div className="admin-form-group">
                   <label className="admin-form-label">Image Upload</label>
-                  <input
-                    type="file"
-                    className="admin-form-control"
+                  <input 
+                    type="file" 
+                    className="admin-form-control" 
                     accept="image/*"
                     onChange={(e) => {
                       if (e.target.files && e.target.files[0]) {
@@ -224,10 +178,10 @@ export default function DealsPage() {
                 </div>
                 <div className="admin-form-group">
                   <label className="admin-form-label">Sequence</label>
-                  <input
-                    type="number"
-                    className="admin-form-control"
-                    required
+                  <input 
+                    type="number" 
+                    className="admin-form-control" 
+                    required 
                     min="1"
                     value={formData.sequence}
                     onChange={(e) => setFormData({...formData, sequence: parseInt(e.target.value)})}

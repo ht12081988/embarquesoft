@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { ArrowLeft, Upload, CheckCircle } from "lucide-react";
@@ -24,7 +24,7 @@ export default function QuotePage() {
   return (
     <div className="flex flex-col flex-1 bg-white min-h-full">
       {/* Header Section */}
-      <div className="bg-primary pt-16 md:pt-10 pb-6 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 relative">
+      <div className="bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] pt-16 md:pt-10 pb-6 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 relative">
         <div className="flex items-center justify-between">
           <button onClick={() => router.back()} className="p-2 -ml-2 active:scale-95 transition-transform cursor-pointer">
             <ArrowLeft size={20} />
@@ -47,7 +47,7 @@ export default function QuotePage() {
             </div>
             <button 
               onClick={() => router.push("/")}
-              className="mt-6 bg-primary text-white font-bold py-3 px-8 rounded-xl shadow-md active:scale-95 transition-transform"
+              className="mt-6 bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] text-white font-bold py-3 px-8 rounded-xl shadow-md active:scale-95 transition-transform"
             >
               Back to Home
             </button>
@@ -131,7 +131,7 @@ export default function QuotePage() {
 
             <button 
               type="submit" 
-              className="w-full bg-primary text-white font-bold py-3.5 rounded-xl mt-4 shadow-md active:scale-95 transition-transform"
+              className="w-full bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] text-white font-bold py-3.5 rounded-xl mt-4 shadow-md active:scale-95 transition-transform"
             >
               Submit Quote
             </button>

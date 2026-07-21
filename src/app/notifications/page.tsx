@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { ArrowLeft, Bell, CheckCircle2, Circle } from "lucide-react";
@@ -54,7 +54,7 @@ export default function Notifications() {
   return (
     <div className="flex flex-col flex-1 bg-[#F4F6FD] min-h-full relative">
       {/* Header Section */}
-      <div className="bg-primary pt-16 md:pt-10 pb-6 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 relative">
+      <div className="bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] pt-16 md:pt-10 pb-6 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 relative">
         <div className="flex items-center justify-between">
           <button 
             onClick={() => router.back()} 

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { ArrowLeft, Edit, Truck } from "lucide-react";
@@ -11,7 +11,7 @@ export default function InvoiceDetails() {
   return (
     <div className="flex flex-col flex-1 bg-white min-h-full">
       {/* Header Section */}
-      <div className="bg-primary pt-16 md:pt-10 pb-4 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 sticky top-0">
+      <div className="bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] pt-16 md:pt-10 pb-4 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 sticky top-0">
         <div className="flex items-center mb-2">
           <button onClick={() => router.back()} className="p-2 -ml-2 active:scale-95 transition-transform cursor-pointer">
             <ArrowLeft size={20} />
@@ -28,7 +28,7 @@ export default function InvoiceDetails() {
             <h2 className="text-[#2C3258] font-bold text-[15px]">Invoice Info</h2>
             <Link 
               href={`/invoices/1/tracking`}
-              className="flex items-center gap-1.5 text-xs font-bold text-white bg-primary px-2.5 py-1 rounded-full shadow-sm active:scale-95 transition-transform"
+              className="flex items-center gap-1.5 text-xs font-bold text-white bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] px-2.5 py-1 rounded-full shadow-sm active:scale-95 transition-transform"
             >
               <Truck size={14} />
               <span>Tracking</span>

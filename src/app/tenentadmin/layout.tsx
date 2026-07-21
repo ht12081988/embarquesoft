@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Tag, Bell, LogOut, Search, User, MapPin, ChevronDown, ChevronRight, Smartphone, MessageSquare, FileText } from 'lucide-react';
+import { LayoutDashboard, Tag, Bell, LogOut, Search, User, MapPin, ChevronDown, ChevronRight, Smartphone, MessageSquare, FileText, Calculator } from 'lucide-react';
 import './admin.css';
 
 export default function TenantAdminLayout({
@@ -20,15 +20,11 @@ export default function TenantAdminLayout({
     { name: 'Branch Locations', href: '/tenentadmin/locations', icon: MapPin },
     { name: 'Inquiries', href: '/tenentadmin/inquiries', icon: MessageSquare },
     { name: 'Quotes', href: '/tenentadmin/quotes', icon: FileText },
+    { name: 'Price Estimation', href: '/tenentadmin/price-estimation', icon: Calculator },
   ];
 
   return (
     <>
-      <div className="mobile-restriction-message">
-        <LayoutDashboard size={48} color="#ffffff" style={{ marginBottom: '16px' }} />
-        <h1>Desktop Only</h1>
-        <p>The Tenant Admin Panel is designed for desktop use only. Please access this page from a device with a larger screen.</p>
-      </div>
 
       <div className="admin-layout">
         {/* Sidebar */}

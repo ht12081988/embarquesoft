@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { use } from "react";
 import { ArrowLeft } from "lucide-react";
@@ -56,7 +56,7 @@ export default function SchedulePickupDetail({ params }: { params: Promise<{ id:
   return (
     <div className="flex flex-col flex-1 bg-gray-50 min-h-full">
       {/* Header Section */}
-      <div className="bg-primary pt-16 md:pt-10 pb-4 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 sticky top-0">
+      <div className="bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] pt-16 md:pt-10 pb-4 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 sticky top-0">
         <div className="flex items-center mb-4">
           <button onClick={() => router.back()} className="p-2 -ml-2 active:scale-95 transition-transform cursor-pointer">
             <ArrowLeft size={20} />

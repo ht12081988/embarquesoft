@@ -9,7 +9,7 @@ export default function DeviceFrame({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   
   // Exclude admin and promo routes from the device frame completely
-  if (pathname.startsWith('/tenentadmin') || pathname.startsWith('/promo')) {
+  if (pathname.startsWith('/tenentadmin') || pathname.startsWith('/promo') || pathname.startsWith('/superadmin')) {
     return <>{children}</>;
   }
 

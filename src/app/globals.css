@@ -3,7 +3,7 @@
 :root {
   --background: #fbfbfe;
   --foreground: #171717;
-  --primary: #06122f;
+  --primary: #061246;
   --primary-foreground: #ffffff;
   --secondary: #f4f0fa;
   --safe-top: env(safe-area-inset-top, 44px);
@@ -19,6 +19,7 @@ html {
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer utilities {
