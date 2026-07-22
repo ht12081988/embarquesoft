@@ -7,9 +7,9 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function DeviceFrame({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  
+
   // Exclude admin and promo routes from the device frame completely
-  if (pathname.startsWith('/tenentadmin') || pathname.startsWith('/promo') || pathname.startsWith('/superadmin')) {
+  if (pathname.startsWith('/tenantadmin') || pathname.startsWith('/promo') || pathname.startsWith('/superadmin')) {
     return <>{children}</>;
   }
 
@@ -19,7 +19,7 @@ export default function DeviceFrame({ children }: { children: React.ReactNode })
     <div className="min-h-screen w-full bg-gray-200 flex items-center justify-center overflow-hidden">
       <div className="bg-background w-full h-[100dvh] relative flex flex-col overflow-hidden md:h-[min(844px,95vh)] md:w-auto md:aspect-[390/844] md:rounded-[32px] md:shadow-2xl md:border-[8px] md:border-black">
 
-        
+
         {/* Content Area with Animation */}
         <div className="flex-1 overflow-y-auto no-scrollbar relative w-full flex flex-col bg-background">
           <AnimatePresence mode="wait">

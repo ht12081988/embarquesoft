@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LayoutDashboard, Tag, LogOut, User, Users } from 'lucide-react';
-import '../tenentadmin/admin.css';
+import '../tenantadmin/admin.css';
 
 export default function SuperAdminLayout({
   children,
@@ -37,8 +37,8 @@ export default function SuperAdminLayout({
                 {navItems.map((item) => {
                   const isActive = pathname === item.href || pathname.startsWith(item.href);
                   return (
-                    <Link 
-                      key={item.name} 
+                    <Link
+                      key={item.name}
                       href={item.href}
                       className={`admin-nav-item ${isActive ? 'active' : ''}`}
                     >
