@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowLeft, Ship, Plane, Package, Plug, Sofa, Tv, Minus, Plus } from "lucide-react";
+import { ArrowLeft, Ship, Plane, Package, Plug, Table as TableIcon, Tv, Minus, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 // Preset Sizes
@@ -12,10 +12,31 @@ const PRESET_SIZES = [
   { id: "24x24x36", label: "24×24×36", l: 24, w: 24, h: 36, price: 150 },
 ];
 
+const FourLegTableIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <polygon points="4,9 20,9 22,13 2,13" />
+    <line x1="4" y1="13" x2="4" y2="21" />
+    <line x1="20" y1="13" x2="20" y2="21" />
+    <line x1="6" y1="9" x2="6" y2="17" />
+    <line x1="18" y1="9" x2="18" y2="17" />
+  </svg>
+);
+
 const CATEGORIES = [
   { id: "boxes", label: "Boxes", Icon: Package },
   { id: "appliances", label: "Appliances", Icon: Plug },
-  { id: "furniture", label: "Furniture", Icon: Sofa },
+  { id: "furniture", label: "Furniture", Icon: FourLegTableIcon },
   { id: "tv", label: "TV", Icon: Tv },
 ];
 
@@ -27,14 +48,16 @@ const IsoBox = ({ w, d, h, y = 15, className = "" }: { w: number, d: number, h: 
   const centerTopX = 50 - w + d;
   const centerTopY = y + (w + d) / 2;
   
+  const pathStyle = { transition: 'all 0.3s ease-out' };
+  
   return (
-    <svg width="120" height="120" viewBox="0 0 100 100" fill="none" className={`drop-shadow-lg ${className}`}>
+    <svg width="240" height="240" viewBox="0 0 100 100" fill="none" className={`drop-shadow-lg ${className}`}>
       {/* Top Face */}
-      <path d={`M 50 ${y} L ${rightX} ${rightY} L ${centerTopX} ${centerTopY} L ${leftX} ${leftY} Z`} fill="#1a40b4" />
+      <path d={`M 50 ${y} L ${rightX} ${rightY} L ${centerTopX} ${centerTopY} L ${leftX} ${leftY} Z`} fill="#1a40b4" style={pathStyle} />
       {/* Left Face */}
-      <path d={`M ${leftX} ${leftY} L ${centerTopX} ${centerTopY} L ${centerTopX} ${centerTopY + h} L ${leftX} ${leftY + h} Z`} fill="#061246" />
+      <path d={`M ${leftX} ${leftY} L ${centerTopX} ${centerTopY} L ${centerTopX} ${centerTopY + h} L ${leftX} ${leftY + h} Z`} fill="#061246" style={pathStyle} />
       {/* Right Face */}
-      <path d={`M ${centerTopX} ${centerTopY} L ${rightX} ${rightY} L ${rightX} ${rightY + h} L ${centerTopX} ${centerTopY + h} Z`} fill="#0c237c" />
+      <path d={`M ${centerTopX} ${centerTopY} L ${rightX} ${rightY} L ${rightX} ${rightY + h} L ${centerTopX} ${centerTopY + h} Z`} fill="#0c237c" style={pathStyle} />
     </svg>
   );
 };
@@ -86,7 +109,7 @@ const ScaleGraphic = ({ weight }: { weight: number }) => {
 };
 
 const TvGraphic = ({ sizeValue }: { sizeValue: string }) => (
-  <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="drop-shadow-lg">
+  <svg width="240" height="240" viewBox="0 0 120 120" fill="none" className="drop-shadow-lg">
     <ellipse cx="60" cy="110" rx="45" ry="6" fill="#000000" fillOpacity="0.1" />
     <rect x="35" y="102" width="50" height="6" rx="2" fill="#2C3258" />
     <rect x="45" y="96" width="30" height="8" fill="#1A1A1A" />
@@ -101,28 +124,87 @@ const TvGraphic = ({ sizeValue }: { sizeValue: string }) => (
   </svg>
 );
 
-const ApplianceGraphic = () => (
-  <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="drop-shadow-lg">
-    <ellipse cx="60" cy="110" rx="35" ry="5" fill="#000000" fillOpacity="0.1" />
-    <rect x="30" y="15" width="60" height="90" rx="4" fill="#061246" />
-    <rect x="34" y="19" width="52" height="25" rx="2" fill="#1a40b4" />
-    <rect x="34" y="48" width="52" height="53" rx="2" fill="#1a40b4" />
-    <rect x="76" y="26" width="4" height="10" rx="2" fill="#eb5b27" />
-    <rect x="76" y="55" width="4" height="25" rx="2" fill="#eb5b27" />
-  </svg>
-);
+const ApplianceGraphic = ({ w, d, h, y = 15, className = "" }: { w: number, d: number, h: number, y?: number, className?: string }) => {
+  const pathStyle = { transition: 'all 0.3s ease-out' };
+  
+  const mapIso = (u: number, v: number, z: number) => {
+    const x = 50 - u + v;
+    const yOffset = y + u/2 + v/2 + z;
+    return `${x},${yOffset}`;
+  };
 
-const FurnitureGraphic = () => (
-  <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="drop-shadow-lg">
-    <ellipse cx="60" cy="100" rx="50" ry="6" fill="#000000" fillOpacity="0.1" />
-    <rect x="15" y="40" width="90" height="35" rx="6" fill="#061246" />
-    <rect x="20" y="70" width="80" height="16" rx="4" fill="#1a40b4" />
-    <rect x="10" y="60" width="16" height="28" rx="4" fill="#0c237c" />
-    <rect x="94" y="60" width="16" height="28" rx="4" fill="#0c237c" />
-    <rect x="25" y="88" width="5" height="8" rx="1" fill="#1A1A1A" />
-    <rect x="90" y="88" width="5" height="8" rx="1" fill="#1A1A1A" />
-  </svg>
-);
+  const poly = (pts: number[][]) => `M ${pts.map(p => mapIso(p[0], p[1], p[2])).join(' L ')} Z`;
+
+  // Front face (Left face) is at u=w
+  // Calculate center of the front face for the door
+  const faceCenterX = 50 - w + d/2;
+  const faceCenterY = y + w/2 + d/4 + h/2;
+  
+  return (
+    <svg width="240" height="240" viewBox="0 0 100 100" fill="none" className={`drop-shadow-lg ${className}`}>
+      {/* Top Face (z=0) */}
+      <path d={poly([[0,0,0], [0,d,0], [w,d,0], [w,0,0]])} fill="#e2e8f0" style={pathStyle} />
+      
+      {/* Front Face (Left face, u=w) */}
+      <path d={poly([[w,0,0], [w,d,0], [w,d,h], [w,0,h]])} fill="#94a3b8" style={pathStyle} />
+      
+      {/* Side Face (Right face, v=d) */}
+      <path d={poly([[0,d,0], [w,d,0], [w,d,h], [0,d,h]])} fill="#cbd5e1" style={pathStyle} />
+      
+      {/* Washing machine door on front face (u=w) */}
+      <circle cx={faceCenterX} cy={faceCenterY} r={Math.min(d, h) * 0.25} fill="#475569" style={pathStyle} />
+      <circle cx={faceCenterX} cy={faceCenterY} r={Math.min(d, h) * 0.18} fill="#0f172a" style={pathStyle} />
+      
+      {/* Control panel line on front face (u=w), perfectly parallel to top edge */}
+      <path d={`M ${mapIso(w, 0.15*d, 0.1*h)} L ${mapIso(w, 0.85*d, 0.1*h)}`} stroke="#475569" strokeWidth={Math.max(1, h*0.05)} style={pathStyle} strokeLinecap="round" />
+    </svg>
+  );
+};
+
+const FurnitureGraphic = ({ w, d, h, y = 15, className = "" }: { w: number, d: number, h: number, y?: number, className?: string }) => {
+  const pathStyle = { transition: 'all 0.3s ease-out' };
+  
+  const mapIso = (u: number, v: number, z: number) => {
+    const x = 50 - u + v;
+    const yOffset = y + u/2 + v/2 + z;
+    return `${x},${yOffset}`;
+  };
+
+  const poly = (pts: number[][]) => `M ${pts.map(p => mapIso(p[0], p[1], p[2])).join(' L ')} Z`;
+
+  const lw = Math.min(w, d) * 0.15; // leg width
+  const th = h * 0.15; // table top thickness
+
+  const drawLeg = (u1: number, u2: number, v1: number, v2: number) => (
+    <g>
+      {/* Left Face of Leg (at u = u2) */}
+      <path d={poly([[u2, v1, th], [u2, v2, th], [u2, v2, h], [u2, v1, h]])} fill="#b45309" style={pathStyle} />
+      {/* Right Face of Leg (at v = v2) */}
+      <path d={poly([[u1, v2, th], [u2, v2, th], [u2, v2, h], [u1, v2, h]])} fill="#92400e" style={pathStyle} />
+    </g>
+  );
+
+  return (
+    <svg width="240" height="240" viewBox="0 0 100 100" fill="none" className={`drop-shadow-lg ${className}`}>
+      {/* Back Leg */}
+      {drawLeg(0, lw, 0, lw)}
+      {/* Left Leg */}
+      {drawLeg(w - lw, w, 0, lw)}
+      {/* Right Leg */}
+      {drawLeg(0, lw, d - lw, d)}
+      {/* Front Leg */}
+      {drawLeg(w - lw, w, d - lw, d)}
+      
+      {/* Table Top */}
+      {/* Top Face */}
+      <path d={poly([[0, 0, 0], [0, d, 0], [w, d, 0], [w, 0, 0]])} fill="#d97706" style={pathStyle} />
+      {/* Left Face (Front-left) */}
+      <path d={poly([[w, 0, 0], [w, d, 0], [w, d, th], [w, 0, th]])} fill="#b45309" style={pathStyle} />
+      {/* Right Face (Front-right) */}
+      <path d={poly([[0, d, 0], [w, d, 0], [w, d, th], [0, d, th]])} fill="#92400e" style={pathStyle} />
+    </svg>
+  );
+};
 
 export default function PriceCalculator() {
   const router = useRouter();
@@ -195,21 +277,54 @@ export default function PriceCalculator() {
   const renderGraphic = () => {
     let GraphicComponent = null;
 
+    const numL = parseFloat(length) || 10;
+    const numW = parseFloat(width) || 10;
+    const numH = parseFloat(height) || 10;
+    
+    // Normalize box dimensions based on actual isometric bounding box
+    const isoW = numL + numW;
+    const isoH = numH + (numL + numW) / 2;
+    const maxIso = Math.max(isoW, isoH) || 1;
+    
+    // Scale so the largest dimension fits within 85 units of the 100x100 viewBox
+    const boxScale = 85 / maxIso;
+    const drawW = numL * boxScale;
+    const drawD = numW * boxScale;
+    const drawH = numH * boxScale;
+    
+    // Perfectly center the object vertically in the 100x100 canvas
+    const boxY = (100 - (drawH + (drawW + drawD) / 2)) / 2;
+
+    // General scale factor for appliances and furniture
+    const stdVol = 24 * 24 * 36;
+    const userVol = numL * numW * numH;
+    let objScale = Math.pow(userVol / stdVol, 1/3);
+    // Clamp the scale between 0.5 and 1.5 to prevent it from disappearing or overflowing heavily
+    objScale = Math.min(Math.max(objScale, 0.5), 1.5);
+    const scaleStyle = { transform: `scale(${objScale})`, transition: 'transform 0.3s ease' };
+
     if (category === "boxes") {
-      GraphicComponent = <IsoBox w={30} d={30} h={40} y={15} />;
+      GraphicComponent = <IsoBox w={drawW} d={drawD} h={drawH} y={boxY} className="transition-all duration-300 ease-in-out" />;
     } else if (category === "tv") {
       const displaySize = tvSize ? `${tvSize}"` : "TV";
-      GraphicComponent = <TvGraphic sizeValue={displaySize} />;
+      const tvNum = parseFloat(tvSize) || 55;
+      let tvScale = tvNum / 55;
+      tvScale = Math.min(Math.max(tvScale, 0.5), 1.5);
+      GraphicComponent = (
+        <div style={{ transform: `scale(${tvScale})`, transition: 'transform 0.3s ease' }}>
+          <TvGraphic sizeValue={displaySize} />
+        </div>
+      );
     } else if (category === "appliances") {
-      GraphicComponent = <ApplianceGraphic />;
+      GraphicComponent = <ApplianceGraphic w={drawW} d={drawD} h={drawH} y={boxY} className="transition-all duration-300 ease-in-out" />;
     } else if (category === "furniture") {
-      GraphicComponent = <FurnitureGraphic />;
+      GraphicComponent = <FurnitureGraphic w={drawW} d={drawD} h={drawH} y={boxY} className="transition-all duration-300 ease-in-out" />;
     }
 
     return (
-      <div className="flex flex-col items-center justify-center my-3 relative min-h-[140px]">
+      <div className="flex flex-col items-center justify-center my-3 relative min-h-[260px]">
         {GraphicComponent}
-        <div className="bg-[#1A1A1A] text-white font-bold text-[13px] px-5 py-1.5 rounded-xl mt-[-10px] z-10 shadow-md border border-white/10">
+        <div className="bg-[#1A1A1A] text-white font-bold text-[13px] px-5 py-1.5 rounded-xl mt-3 z-10 shadow-md border border-white/10">
           {category === "tv" ? `${tvSize || "0"}" TV` : `${length || "0"} × ${width || "0"} × ${height || "0"}"`}
         </div>
       </div>
