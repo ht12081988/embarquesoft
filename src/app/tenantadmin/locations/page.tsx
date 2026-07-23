@@ -234,7 +234,7 @@ export default function BranchLocationsPage() {
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                   <div className="admin-form-group">
-                    <label className="admin-form-label">Latitude (Lat)</label>
+                    <label className="admin-form-label">Latitude (lat)</label>
                     <input 
                       type="text" 
                       className="admin-form-control" 
@@ -243,7 +243,7 @@ export default function BranchLocationsPage() {
                     />
                   </div>
                   <div className="admin-form-group">
-                    <label className="admin-form-label">Longitude (Long)</label>
+                    <label className="admin-form-label">Longitude (long)</label>
                     <input 
                       type="text" 
                       className="admin-form-control" 

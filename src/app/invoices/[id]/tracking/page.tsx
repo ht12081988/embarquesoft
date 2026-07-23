@@ -30,7 +30,7 @@ export default function TrackingStatus() {
       <div className="flex-1 p-4 flex flex-col gap-4 relative z-0 overflow-y-auto no-scrollbar pt-6">
         
         {/* Table Headers */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 shrink-0 grid grid-cols-[auto_auto_auto_auto_auto_auto_auto] items-center justify-between text-[#2C3258] font-bold text-[14px]">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 shrink-0 grid grid-cols-[auto_auto_auto_auto_auto_auto_auto] items-center justify-between text-black font-bold text-[14px]">
           <div>Date</div>
           <div className="text-gray-300">|</div>
           <div>Status</div>
@@ -46,9 +46,9 @@ export default function TrackingStatus() {
             <div key={index} className="bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col overflow-hidden shrink-0">
               <div className="bg-[#EDEAFD] px-4 py-3 border-b border-gray-100">
                 <span className="text-gray-400 font-bold text-[15px] tracking-wide">Barcode: </span>
-                <span className="text-[#2C3258] font-bold text-[15px] tracking-wide">{item.barcode}</span>
+                <span className="text-black font-bold text-[15px] tracking-wide">{item.barcode}</span>
               </div>
-              <div className="px-4 py-4 grid grid-cols-[auto_auto_auto_auto_auto_auto_auto] items-center justify-between text-[#2C3258] font-bold text-[14px]">
+              <div className="px-4 py-4 grid grid-cols-[auto_auto_auto_auto_auto_auto_auto] items-center justify-between text-black font-bold text-[14px]">
                 <div>{item.date}</div>
                 <div className="text-gray-300">|</div>
                 <div>{item.status}</div>

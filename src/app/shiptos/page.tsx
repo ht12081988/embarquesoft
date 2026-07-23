@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import { ArrowLeft, Search, Plus, MapPin, Edit, Trash2 } from "lucide-react";
@@ -40,65 +40,65 @@ export default function ShipToList() {
   );
 
   return (
-    <div className="flex flex-col flex-1 bg-white min-h-full">
-      {/* Header Section */}
-      <div className="bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] pt-16 md:pt-10 pb-6 px-5 flex flex-col shrink-0 rounded-b-[24px] text-white shadow-md z-10 relative">
-        <div className="flex items-center justify-between mb-6">
-          <button onClick={() => router.back()} className="p-2 -ml-2 active:scale-95 transition-transform cursor-pointer">
-            <ArrowLeft size={20} />
-          </button>
-          <h1 className="text-lg font-bold flex-1 text-center">My ShipTo</h1>
-          <Link href="/shiptos/new" className="font-bold text-sm active:scale-95 transition-transform cursor-pointer flex items-center gap-1">
-            <Plus size={18} />
-            <span>New</span>
-          </Link>
-        </div>
-        
-        {/* Search Bar */}
-        <div className="bg-white/10 rounded-xl h-10 flex items-center px-4 shadow-sm text-white border border-white/20">
-          <Search size={18} className="text-white/70 mr-2 shrink-0" />
-          <input 
-            type="text" 
-            placeholder="Search ship tos..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-1 bg-transparent outline-none font-medium placeholder-white/70 w-full text-white"
-          />
-        </div>
+    <div className="flex flex-col flex-1 h-full relative overflow-hidden font-sans">
+      {/* Background Image & Overlay */}
+      <div 
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/App_Background.png')" }}
+      >
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div>
       </div>
 
-      <div className="flex-1 p-5 flex flex-col gap-4 relative z-0 overflow-y-auto no-scrollbar">
+      <div className="relative z-10 flex flex-col flex-1 h-full">
+        {/* Header Section */}
+        <div className="pt-12 pb-2 px-5 flex flex-col shrink-0 text-white z-10">
+          <div className="flex items-center justify-between mb-4">
+            <button onClick={() => router.back()} className="p-2 -ml-2 active:scale-95 transition-transform cursor-pointer">
+              <ArrowLeft size={20} />
+            </button>
+            <h1 className="text-base font-semibold flex-1 text-center pl-4 tracking-wide">My ShipTo</h1>
+            <Link href="/shiptos/new" className="active:scale-95 transition-transform cursor-pointer">
+              <span className="font-bold text-[13px]">+ New</span>
+            </Link>
+          </div>
+        </div>
+
+        <div className="flex-1 px-3 py-5 flex flex-col gap-5 relative z-0 overflow-y-auto no-scrollbar pb-24">
         {/* Ship To Cards */}
         <div className="flex flex-col gap-4">
           {filteredShiptos.map((shipto) => (
-            <div key={shipto.id} className="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col overflow-hidden shrink-0">
-              <div className="bg-[#EDEAFD] px-4 py-3 border-b border-gray-100 flex items-center gap-2">
-                <MapPin size={16} className="text-[#2C3258]" />
-                <h2 className="text-[#2C3258] font-bold text-[15px]">Ship To</h2>
+            <div key={shipto.id} className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-sm flex flex-col p-5 shrink-0 border border-white/40">
+              <div className="flex justify-between items-center mb-4 pb-4 border-b border-black/5">
+                <h2 className="text-[#eb5b27] font-bold text-sm">Ship to</h2>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#eb5b27" xmlns="http://www.w3.org/2000/svg">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                </svg>
               </div>
-              <div className="p-4 flex flex-col gap-1.5">
-                <h3 className="text-gray-900 font-bold text-[15px] mb-1">
+              
+              <div className="flex justify-between gap-4 mb-4">
+                <h3 className="text-[#eb5b27] font-bold text-sm shrink-0">
                   {shipto.firstName} {shipto.lastName}
                 </h3>
-                <p className="text-gray-600 font-medium text-[14px] leading-snug">
+                <p className="text-gray-700 font-medium text-[11px] leading-tight text-right flex-1 break-words max-w-[65%]">
                   {shipto.address1} {shipto.address2}
-                </p>
-                <p className="text-gray-600 font-medium text-[14px] leading-snug mb-2">
+                  {shipto.municipal || shipto.province ? <br /> : null}
                   {shipto.municipal}{shipto.municipal && shipto.province ? ', ' : ''}{shipto.province}
                 </p>
-                <div className="flex flex-col gap-1">
-                  <div className="flex items-center text-[14px]">
-                    <span className="text-gray-500 font-bold w-12">Cel:</span>
-                    <span className="text-gray-900 font-bold">{shipto.cel || '-'}</span>
-                  </div>
-                  <div className="flex items-center text-[14px]">
-                    <span className="text-gray-500 font-bold w-12">Tel:</span>
-                    <span className="text-gray-900 font-bold">{shipto.tel || '-'}</span>
-                  </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <div className="flex justify-between items-center text-[11px]">
+                  <span className="text-gray-700 font-bold">Cel:</span>
+                  <span className="text-[#eb5b27] font-medium">{shipto.cel || '-'}</span>
+                </div>
+                <div className="flex justify-between items-center text-[11px]">
+                  <span className="text-gray-700 font-bold">Tel:</span>
+                  <span className="text-[#eb5b27] font-medium">{shipto.tel || '-'}</span>
                 </div>
               </div>
             </div>
           ))}
+        </div>
         </div>
       </div>
     </div>

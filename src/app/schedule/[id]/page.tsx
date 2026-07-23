@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { use } from "react";
 import { ArrowLeft } from "lucide-react";
@@ -61,7 +61,7 @@ export default function SchedulePickupDetail({ params }: { params: Promise<{ id:
           <button onClick={() => router.back()} className="p-2 -ml-2 active:scale-95 transition-transform cursor-pointer">
             <ArrowLeft size={20} />
           </button>
-          <h1 className="text-lg font-bold flex-1 text-center pr-6">Pickup Details</h1>
+          <h1 className="text-base font-semibold flex-1 text-center pr-6 tracking-wide">Pickup Details</h1>
         </div>
         <div className="text-center font-medium text-white/90 text-sm">
           {pickupId}
@@ -73,7 +73,7 @@ export default function SchedulePickupDetail({ params }: { params: Promise<{ id:
         {/* Pickup Section */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden shrink-0">
           <div className="bg-[#EEF2FC] px-4 py-3 border-b border-gray-100">
-            <h2 className="text-[#2C3258] font-bold text-[15px]">Pickup Information</h2>
+            <h2 className="text-black font-bold text-[15px]">Pickup Information</h2>
           </div>
           <div className="p-4 flex flex-col gap-3">
             <div className="grid grid-cols-2 gap-3">
@@ -120,7 +120,7 @@ export default function SchedulePickupDetail({ params }: { params: Promise<{ id:
         {/* Customer Section */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden shrink-0">
           <div className="bg-[#EEF2FC] px-4 py-3 border-b border-gray-100">
-            <h2 className="text-[#2C3258] font-bold text-[15px]">Customer Details</h2>
+            <h2 className="text-black font-bold text-[15px]">Customer Details</h2>
           </div>
           <div className="p-4 flex flex-col gap-4">
             <div>
@@ -161,7 +161,7 @@ export default function SchedulePickupDetail({ params }: { params: Promise<{ id:
         {/* ShipTo Section */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden shrink-0 mb-8">
           <div className="bg-[#EEF2FC] px-4 py-3 border-b border-gray-100">
-            <h2 className="text-[#2C3258] font-bold text-[15px]">ShipTo Details</h2>
+            <h2 className="text-black font-bold text-[15px]">ShipTo Details</h2>
           </div>
           <div className="p-4 flex flex-col gap-4">
             <div>

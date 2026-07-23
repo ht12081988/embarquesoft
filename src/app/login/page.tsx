@@ -94,7 +94,11 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col min-h-[100dvh] bg-[#eb5b27] font-sans">
+    <div 
+      className="flex flex-col min-h-[100dvh] bg-cover bg-center font-sans relative"
+      style={{ backgroundImage: "url('/App_Background.png')" }}
+    >
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-[3px] z-0 pointer-events-none"></div>
       
       {/* Top Header Section */}
       <div className="flex flex-col px-6 pt-12 pb-12 min-h-[260px] text-white shrink-0 relative z-10">
@@ -186,26 +190,26 @@ export default function Login() {
       </div>
 
       {/* Main Content Area - White Card */}
-      <div className="flex-1 bg-white rounded-t-[24px] px-6 pt-8 pb-8 flex flex-col z-20 overflow-hidden shadow-[0_-8px_24px_rgba(0,0,0,0.05)]">
+      <div className="flex-1 bg-white/[0.90] backdrop-blur-xl rounded-t-[32px] px-6 pt-8 pb-8 flex flex-col z-20 overflow-hidden shadow-[0_-8px_24px_rgba(0,0,0,0.1)]">
         {step === "login" && (
           <form onSubmit={handleLogin} className="flex flex-col flex-1 mt-6">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-bold text-[13px] ml-1">Mobile number or User</label>
+                <label className="text-black font-normal text-[13px] ml-1">Mobile Number</label>
                 <input 
-                  type="text" 
-                  placeholder="Mobile number or User" 
-                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none"
+                  type="tel" 
+                  placeholder="Mobile number" 
+                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
                   required 
                 />
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-bold text-[13px] ml-1">Password</label>
+                <label className="text-black font-normal text-[13px] ml-1">Password</label>
                 <div className="relative">
                   <input 
                     type={showPassword ? "text" : "password"} 
                     placeholder="Password" 
-                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none pr-12"
+                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] pr-12"
                     required 
                   />
                   <button 
@@ -241,7 +245,7 @@ export default function Login() {
               <input 
                 type="tel" 
                 placeholder="Mobile Number" 
-                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none"
+                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
                 required 
               />
             </div>
@@ -258,7 +262,7 @@ export default function Login() {
                 type="text" 
                 placeholder="----" 
                 maxLength={4}
-                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-bold text-center tracking-[0.8em] text-[20px] placeholder-gray-300 border-none"
+                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-bold text-center tracking-[0.8em] text-[20px] placeholder-gray-300 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
                 required 
               />
             </div>
@@ -283,13 +287,13 @@ export default function Login() {
               <input 
                 type="password" 
                 placeholder="New Password" 
-                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none"
+                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
                 required 
               />
               <input 
                 type="password" 
                 placeholder="Confirm Password" 
-                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none"
+                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
                 required 
               />
             </div>
@@ -304,25 +308,25 @@ export default function Login() {
             <div className="flex flex-col gap-4">
               <div className="flex gap-4">
                 <div className="flex flex-col gap-1.5 flex-1">
-                  <label className="text-[#2C3258] font-bold text-[13px] ml-1">First Name</label>
+                  <label className="text-black font-normal text-[13px] ml-1">First Name</label>
                   <input 
                     type="text" 
                     value={regFirstName}
                     onChange={(e) => setRegFirstName(e.target.value)}
                     placeholder="First Name" 
-                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none disabled:opacity-50"
+                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] disabled:opacity-50"
                     required 
                     disabled={isMatched}
                   />
                 </div>
                 <div className="flex flex-col gap-1.5 flex-1">
-                  <label className="text-[#2C3258] font-bold text-[13px] ml-1">Last Name</label>
+                  <label className="text-black font-normal text-[13px] ml-1">Last Name</label>
                   <input 
                     type="text" 
                     value={regLastName}
                     onChange={(e) => setRegLastName(e.target.value)}
                     placeholder="Last Name" 
-                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none disabled:opacity-50"
+                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] disabled:opacity-50"
                     required 
                     disabled={isMatched}
                   />
@@ -330,13 +334,13 @@ export default function Login() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-bold text-[13px] ml-1">Cell Number</label>
+                <label className="text-black font-normal text-[13px] ml-1">Cell Number</label>
                 <input 
                   type="tel" 
                   value={regMobile}
                   onChange={(e) => setRegMobile(e.target.value)}
                   placeholder="Cell Number" 
-                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none disabled:opacity-50"
+                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] disabled:opacity-50"
                   required 
                   disabled={isMatched}
                 />
@@ -345,24 +349,24 @@ export default function Login() {
               {isMatched && (
                 <>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[#2C3258] font-bold text-[13px] ml-1">Address 1</label>
-                    <input type="text" placeholder="Address 1" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" required />
+                    <label className="text-black font-normal text-[13px] ml-1">Address 1</label>
+                    <input type="text" placeholder="Address 1" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" required />
                   </div>
 
                   <div className="flex gap-4">
                     <div className="flex flex-col gap-1.5 flex-1">
-                      <label className="text-[#2C3258] font-bold text-[13px] ml-1">City</label>
-                      <input type="text" placeholder="City" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" required />
+                      <label className="text-black font-normal text-[13px] ml-1">City</label>
+                      <input type="text" placeholder="City" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" required />
                     </div>
                     <div className="flex flex-col gap-1.5 flex-1">
-                      <label className="text-[#2C3258] font-bold text-[13px] ml-1">State</label>
-                      <input type="text" placeholder="State" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" required />
+                      <label className="text-black font-normal text-[13px] ml-1">State</label>
+                      <input type="text" placeholder="State" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" required />
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[#2C3258] font-bold text-[13px] ml-1">Zip Country</label>
-                    <select className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none appearance-none" required defaultValue="">
+                    <label className="text-black font-normal text-[13px] ml-1">Zip Country</label>
+                    <select className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] appearance-none" required defaultValue="">
                       <option value="" disabled>Select Zip Country</option>
                       <option value="USA">USA</option>
                       <option value="DOM">Dominican Republic</option>
@@ -370,17 +374,17 @@ export default function Login() {
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[#2C3258] font-bold text-[13px] ml-1">Email ID</label>
-                    <input type="email" placeholder="Email ID" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" required />
+                    <label className="text-black font-normal text-[13px] ml-1">Email Id</label>
+                    <input type="email" placeholder="Email ID" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" required />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[#2C3258] font-bold text-[13px] ml-1">Telephone Number</label>
-                    <input type="tel" placeholder="Telephone Number" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none" required />
+                    <label className="text-black font-normal text-[13px] ml-1">Telephone Number</label>
+                    <input type="tel" placeholder="Telephone Number" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" required />
                   </div>
                   
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[#2C3258] font-bold text-[13px] ml-1">Country</label>
-                    <select className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none appearance-none" required defaultValue="">
+                    <label className="text-black font-normal text-[13px] ml-1">Country</label>
+                    <select className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] appearance-none" required defaultValue="">
                       <option value="" disabled>Select Country</option>
                       <option value="USA">USA</option>
                       <option value="DOM">Dominican Republic</option>
@@ -409,7 +413,7 @@ export default function Login() {
                 type="text" 
                 placeholder="----" 
                 maxLength={4}
-                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-bold text-center tracking-[0.8em] text-[20px] placeholder-gray-300 border-none"
+                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-bold text-center tracking-[0.8em] text-[20px] placeholder-gray-300 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
                 required 
               />
             </div>
@@ -432,20 +436,20 @@ export default function Login() {
           <form onSubmit={handleCreateAccount} className="flex flex-col flex-1 mt-6">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-bold text-[13px] ml-1">Password</label>
+                <label className="text-black font-normal text-[13px] ml-1">Password</label>
                 <input 
                   type="password" 
                   placeholder="Password" 
-                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none"
+                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
                   required 
                 />
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-[#2C3258] font-bold text-[13px] ml-1">Confirm Password</label>
+                <label className="text-black font-normal text-[13px] ml-1">Confirm Password</label>
                 <input 
                   type="password" 
                   placeholder="Confirm Password" 
-                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border-none"
+                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
                   required 
                 />
               </div>

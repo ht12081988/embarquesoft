@@ -41,23 +41,118 @@ const CATEGORIES = [
 ];
 
 const IsoBox = ({ w, d, h, y = 15, className = "" }: { w: number, d: number, h: number, y?: number, className?: string }) => {
-  const leftX = 50 - w;
-  const leftY = y + w / 2;
-  const rightX = 50 + d;
-  const rightY = y + d / 2;
-  const centerTopX = 50 - w + d;
-  const centerTopY = y + (w + d) / 2;
-  
+  const mapIso = (u: number, v: number, z: number) => {
+    const x = 50 - u + v;
+    const yOffset = y + u/2 + v/2 + z;
+    return `${x},${yOffset}`;
+  };
+
+  const poly = (pts: number[][]) => `M ${pts.map(p => mapIso(p[0], p[1], p[2])).join(' L ')} Z`;
   const pathStyle = { transition: 'all 0.3s ease-out' };
-  
+
+  // Tape width
+  const tw = Math.min(w, d) * 0.22;
+
   return (
     <svg width="240" height="240" viewBox="0 0 100 100" fill="none" className={`drop-shadow-lg ${className}`}>
       {/* Top Face */}
-      <path d={`M 50 ${y} L ${rightX} ${rightY} L ${centerTopX} ${centerTopY} L ${leftX} ${leftY} Z`} fill="#1a40b4" style={pathStyle} />
-      {/* Left Face */}
-      <path d={`M ${leftX} ${leftY} L ${centerTopX} ${centerTopY} L ${centerTopX} ${centerTopY + h} L ${leftX} ${leftY + h} Z`} fill="#061246" style={pathStyle} />
-      {/* Right Face */}
-      <path d={`M ${centerTopX} ${centerTopY} L ${rightX} ${rightY} L ${rightX} ${rightY + h} L ${centerTopX} ${centerTopY + h} Z`} fill="#0c237c" style={pathStyle} />
+      <path d={poly([[0,0,0], [0,d,0], [w,d,0], [w,0,0]])} fill="#e5ad72" style={pathStyle} />
+      
+      {/* Left Face (u=w) */}
+      <path d={poly([[w,0,0], [w,d,0], [w,d,h], [w,0,h]])} fill="#c68c4e" style={pathStyle} />
+      
+      {/* Right Face (v=d) */}
+      <path d={poly([[0,d,0], [w,d,0], [w,d,h], [0,d,h]])} fill="#ab763c" style={pathStyle} />
+
+      {/* TAPE (Dark Brown #5c3a21) */}
+      {/* Top Face Tape (running along the center in the v direction) */}
+      <path d={poly([
+        [w/2 - tw/2, 0, 0],
+        [w/2 - tw/2, d, 0],
+        [w/2 + tw/2, d, 0],
+        [w/2 + tw/2, 0, 0]
+      ])} fill="#5c3a21" style={pathStyle} />
+
+      {/* Right Face Tape (v=d, running vertically down in the center of the u direction) */}
+      <path d={poly([
+        [w/2 - tw/2, d, 0],
+        [w/2 + tw/2, d, 0],
+        [w/2 + tw/2, d, h * 0.45],
+        [w/2 - tw/2, d, h * 0.45]
+      ])} fill="#4d2f19" style={pathStyle} />
+
+      {/* Shipping Label on Left Face (u=w) */}
+      {d > 8 && h > 8 && (
+        <g>
+          {/* Label White Base */}
+          <path d={poly([
+            [w, d * 0.25, h * 0.25],
+            [w, d * 0.65, h * 0.25],
+            [w, d * 0.65, h * 0.55],
+            [w, d * 0.25, h * 0.55]
+          ])} fill="#ffffff" style={pathStyle} />
+          {/* Text lines on label (black/grey) */}
+          <path d={poly([
+            [w, d * 0.3, h * 0.32],
+            [w, d * 0.6, h * 0.32],
+            [w, d * 0.6, h * 0.36],
+            [w, d * 0.3, h * 0.36]
+          ])} fill="#475569" style={pathStyle} />
+          <path d={poly([
+            [w, d * 0.3, h * 0.42],
+            [w, d * 0.5, h * 0.42],
+            [w, d * 0.5, h * 0.46],
+            [w, d * 0.3, h * 0.46]
+          ])} fill="#475569" style={pathStyle} />
+        </g>
+      )}
+
+      {/* Fragile Arrows (This side up) on Right Face (v=d) */}
+      {w > 12 && h > 12 && (
+        <g>
+          {/* Two arrows pointing up */}
+          {/* Arrow 1 */}
+          <path d={poly([
+            [w * 0.2, d, h * 0.65],
+            [w * 0.25, d, h * 0.57],
+            [w * 0.3, d, h * 0.65],
+            [w * 0.27, d, h * 0.65],
+            [w * 0.27, d, h * 0.75],
+            [w * 0.23, d, h * 0.75],
+            [w * 0.23, d, h * 0.65]
+          ])} fill="#3e2510" style={pathStyle} />
+          {/* Arrow 2 */}
+          <path d={poly([
+            [w * 0.35, d, h * 0.65],
+            [w * 0.4, d, h * 0.57],
+            [w * 0.45, d, h * 0.65],
+            [w * 0.42, d, h * 0.65],
+            [w * 0.42, d, h * 0.75],
+            [w * 0.38, d, h * 0.75],
+            [w * 0.38, d, h * 0.65]
+          ])} fill="#3e2510" style={pathStyle} />
+        </g>
+      )}
+
+      {/* Wine Glass Icon (Fragile) on Right Face (v=d) */}
+      {w > 12 && h > 12 && (
+        <g>
+          <path d={poly([
+            [w * 0.72, d, h * 0.55],
+            [w * 0.8, d, h * 0.55],
+            [w * 0.8, d, h * 0.63],
+            [w * 0.76, d, h * 0.67],
+            [w * 0.76, d, h * 0.73],
+            [w * 0.78, d, h * 0.73],
+            [w * 0.78, d, h * 0.75],
+            [w * 0.74, d, h * 0.75],
+            [w * 0.74, d, h * 0.73],
+            [w * 0.76, d, h * 0.73],
+            [w * 0.76, d, h * 0.67],
+            [w * 0.72, d, h * 0.63]
+          ])} fill="#3e2510" style={pathStyle} />
+        </g>
+      )}
     </svg>
   );
 };
@@ -110,15 +205,60 @@ const ScaleGraphic = ({ weight }: { weight: number }) => {
 
 const TvGraphic = ({ sizeValue }: { sizeValue: string }) => (
   <svg width="240" height="240" viewBox="0 0 120 120" fill="none" className="drop-shadow-lg">
-    <ellipse cx="60" cy="110" rx="45" ry="6" fill="#000000" fillOpacity="0.1" />
-    <rect x="35" y="102" width="50" height="6" rx="2" fill="#2C3258" />
-    <rect x="45" y="96" width="30" height="8" fill="#1A1A1A" />
-    <rect x="10" y="20" width="100" height="76" rx="4" fill="#1A1A1A" />
-    <rect x="14" y="24" width="92" height="68" fill="#4f46e5" />
-    <rect x="17" y="27" width="86" height="32" fill="#1a40b4" />
-    <rect x="17" y="59" width="86" height="30" fill="#061246" />
-    <circle cx="60" cy="92" r="1.5" fill="#10b981" />
-    <text x="60" y="59" fill="white" fontSize="20" fontWeight="800" textAnchor="middle" dominantBaseline="middle">
+    <defs>
+      {/* Screen Radial Gradient for realistic glow */}
+      <radialGradient id="tvScreenGrad" cx="50%" cy="85%" r="75%" fx="50%" fy="85%">
+        <stop offset="0%" stopColor="#3d3e44" />
+        <stop offset="50%" stopColor="#25262b" />
+        <stop offset="100%" stopColor="#141416" />
+      </radialGradient>
+      {/* Bezel Gradient */}
+      <linearGradient id="bezelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#1c1d22" />
+        <stop offset="50%" stopColor="#0b0c10" />
+        <stop offset="100%" stopColor="#020205" />
+      </linearGradient>
+    </defs>
+    
+    {/* Shadow */}
+    <ellipse cx="60" cy="111" rx="42" ry="5" fill="#000" fillOpacity="0.25" />
+    
+    {/* Stand Base */}
+    <rect x="32" y="101" width="56" height="6" rx="2" fill="#0a0b0d" />
+    <rect x="32" y="101" width="56" height="2.5" rx="1" fill="#1b1d22" /> {/* Stand highlight */}
+    
+    {/* Stand Neck */}
+    <rect x="56" y="90" width="8" height="12" fill="#0f1013" />
+    <rect x="56" y="90" width="4" height="12" fill="#1a1b20" /> {/* Neck highlight */}
+    
+    {/* TV Outer Bezel */}
+    <rect x="10" y="15" width="100" height="76" rx="4" fill="url(#bezelGrad)" stroke="#2b2d35" strokeWidth="0.5" />
+    
+    {/* Inner Screen */}
+    <rect x="13.5" y="18.5" width="93" height="69" rx="1" fill="url(#tvScreenGrad)" stroke="#090a0c" strokeWidth="0.5" />
+    
+    {/* Diagonal Light Glare Reflection */}
+    <path d="M 65 18.5 L 90 18.5 L 106.5 35 L 106.5 60 Z" fill="#ffffff" fillOpacity="0.02" />
+    
+    {/* "TV" Branding Logo at Top Bezel */}
+    <text x="60" y="17.5" fill="#71717a" fontSize="2" fontWeight="900" textAnchor="middle" letterSpacing="0.2">TV</text>
+    
+    {/* Power Button / Bottom Center Indicator */}
+    <circle cx="60" cy="91.5" r="2.2" fill="#020203" stroke="#27272a" strokeWidth="0.5" />
+    <circle cx="60" cy="91.5" r="0.8" fill="#a1a1aa" />
+    
+    {/* Size Text (e.g. 55") */}
+    <text 
+      x="60" 
+      y="51" 
+      fill="#ffffff" 
+      fontSize="17" 
+      fontWeight="900" 
+      textAnchor="middle" 
+      dominantBaseline="middle" 
+      letterSpacing="0.5"
+      style={{ filter: "drop-shadow(0px 2px 4px rgba(0,0,0,0.4))" }}
+    >
       {sizeValue}
     </text>
   </svg>
@@ -332,26 +472,35 @@ export default function PriceCalculator() {
   };
 
   return (
-    <div className="flex flex-col flex-1 bg-white">
-      {/* Header */}
-      <div className="bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] pt-16 md:pt-10 pb-4 px-5 flex flex-col shrink-0 text-white shadow-md z-10 sticky top-0">
-        <div className="flex items-center justify-between mb-2">
-          <button onClick={() => router.back()} className="p-2 -ml-2 active:scale-95 transition-transform cursor-pointer">
-            <ArrowLeft size={20} />
-          </button>
-          <h1 className="text-lg font-bold flex-1 text-center pr-8">Price Calculator</h1>
-        </div>
+    <div className="flex flex-col flex-1 relative font-sans">
+      {/* Background Image & Overlay */}
+      <div 
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/App_Background.png')" }}
+      >
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div>
       </div>
 
-      <div className="flex flex-col gap-4 p-5 pb-10">
+      <div className="relative z-10 flex flex-col flex-1">
+        {/* Header Section */}
+        <div className="pt-12 pb-4 px-5 flex flex-col shrink-0 text-white z-10">
+          <div className="flex items-center justify-between mb-2">
+            <button onClick={() => router.back()} className="p-2 -ml-2 active:scale-95 transition-transform cursor-pointer">
+              <ArrowLeft size={20} />
+            </button>
+            <h1 className="text-base font-semibold flex-1 text-center pr-8 tracking-wide">PRICE CALCULATOR</h1>
+          </div>
+        </div>
+
+        <div className="flex-1 bg-white/[0.88] backdrop-blur-xl rounded-t-[32px] p-5 flex flex-col gap-4 relative z-0 pb-32 shadow-[0_-8px_24px_rgba(0,0,0,0.15)]">
         
         {/* Destination Dropdown */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-gray-500 font-bold text-[11px] uppercase tracking-wide">Destination</label>
+          <label className="text-black text-[13px] ml-1">Destination</label>
           <select 
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
-            className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3 text-sm font-bold outline-none border-none appearance-none"
+            className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3 text-sm font-bold outline-none border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] appearance-none"
             style={{ 
               backgroundImage: `url('data:image/svg+xml;utf8,<svg fill="none" viewBox="0 0 24 24" stroke="%239ca3af" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>')`, 
               backgroundRepeat: "no-repeat",
@@ -367,7 +516,7 @@ export default function PriceCalculator() {
 
         {/* Shipping Type Toggle */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-gray-500 font-bold text-[12px] uppercase tracking-wide">Shipping Type</label>
+          <label className="text-black text-[13px] ml-1">Shipping Type</label>
           <div className="flex gap-3">
             <button 
               type="button"
@@ -375,7 +524,7 @@ export default function PriceCalculator() {
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl font-bold text-xs transition-all border-none cursor-pointer ${
                 shippingType === "maritime" 
                 ? "bg-[#eb5b27] text-white shadow-md" 
-                : "bg-[#F4F5F7] text-gray-600 hover:bg-gray-200"
+                : "bg-[#F4F5F7] border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] text-gray-600 hover:bg-gray-200"
               }`}
             >
               <Ship size={16} />
@@ -387,7 +536,7 @@ export default function PriceCalculator() {
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl font-bold text-xs transition-all border-none cursor-pointer ${
                 shippingType === "air" 
                 ? "bg-[#eb5b27] text-white shadow-md" 
-                : "bg-[#F4F5F7] text-gray-600 hover:bg-gray-200"
+                : "bg-[#F4F5F7] border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] text-gray-600 hover:bg-gray-200"
               }`}
             >
               <Plane size={16} />
@@ -396,7 +545,7 @@ export default function PriceCalculator() {
           </div>
           
           {/* Rate Banner */}
-          <div className="bg-[#F4F5F7] text-[#2C3258] p-2.5 rounded-xl mt-1.5 flex flex-col gap-0.5 shadow-sm border-none">
+          <div className="bg-[#F4F5F7] text-[#2C3258] p-2.5 rounded-xl mt-1.5 flex flex-col gap-0.5 shadow-sm border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]">
             <div className="flex items-center gap-2 font-bold text-[13px]">
               {shippingType === "maritime" ? (
                 <Ship size={16} className="text-[#eb5b27] shrink-0" />
@@ -410,7 +559,7 @@ export default function PriceCalculator() {
 
         {/* Category Selector */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-gray-500 font-bold text-[12px] uppercase tracking-wide">Category</label>
+          <label className="text-black text-[13px] ml-1">Category</label>
           <div className="grid grid-cols-4 gap-2">
             {CATEGORIES.map(cat => (
               <button 
@@ -420,7 +569,7 @@ export default function PriceCalculator() {
                 className={`flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl transition-all border-none cursor-pointer ${
                   category === cat.id
                   ? "bg-[#eb5b27] text-white shadow-md"
-                  : "bg-[#F4F5F7] text-gray-600 hover:bg-gray-200"
+                  : "bg-[#F4F5F7] border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] text-gray-600 hover:bg-gray-200"
                 }`}
               >
                 <cat.Icon size={16} className={category === cat.id ? "text-white" : "text-[#2C3258]"} />
@@ -434,15 +583,13 @@ export default function PriceCalculator() {
 
         {shippingType === "maritime" ? (
           <>
-
-
             {/* Dynamic Graphic */}
             {renderGraphic()}
 
             {category === "tv" ? (
-              <div className="flex flex-col gap-2 mt-2 bg-[#F4F5F7] p-4 rounded-xl">
+              <div className="flex flex-col gap-2 mt-2 bg-[#F4F5F7] border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] p-4 rounded-xl">
                 <div className="flex justify-between items-center px-1">
-                  <label className="text-gray-500 font-bold text-[12px] uppercase tracking-wide">TV Size (Inches)</label>
+                  <label className="text-black text-[13px] ml-1">Tv Size (inches)</label>
                   <span className="font-black text-[#eb5b27] text-lg">{tvSize}"</span>
                 </div>
                 <input 
@@ -457,89 +604,124 @@ export default function PriceCalculator() {
             ) : (
               <>
                 {/* Preset Sizes */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-gray-500 font-bold text-[12px] uppercase tracking-wide">Preset Sizes</label>
-              <div className="grid grid-cols-4 gap-2">
-                {PRESET_SIZES.map(preset => (
-                  <button 
-                    key={preset.id}
-                    type="button"
-                    onClick={() => selectPreset(preset.id, preset.l, preset.w, preset.h)}
-                    className={`flex flex-col items-center justify-center py-2 px-1 rounded-xl transition-all border-none cursor-pointer ${
-                      presetSizeId === preset.id
-                      ? "bg-[#eb5b27] text-white shadow-md"
-                      : "bg-[#F4F5F7] text-gray-600 hover:bg-gray-200"
-                    }`}
-                  >
-                    <span className={`text-[10px] font-bold leading-tight tracking-tight ${presetSizeId === preset.id ? "text-white/90" : "text-gray-600"}`}>{preset.label}</span>
-                    <span className={`text-[11px] font-black ${presetSizeId === preset.id ? "text-white" : "text-[#2C3258]"}`}>${preset.price}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-black text-[13px] ml-1">Preset Sizes</label>
+                  <div className="grid grid-cols-4 gap-2">
+                    {PRESET_SIZES.map(preset => (
+                      <button 
+                        key={preset.id}
+                        type="button"
+                        onClick={() => selectPreset(preset.id, preset.l, preset.w, preset.h)}
+                        className={`flex flex-col items-center justify-center py-2 px-1 rounded-xl transition-all border-none cursor-pointer ${
+                          presetSizeId === preset.id
+                          ? "bg-[#eb5b27] text-white shadow-md"
+                          : "bg-[#F4F5F7] border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] text-gray-600 hover:bg-gray-200"
+                        }`}
+                      >
+                        <span className={`text-[10px] font-bold leading-tight tracking-tight ${presetSizeId === preset.id ? "text-white/90" : "text-gray-600"}`}>{preset.label}</span>
+                        <span className={`text-[11px] font-black ${presetSizeId === preset.id ? "text-white" : "text-[#2C3258]"}`}>${preset.price}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
-            {/* Custom Dimensions */}
-            <div className="flex gap-2.5">
-              <div className="flex flex-col gap-1.5 flex-1">
-                <label className="text-gray-500 font-bold text-[11px] uppercase tracking-wide">Length</label>
-                <div className="relative flex items-center">
-                  <input 
-                    type="number" 
-                    value={length}
-                    onChange={(e) => handleDimensionChange("l", e.target.value)}
-                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl pl-3 pr-7 py-2.5 text-center text-sm font-bold outline-none focus:ring-2 focus:ring-[#eb5b27] border-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                  />
-                  <span className="absolute right-2.5 text-gray-400 text-xs font-bold pointer-events-none">in</span>
+                {/* Custom Dimensions */}
+                <div className="flex gap-2.5">
+                  <div className="flex flex-col gap-1.5 flex-1">
+                    <label className="text-black text-[13px] ml-1">Length</label>
+                    <div className="relative flex items-center">
+                      <input 
+                        type="number" 
+                        value={length}
+                        onChange={(e) => handleDimensionChange("l", e.target.value)}
+                        className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl pl-3 pr-7 py-2.5 text-center text-sm font-bold outline-none focus:ring-2 focus:ring-[#eb5b27] border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                      />
+                      <span className="absolute right-2.5 text-gray-400 text-xs font-bold pointer-events-none">in</span>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-1.5 flex-1">
+                    <label className="text-black text-[13px] ml-1">Width</label>
+                    <div className="relative flex items-center">
+                      <input 
+                        type="number" 
+                        value={width}
+                        onChange={(e) => handleDimensionChange("w", e.target.value)}
+                        className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl pl-3 pr-7 py-2.5 text-center text-sm font-bold outline-none focus:ring-2 focus:ring-[#eb5b27] border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                      />
+                      <span className="absolute right-2.5 text-gray-400 text-xs font-bold pointer-events-none">in</span>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-1.5 flex-1">
+                    <label className="text-black text-[13px] ml-1">Height</label>
+                    <div className="relative flex items-center">
+                      <input 
+                        type="number" 
+                        value={height}
+                        onChange={(e) => handleDimensionChange("h", e.target.value)}
+                        className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl pl-3 pr-7 py-2.5 text-center text-sm font-bold outline-none focus:ring-2 focus:ring-[#eb5b27] border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                      />
+                      <span className="absolute right-2.5 text-gray-400 text-xs font-bold pointer-events-none">in</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-col gap-1.5 flex-1">
-                <label className="text-gray-500 font-bold text-[11px] uppercase tracking-wide">Width</label>
-                <div className="relative flex items-center">
-                  <input 
-                    type="number" 
-                    value={width}
-                    onChange={(e) => handleDimensionChange("w", e.target.value)}
-                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl pl-3 pr-7 py-2.5 text-center text-sm font-bold outline-none focus:ring-2 focus:ring-[#eb5b27] border-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                  />
-                  <span className="absolute right-2.5 text-gray-400 text-xs font-bold pointer-events-none">in</span>
-                </div>
-              </div>
-              <div className="flex flex-col gap-1.5 flex-1">
-                <label className="text-gray-500 font-bold text-[11px] uppercase tracking-wide">Height</label>
-                <div className="relative flex items-center">
-                  <input 
-                    type="number" 
-                    value={height}
-                    onChange={(e) => handleDimensionChange("h", e.target.value)}
-                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl pl-3 pr-7 py-2.5 text-center text-sm font-bold outline-none focus:ring-2 focus:ring-[#eb5b27] border-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                  />
-                  <span className="absolute right-2.5 text-gray-400 text-xs font-bold pointer-events-none">in</span>
-                </div>
-              </div>
-            </div>
-          </>
-          )}
+              </>
+            )}
 
             {/* Quantity */}
-            <div className="flex items-center justify-between bg-white mt-2">
-              <label className="text-[#1A1A1A] font-bold text-[15px]">Quantity</label>
+            <div className="flex items-center justify-between mt-2">
+              <label className="text-black font-normal text-[13px]">Quantity</label>
               <div className="flex items-center gap-4">
                 <button 
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-10 h-10 rounded-full bg-[#F4F5F7] flex items-center justify-center text-[#2C3258] active:bg-gray-200 transition-colors"
+                  className="w-10 h-10 rounded-full bg-[#F4F5F7] border border-white shadow-sm focus:border-[#eb5b27] flex items-center justify-center text-[#2C3258] active:bg-gray-200 transition-colors"
                 >
                   <Minus size={20} strokeWidth={3} />
                 </button>
                 <span className="font-bold text-[18px] w-6 text-center">{quantity}</span>
                 <button 
                   onClick={() => setQuantity(quantity + 1)}
-                  className="w-10 h-10 rounded-full bg-[#F4F5F7] flex items-center justify-center text-[#2C3258] active:bg-gray-200 transition-colors"
+                  className="w-10 h-10 rounded-full bg-[#F4F5F7] border border-white shadow-sm focus:border-[#eb5b27] flex items-center justify-center text-[#2C3258] active:bg-gray-200 transition-colors"
                 >
                   <Plus size={20} strokeWidth={3} />
                 </button>
               </div>
             </div>
 
+            {/* Maritime Summary Area */}
+            <div className="mt-6 flex flex-col bg-[#F4F5F7] rounded-[16px] shadow-sm overflow-hidden border border-gray-100">
+              {/* Orange Total Box */}
+              <div className="bg-[#eb5b27] flex flex-col items-center justify-center py-4 text-white">
+                <span className="text-[13px] font-bold">Estimated Maritime Total</span>
+                <h2 className="text-[26px] font-black leading-tight">${estimatedTotal}</h2>
+              </div>
+              
+              {/* Breakdown List */}
+              <div className="flex flex-col gap-2 px-3 py-4">
+                <div className="flex justify-between items-start text-[10px] font-extrabold text-gray-900 px-2 leading-relaxed">
+                  <div className="flex flex-col gap-1.5">
+                    <span>Selected Category</span>
+                    <span className="capitalize">{CATEGORIES.find(c => c.id === category)?.label || "Boxes"}</span>
+                    <span>Dimensions</span>
+                  </div>
+                  <div className="flex flex-col gap-1.5 text-right">
+                    <span>{category === "tv" ? `${tvSize}" TV` : `${length || "0"} × ${width || "0"} × ${height || "0"} in`} {quantity > 1 ? `(Qty: ${quantity})` : ""}</span>
+                    <span>Shipping Cost</span>
+                    <span>${estimatedTotal}</span>
+                  </div>
+                </div>
+                
+                <div className="h-[1px] w-full bg-gray-200/80 my-1.5"></div>
+
+                <div className="flex justify-between items-center px-2">
+                  <span className="font-black text-[12px] text-gray-900">Total</span>
+                  <span className="font-black text-[14px] text-[#eb5b27]">${estimatedTotal}</span>
+                </div>
+                
+                <p className="text-[9px] text-gray-400 font-bold text-center mt-3 leading-relaxed px-4">
+                  Estimated prices. The final cost may vary based on exact weight, dimensions, and actual destination zip code.
+                </p>
+              </div>
+            </div>
           </>
         ) : (
           <>
@@ -550,24 +732,18 @@ export default function PriceCalculator() {
                <ScaleGraphic weight={weight} />
             </div>
 
-            {/* Price Box */}
-            <div className="bg-[#F4F5F7] border border-gray-200 rounded-2xl flex flex-col items-center justify-center py-3 mt-2">
-              <span className="text-[24px] font-black text-[#061246]">${estimatedTotal}</span>
-              <span className="text-[#1a40b4] font-bold text-xs mt-0.5">{weight} lbs × $4.50/lb</span>
-            </div>
-
             {/* Weight Input */}
             <div className="mt-4">
-              <label className="text-[#1A1A1A] font-bold text-[13px]">Package Weight</label>
+              <label className="text-black font-normal text-[13px]">Package Weight</label>
               <div className="flex items-center gap-4 mt-2">
                 <button 
                   onClick={() => setWeight(Math.max(1, weight - 1))}
-                  className="w-12 h-12 shrink-0 rounded-full bg-white border border-gray-200 flex items-center justify-center text-[#eb5b27] shadow-sm active:scale-95 transition-all"
+                  className="w-12 h-12 shrink-0 rounded-full bg-[#f4f5f7]/90 border border-white shadow-sm flex items-center justify-center text-[#eb5b27] shadow-sm active:scale-95 transition-all"
                 >
                   <Minus size={22} strokeWidth={3} />
                 </button>
                 
-                <div className="flex-1 bg-[#F4F5F7] h-12 rounded-xl flex items-center justify-center gap-2 border border-gray-100 shadow-inner">
+                <div className="flex-1 bg-[#F4F5F7] border border-white shadow-sm focus:border-[#eb5b27] h-12 rounded-xl flex items-center justify-center gap-2 border border-gray-100 shadow-inner">
                   <input 
                     type="number" 
                     value={weight}
@@ -579,7 +755,7 @@ export default function PriceCalculator() {
 
                 <button 
                   onClick={() => setWeight(weight + 1)}
-                  className="w-12 h-12 shrink-0 rounded-full bg-white border border-gray-200 flex items-center justify-center text-[#eb5b27] shadow-sm active:scale-95 transition-all"
+                  className="w-12 h-12 shrink-0 rounded-full bg-[#f4f5f7]/90 border border-white shadow-sm flex items-center justify-center text-[#eb5b27] shadow-sm active:scale-95 transition-all"
                 >
                   <Plus size={22} strokeWidth={3} />
                 </button>
@@ -600,7 +776,7 @@ export default function PriceCalculator() {
                   className={`flex flex-col items-center justify-center py-2.5 px-1 gap-1 rounded-xl transition-all border-none cursor-pointer ${
                     weight === pw.w
                     ? "bg-[#eb5b27] text-white shadow-md"
-                    : "bg-white border border-gray-200 text-[#2C3258] shadow-sm hover:bg-gray-50"
+                    : "bg-[#f4f5f7]/90 border border-white shadow-sm text-[#2C3258] shadow-sm hover:bg-gray-50"
                   }`}
                 >
                   <span className="text-[18px]">{pw.icon}</span>
@@ -612,77 +788,44 @@ export default function PriceCalculator() {
               ))}
             </div>
 
+            {/* Air Summary Area */}
+            <div className="mt-8 flex flex-col bg-[#F4F5F7] rounded-[16px] shadow-sm overflow-hidden border border-gray-100">
+              {/* Orange Total Box */}
+              <div className="bg-[#eb5b27] flex flex-col items-center justify-center py-4 text-white">
+                <span className="text-[13px] font-bold">Estimated Air Total</span>
+                <h2 className="text-[26px] font-black leading-tight">${estimatedTotal}</h2>
+              </div>
+              
+              {/* Breakdown List */}
+              <div className="flex flex-col gap-2 px-3 py-4">
+                <div className="flex justify-between items-start text-[10px] font-extrabold text-gray-900 px-2 leading-relaxed">
+                  <div className="flex flex-col gap-1.5">
+                    <span>Shipping Mode</span>
+                    <span>Selected Category</span>
+                    <span>Package Weight</span>
+                  </div>
+                  <div className="flex flex-col gap-1.5 text-right">
+                    <span>Air (By Weight)</span>
+                    <span className="capitalize">{CATEGORIES.find(c => c.id === category)?.label || "Boxes"}</span>
+                    <span>{weight} lbs</span>
+                  </div>
+                </div>
+                
+                <div className="h-[1px] w-full bg-gray-200/80 my-1.5"></div>
+
+                <div className="flex justify-between items-center px-2">
+                  <span className="font-black text-[12px] text-gray-900">Total</span>
+                  <span className="font-black text-[14px] text-[#eb5b27]">${estimatedTotal}</span>
+                </div>
+                
+                <p className="text-[9px] text-gray-400 font-bold text-center mt-3 leading-relaxed px-4">
+                  Estimated prices. The final cost may vary based on actual destination zip code.
+                </p>
+              </div>
+            </div>
           </>
         )}
-
-        {/* Summary Card */}
-        <div className="flex flex-col bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] overflow-hidden mt-4 border border-gray-100">
-          {/* Top Banner */}
-          <div className="bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] flex flex-col items-center justify-center py-4 text-white px-4">
-            <div className="flex items-center gap-2 mb-1">
-              {shippingType === "maritime" ? <Ship size={16} /> : <Plane size={16} />}
-              <span className="text-[12px] font-bold">Estimated {shippingType === "maritime" ? "Maritime" : "Air"} Total</span>
-            </div>
-            <h2 className="text-[28px] font-black">${estimatedTotal}</h2>
-          </div>
-          
-          {/* Breakdown List */}
-          <div className="flex flex-col px-5 py-4 gap-3.5">
-            {shippingType === "maritime" ? (
-              <>
-                <div className="flex justify-between items-center text-[13px]">
-                  <span className="font-semibold text-gray-500">Selected Category</span>
-                  <span className="font-bold text-[#2C3258] capitalize">
-                    {CATEGORIES.find(c => c.id === category)?.label || "Boxes"}
-                  </span>
-                </div>
-
-                <div className="flex justify-between items-center text-[13px]">
-                  <span className="font-semibold text-gray-500">Dimensions</span>
-                  <span className="font-bold text-[#2C3258]">
-                    {category === "tv" ? `${tvSize}" TV` : `${length || "0"} × ${width || "0"} × ${height || "0"} in`} {quantity > 1 ? `(Qty: ${quantity})` : ""}
-                  </span>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="flex justify-between items-center text-[13px]">
-                  <span className="font-semibold text-gray-500">Shipping Mode</span>
-                  <span className="font-bold text-[#2C3258]">Air (By Weight)</span>
-                </div>
-
-                <div className="flex justify-between items-center text-[13px]">
-                  <span className="font-semibold text-gray-500">Selected Category</span>
-                  <span className="font-bold text-[#2C3258] capitalize">
-                    {CATEGORIES.find(c => c.id === category)?.label || "Boxes"}
-                  </span>
-                </div>
-
-                <div className="flex justify-between items-center text-[13px]">
-                  <span className="font-semibold text-gray-500">Package Weight</span>
-                  <span className="font-bold text-[#2C3258]">{weight} lbs</span>
-                </div>
-              </>
-            )}
-
-            <div className="flex justify-between items-center text-[13px]">
-              <span className="font-semibold text-gray-500">Shipping Cost</span>
-              <span className="font-bold text-[#2C3258]">${estimatedTotal}</span>
-            </div>
-
-            <div className="h-[1px] w-full bg-gray-100 my-1"></div>
-            
-            <div className="flex justify-between items-center text-[#1A1A1A]">
-              <span className="font-black text-[16px]">Total</span>
-              <span className="font-black text-[18px] text-[#eb5b27]">${estimatedTotal}</span>
-            </div>
-            
-            <p className="text-[11px] text-gray-400 font-medium text-center mt-1 leading-relaxed">
-              Estimated prices. The final cost may vary based on exact weight, dimensions, and actual destination zip code.
-            </p>
-          </div>
         </div>
-
       </div>
     </div>
   );

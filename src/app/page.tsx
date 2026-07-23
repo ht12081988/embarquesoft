@@ -114,6 +114,12 @@ const IconPrice = () => (
     <path d="M19.5 11H14a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6h-5.5" stroke="#eb5b27" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
+const IconPoints = () => (
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+    <circle cx="16" cy="16" r="11" fill="#061246"/>
+    <path d="M16 8l2.18 4.42 4.88.71-3.53 3.44.83 4.86L16 19.14l-4.36 2.29.83-4.86-3.53-3.44 4.88-.71Z" fill="#eb5b27"/>
+  </svg>
+);
 const IconPhone = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.84a16 16 0 0 0 6.29 6.29l1.62-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
@@ -144,6 +150,7 @@ const row2Items = [
 const row3Items = [
   { id: "claim",    label: "File\nClaim",   Icon: IconClaim,    href: "/claim",       isProtected: true  },
   { id: "price",    label: "Price",         Icon: IconPrice,    href: "/price",       isProtected: false },
+  { id: "points",   label: "My Points",     Icon: IconPoints,   href: "/points",      isProtected: true  },
 ];
 
 export default function Home() {
@@ -166,7 +173,7 @@ export default function Home() {
 
 
   return (
-    <div className="flex flex-col flex-1 h-full min-h-0 overflow-hidden font-sans" style={{ background: "linear-gradient(180deg, #061246 0%, #1438a0 100%)" }}>
+    <div className="relative flex flex-col flex-1 h-full min-h-0 overflow-hidden font-sans" style={{ background: "linear-gradient(180deg, #061246 0%, #1438a0 100%)" }}>
 
       {/* ── Header ───────────────────────────────────────── */}
       <div className="shrink-0 px-5 pt-9 pb-3 flex flex-col gap-2 z-10" style={{ background: "linear-gradient(135deg, #061246 0%, #1a40b4 100%)" }}>
@@ -421,87 +428,75 @@ export default function Home() {
 
       {/* ── Contact Modal ────────────────────────────────────── */}
       {showContactModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-5 backdrop-blur-sm"
-             style={{ background: "rgba(0,0,0,0.6)" }}>
-          <div className="bg-white rounded-3xl p-6 w-full max-w-sm flex flex-col shadow-2xl max-h-[85vh] overflow-y-auto no-scrollbar"
+        <div className="absolute inset-x-0 top-0 bottom-0 z-40 flex flex-col justify-end">
+          <div 
+            className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
+            onClick={() => { setShowContactModal(false); setContactSuccess(false); }}
+          ></div>
+
+          <div className="relative bg-white/70 backdrop-blur-xl rounded-t-[32px] px-6 pt-6 pb-8 flex flex-col z-20 shadow-[0_-8px_24px_rgba(0,0,0,0.1)] w-full max-h-[88vh] overflow-y-auto no-scrollbar"
                style={{ animation: "slideUp 0.3s ease" }}>
-            <div className="flex justify-between items-center mb-5">
-              <h3 className="font-black text-[18px]" style={{ color: "#0A1533" }}>Contact Us</h3>
-              <button onClick={() => { setShowContactModal(false); setContactSuccess(false); }}
-                      className="text-gray-400 hover:text-gray-600 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors text-lg font-bold">
+            
+            <div className="flex items-center justify-center mb-6 relative">
+              <h2 className="text-[#1A1A1A] font-bold text-[16px]">Contact Us</h2>
+              <button 
+                onClick={() => { setShowContactModal(false); setContactSuccess(false); }}
+                className="absolute right-0 text-[#1A1A1A] hover:bg-black/5 p-1 rounded-full transition-colors text-lg font-bold"
+              >
                 ✕
               </button>
             </div>
 
             {contactSuccess ? (
               <div className="flex flex-col items-center text-center py-8 gap-4">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center"
-                     style={{ background: "rgba(26,86,219,0.1)" }}>
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1a56db" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <div className="w-16 h-16 rounded-full flex items-center justify-center bg-[#eb5b27]/10">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#eb5b27" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
                 </div>
-                <h4 className="font-black text-gray-800 text-lg">Thank You!</h4>
-                <p className="text-gray-500 text-sm font-medium">Our team will get back to you shortly.</p>
+                <h4 className="font-bold text-[#1A1A1A] text-lg">Thank You!</h4>
+                <p className="text-[#2C3258] text-sm font-medium">Our team will get back to you shortly.</p>
                 <button onClick={() => { setShowContactModal(false); setContactSuccess(false); }}
-                        className="w-full mt-2 text-white font-bold py-3 rounded-xl active:scale-95 transition-transform"
-                        style={{ background: "#eb5b27" }}>
+                        className="w-full mt-2 bg-[#eb5b27] text-white font-semibold text-[13px] py-3.5 rounded-xl shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
                   Close
                 </button>
               </div>
             ) : (
               <form onSubmit={(e) => { e.preventDefault(); setContactSuccess(true); }} className="flex flex-col gap-4">
-                <div className="flex gap-3">
-                  <div className="flex flex-col gap-1 flex-1">
-                    <label className="text-gray-500 font-bold text-xs uppercase tracking-wide">First Name</label>
+                <div className="flex gap-4">
+                  <div className="flex flex-col gap-1.5 flex-1">
+                    <label className="text-black font-medium text-[13px] ml-1">First Name</label>
                     <input type="text" required value={contactForm.firstName}
                            onChange={(e) => setContactForm({ ...contactForm, firstName: e.target.value })}
-                           placeholder="John"
-                           className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-gray-900 text-sm font-medium outline-none transition-all"
-                           style={{ focusBorderColor: "#1a56db" } as React.CSSProperties}
-                           onFocus={e => e.target.style.borderColor = "#1a56db"}
-                           onBlur={e => e.target.style.borderColor = "#e5e7eb"} />
+                           className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" />
                   </div>
-                  <div className="flex flex-col gap-1 flex-1">
-                    <label className="text-gray-500 font-bold text-xs uppercase tracking-wide">Last Name</label>
+                  <div className="flex flex-col gap-1.5 flex-1">
+                    <label className="text-black font-medium text-[13px] ml-1">Last Name</label>
                     <input type="text" required value={contactForm.lastName}
                            onChange={(e) => setContactForm({ ...contactForm, lastName: e.target.value })}
-                           placeholder="Doe"
-                           className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-gray-900 text-sm font-medium outline-none transition-all"
-                           onFocus={e => e.target.style.borderColor = "#1a56db"}
-                           onBlur={e => e.target.style.borderColor = "#e5e7eb"} />
+                           className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" />
                   </div>
                 </div>
-                <div className="flex flex-col gap-1">
-                  <label className="text-gray-500 font-bold text-xs uppercase tracking-wide">Mobile Number</label>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-black font-medium text-[13px] ml-1">Mobile Number</label>
                   <input type="tel" required value={contactForm.mobile}
                          onChange={(e) => setContactForm({ ...contactForm, mobile: e.target.value })}
-                         placeholder="212-444-8574"
-                         className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-gray-900 text-sm font-medium outline-none transition-all"
-                         onFocus={e => e.target.style.borderColor = "#1a56db"}
-                         onBlur={e => e.target.style.borderColor = "#e5e7eb"} />
+                         className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" />
                 </div>
-                <div className="flex flex-col gap-1">
-                  <label className="text-gray-500 font-bold text-xs uppercase tracking-wide">Email Address</label>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-black font-medium text-[13px] ml-1">Email Address</label>
                   <input type="email" required value={contactForm.email}
                          onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                         placeholder="john.doe@example.com"
-                         className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-gray-900 text-sm font-medium outline-none transition-all"
-                         onFocus={e => e.target.style.borderColor = "#1a56db"}
-                         onBlur={e => e.target.style.borderColor = "#e5e7eb"} />
+                         className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" />
                 </div>
-                <div className="flex flex-col gap-1">
-                  <label className="text-gray-500 font-bold text-xs uppercase tracking-wide">Comments</label>
-                  <textarea required rows={3} value={contactForm.comments}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-black font-medium text-[13px] ml-1">Coments</label>
+                  <textarea required rows={4} value={contactForm.comments}
                             onChange={(e) => setContactForm({ ...contactForm, comments: e.target.value })}
-                            placeholder="Enter your query details..."
-                            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-gray-900 text-sm font-medium outline-none transition-all resize-none"
-                            onFocus={e => e.target.style.borderColor = "#1a56db"}
-                            onBlur={e => e.target.style.borderColor = "#e5e7eb"} />
+                            className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] resize-none" />
                 </div>
                 <button type="submit"
-                        className="w-full text-white font-bold py-3.5 rounded-xl mt-1 active:scale-95 transition-transform shadow-lg"
-                        style={{ background: "linear-gradient(135deg, #061246 0%, #1a40b4 100%)" }}>
+                        className="w-full mt-2 bg-[#eb5b27] text-white font-semibold text-[13px] py-3.5 rounded-xl shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
                   Submit Inquiry
                 </button>
               </form>
