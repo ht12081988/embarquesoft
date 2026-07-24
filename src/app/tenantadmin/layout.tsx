@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Tag, Bell, LogOut, Search, User, MapPin, ChevronDown, ChevronRight, Smartphone, MessageSquare, FileText, Calculator } from 'lucide-react';
+import { LayoutDashboard, Tag, Bell, LogOut, Search, User, MapPin, ChevronDown, ChevronRight, Smartphone, MessageSquare, FileText, Calculator, Star } from 'lucide-react';
 import './admin.css';
 
 export default function TenantAdminLayout({
@@ -21,6 +21,7 @@ export default function TenantAdminLayout({
     { name: 'Inquiries', href: '/tenantadmin/inquiries', icon: MessageSquare },
     { name: 'Quotes', href: '/tenantadmin/quotes', icon: FileText },
     { name: 'Price Estimation', href: '/tenantadmin/price-estimation', icon: Calculator },
+    { name: 'Points', href: '/tenantadmin/points', icon: Star },
   ];
 
   return (
@@ -35,6 +36,19 @@ export default function TenantAdminLayout({
           <nav className="admin-sidebar-nav">
             <div style={{ padding: '0 20px', marginBottom: '10px', fontSize: '0.75rem', color: '#a0a6d4', textTransform: 'uppercase', fontWeight: 'bold' }}>
               Menu
+            </div>
+
+            <div className="admin-sidebar-group" style={{ marginBottom: '16px' }}>
+              <Link
+                href="/tenantadmin/customers"
+                className={`admin-sidebar-group-btn ${pathname === '/tenantadmin/customers' || pathname.startsWith('/tenantadmin/customers/') ? 'active' : ''}`}
+                style={{ textDecoration: 'none' }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <User size={20} />
+                  Customers
+                </div>
+              </Link>
             </div>
 
             <div className="admin-sidebar-group">

@@ -84,8 +84,7 @@ export default function BottomNav() {
   const router = useRouter();
   const { isLoggedIn, isPopupOpen } = useAuth();
 
-  const isLightNav = pathname !== "/";
-  const isLight = isLightNav || isPopupOpen;
+  const isLight = false; // Force dark mode navigation across all screens
 
   const tabs = [
     { name: "Home",    href: "/",            NavIcon: NavHome,    protected: false },
@@ -106,9 +105,9 @@ export default function BottomNav() {
     <div
       className="shrink-0 px-2 pb-[env(safe-area-inset-bottom,12px)] pt-2 z-50 transition-all duration-300"
       style={{
-        background: (isLightNav || isPopupOpen) ? "#ffffff" : "linear-gradient(135deg, #061246 0%, #1a40b4 100%)",
-        borderTop: (isLightNav || isPopupOpen) ? "2px solid #061246" : "1px solid rgba(255,255,255,0.09)",
-        boxShadow: (isLightNav || isPopupOpen) ? "0 -4px 12px rgba(0,0,0,0.08)" : "0 -4px 20px rgba(6,18,70,0.5)",
+        background: "linear-gradient(135deg, #061246 0%, #1a40b4 100%)",
+        borderTop: "1px solid rgba(255,255,255,0.09)",
+        boxShadow: "0 -4px 20px rgba(6,18,70,0.5)",
       }}
     >
       <div className="flex justify-between items-center h-14">

@@ -7,10 +7,21 @@ import { useAuth } from "@/components/auth";
 
 type Step = "login" | "forgot_phone" | "forgot_otp" | "forgot_reset" | "register_details" | "register_otp" | "register_password";
 
+const countries = {
+  US: { flag: "🇺🇸", code: "+1" },
+  DO: { flag: "🇩🇴", code: "+1" },
+  IN: { flag: "🇮🇳", code: "+91" }
+};
+type CountryKey = keyof typeof countries;
+
 export default function Login() {
   const router = useRouter();
   const { login } = useAuth();
   const [step, setStep] = useState<Step>("login");
+  const [loginCountry, setLoginCountry] = useState<CountryKey>("US");
+  const [forgotCountry, setForgotCountry] = useState<CountryKey>("US");
+  const [regCellCountry, setRegCellCountry] = useState<CountryKey>("US");
+  const [regTelCountry, setRegTelCountry] = useState<CountryKey>("US");
   const [showPassword, setShowPassword] = useState(false);
   const [countdown, setCountdown] = useState(60);
 
@@ -196,12 +207,27 @@ export default function Login() {
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-1.5">
                 <label className="text-black font-normal text-[13px] ml-1">Mobile Number</label>
-                <input 
-                  type="tel" 
-                  placeholder="Mobile number" 
-                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
-                  required 
-                />
+                <div className="flex bg-[#F4F5F7] rounded-xl overflow-hidden border border-white shadow-sm focus-within:border-[#eb5b27] focus-within:ring-1 focus-within:ring-[#eb5b27]">
+                  <div className="relative bg-[#EAEAEE] px-3.5 py-3.5 flex items-center gap-1.5 text-sm font-bold text-black border-r border-gray-200">
+                    <span>{countries[loginCountry].flag}</span>
+                    <span>{countries[loginCountry].code}</span>
+                    <select 
+                      value={loginCountry} 
+                      onChange={(e) => setLoginCountry(e.target.value as CountryKey)}
+                      className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                    >
+                      <option value="US">🇺🇸 USA (+1)</option>
+                      <option value="DO">🇩🇴 Dominican Republic (+1)</option>
+                      <option value="IN">🇮🇳 India (+91)</option>
+                    </select>
+                  </div>
+                  <input 
+                    type="tel" 
+                    placeholder="Mobile number" 
+                    className="flex-1 px-4 py-3.5 text-sm text-gray-900 font-medium outline-none placeholder-gray-400 bg-transparent border-none"
+                    required 
+                  />
+                </div>
               </div>
               <div className="flex flex-col gap-1.5">
                 <label className="text-black font-normal text-[13px] ml-1">Password</label>
@@ -209,7 +235,7 @@ export default function Login() {
                   <input 
                     type={showPassword ? "text" : "password"} 
                     placeholder="Password" 
-                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] pr-12"
+                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] pr-12"
                     required 
                   />
                   <button 
@@ -233,7 +259,7 @@ export default function Login() {
               </button>
             </div>
 
-            <button type="submit" className="w-full bg-[#eb5b27] text-white font-semibold text-[12px] py-3.5 rounded-full shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
+            <button type="submit" className="w-full bg-[#eb5b27] text-white font-semibold text-[12px] h-12 rounded-xl flex items-center justify-center shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
               Log In
             </button>
           </form>
@@ -242,14 +268,29 @@ export default function Login() {
         {step === "forgot_phone" && (
           <form onSubmit={handleSendOTP} className="flex flex-col flex-1 mt-6">
             <div className="flex flex-col gap-4">
-              <input 
-                type="tel" 
-                placeholder="Mobile Number" 
-                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
-                required 
-              />
+              <div className="flex bg-[#F4F5F7] rounded-xl overflow-hidden border border-white shadow-sm focus-within:border-[#eb5b27] focus-within:ring-1 focus-within:ring-[#eb5b27]">
+                <div className="relative bg-[#EAEAEE] px-3.5 py-3.5 flex items-center gap-1.5 text-sm font-bold text-black border-r border-gray-200">
+                  <span>{countries[forgotCountry].flag}</span>
+                  <span>{countries[forgotCountry].code}</span>
+                  <select 
+                    value={forgotCountry} 
+                    onChange={(e) => setForgotCountry(e.target.value as CountryKey)}
+                    className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                  >
+                    <option value="US">🇺🇸 USA (+1)</option>
+                    <option value="DO">🇩🇴 Dominican Republic (+1)</option>
+                    <option value="IN">🇮🇳 India (+91)</option>
+                  </select>
+                </div>
+                <input 
+                  type="tel" 
+                  placeholder="Mobile Number" 
+                  className="flex-1 px-4 py-3.5 text-sm text-gray-900 font-medium outline-none placeholder-gray-400 bg-transparent border-none"
+                  required 
+                />
+              </div>
             </div>
-            <button type="submit" className="w-full mt-8 bg-[#eb5b27] text-white font-semibold text-[12px] py-3.5 rounded-full shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
+            <button type="submit" className="w-full mt-8 bg-[#eb5b27] text-white font-semibold text-[12px] h-12 rounded-xl flex items-center justify-center shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
               Send OTP
             </button>
           </form>
@@ -262,7 +303,7 @@ export default function Login() {
                 type="text" 
                 placeholder="----" 
                 maxLength={4}
-                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-bold text-center tracking-[0.8em] text-[20px] placeholder-gray-300 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
+                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-bold text-center tracking-[0.8em] text-[20px] placeholder-gray-300 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
                 required 
               />
             </div>
@@ -275,7 +316,7 @@ export default function Login() {
                 </button>
               )}
             </div>
-            <button type="submit" className="w-full mt-4 bg-[#eb5b27] text-white font-semibold text-[12px] py-3.5 rounded-full shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
+            <button type="submit" className="w-full mt-4 bg-[#eb5b27] text-white font-semibold text-[12px] h-12 rounded-xl flex items-center justify-center shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
               Verify Code
             </button>
           </form>
@@ -287,17 +328,17 @@ export default function Login() {
               <input 
                 type="password" 
                 placeholder="New Password" 
-                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
+                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
                 required 
               />
               <input 
                 type="password" 
                 placeholder="Confirm Password" 
-                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
+                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
                 required 
               />
             </div>
-            <button type="submit" className="w-full mt-8 bg-[#eb5b27] text-white font-semibold text-[12px] py-3.5 rounded-full shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
+            <button type="submit" className="w-full mt-8 bg-[#eb5b27] text-white font-semibold text-[12px] h-12 rounded-xl flex items-center justify-center shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
               Reset & Log In
             </button>
           </form>
@@ -314,7 +355,7 @@ export default function Login() {
                     value={regFirstName}
                     onChange={(e) => setRegFirstName(e.target.value)}
                     placeholder="First Name" 
-                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] disabled:opacity-50"
+                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] disabled:opacity-50"
                     required 
                     disabled={isMatched}
                   />
@@ -326,7 +367,7 @@ export default function Login() {
                     value={regLastName}
                     onChange={(e) => setRegLastName(e.target.value)}
                     placeholder="Last Name" 
-                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] disabled:opacity-50"
+                    className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] disabled:opacity-50"
                     required 
                     disabled={isMatched}
                   />
@@ -335,56 +376,94 @@ export default function Login() {
 
               <div className="flex flex-col gap-1.5">
                 <label className="text-black font-normal text-[13px] ml-1">Cell Number</label>
-                <input 
-                  type="tel" 
-                  value={regMobile}
-                  onChange={(e) => setRegMobile(e.target.value)}
-                  placeholder="Cell Number" 
-                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] disabled:opacity-50"
-                  required 
-                  disabled={isMatched}
-                />
+                <div className={`flex bg-[#F4F5F7] rounded-xl overflow-hidden border border-white shadow-sm focus-within:border-[#eb5b27] focus-within:ring-1 focus-within:ring-[#eb5b27] ${isMatched ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                  <div className="relative bg-[#EAEAEE] px-3.5 py-3.5 flex items-center gap-1.5 text-sm font-bold text-black border-r border-gray-200">
+                    <span>{countries[regCellCountry].flag}</span>
+                    <span>{countries[regCellCountry].code}</span>
+                    {!isMatched && (
+                      <select 
+                        value={regCellCountry} 
+                        onChange={(e) => setRegCellCountry(e.target.value as CountryKey)}
+                        className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                      >
+                        <option value="US">🇺🇸 USA (+1)</option>
+                        <option value="DO">🇩🇴 Dominican Republic (+1)</option>
+                        <option value="IN">🇮🇳 India (+91)</option>
+                      </select>
+                    )}
+                  </div>
+                  <input 
+                    type="tel" 
+                    value={regMobile}
+                    onChange={(e) => setRegMobile(e.target.value)}
+                    placeholder="Cell Number" 
+                    className="flex-1 px-4 py-3.5 text-sm text-gray-900 font-medium outline-none placeholder-gray-400 bg-transparent border-none"
+                    required 
+                    disabled={isMatched}
+                  />
+                </div>
               </div>
 
               {isMatched && (
                 <>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-black font-normal text-[13px] ml-1">Address 1</label>
-                    <input type="text" placeholder="Address 1" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" required />
+                    <input type="text" placeholder="Address 1" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" required />
                   </div>
 
                   <div className="flex gap-4">
                     <div className="flex flex-col gap-1.5 flex-1">
                       <label className="text-black font-normal text-[13px] ml-1">City</label>
-                      <input type="text" placeholder="City" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" required />
+                      <input type="text" placeholder="City" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" required />
                     </div>
                     <div className="flex flex-col gap-1.5 flex-1">
                       <label className="text-black font-normal text-[13px] ml-1">State</label>
-                      <input type="text" placeholder="State" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" required />
+                      <input type="text" placeholder="State" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" required />
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-black font-normal text-[13px] ml-1">Zip Country</label>
-                    <select className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] appearance-none" required defaultValue="">
-                      <option value="" disabled>Select Zip Country</option>
-                      <option value="USA">USA</option>
-                      <option value="DOM">Dominican Republic</option>
-                    </select>
+                    <label className="text-black font-normal text-[13px] ml-1">Zip Code</label>
+                    <input 
+                      type="text" 
+                      placeholder="Zip Code" 
+                      className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" 
+                      required 
+                    />
                   </div>
 
                   <div className="flex flex-col gap-1.5">
                     <label className="text-black font-normal text-[13px] ml-1">Email Id</label>
-                    <input type="email" placeholder="Email ID" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" required />
+                    <input type="email" placeholder="Email ID" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" required />
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-black font-normal text-[13px] ml-1">Telephone Number</label>
-                    <input type="tel" placeholder="Telephone Number" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" required />
+                    <div className="flex bg-[#F4F5F7] rounded-xl overflow-hidden border border-white shadow-sm focus-within:border-[#eb5b27] focus-within:ring-1 focus-within:ring-[#eb5b27]">
+                      <div className="relative bg-[#EAEAEE] px-3.5 py-3.5 flex items-center gap-1.5 text-sm font-bold text-black border-r border-gray-200">
+                        <span>{countries[regTelCountry].flag}</span>
+                        <span>{countries[regTelCountry].code}</span>
+                        <select 
+                          value={regTelCountry} 
+                          onChange={(e) => setRegTelCountry(e.target.value as CountryKey)}
+                          className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                        >
+                          <option value="US">🇺🇸 USA (+1)</option>
+                          <option value="DO">🇩🇴 Dominican Republic (+1)</option>
+                          <option value="IN">🇮🇳 India (+91)</option>
+                        </select>
+                      </div>
+                      <input 
+                        type="tel" 
+                        placeholder="Telephone Number" 
+                        className="flex-1 px-4 py-3.5 text-sm text-gray-900 font-medium outline-none placeholder-gray-400 bg-transparent border-none" 
+                        required 
+                      />
+                    </div>
                   </div>
                   
                   <div className="flex flex-col gap-1.5">
                     <label className="text-black font-normal text-[13px] ml-1">Country</label>
-                    <select className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] appearance-none" required defaultValue="">
+                    <select className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] appearance-none" required defaultValue="">
                       <option value="" disabled>Select Country</option>
                       <option value="USA">USA</option>
                       <option value="DOM">Dominican Republic</option>
@@ -400,7 +479,7 @@ export default function Login() {
               </div>
             )}
 
-            <button type="submit" className="w-full mt-8 shrink-0 bg-[#eb5b27] text-white font-semibold text-[12px] py-3.5 rounded-full shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
+            <button type="submit" className="w-full mt-8 shrink-0 bg-[#eb5b27] text-white font-semibold text-[12px] h-12 rounded-xl flex items-center justify-center shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
               Continue
             </button>
           </form>
@@ -413,7 +492,7 @@ export default function Login() {
                 type="text" 
                 placeholder="----" 
                 maxLength={4}
-                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-bold text-center tracking-[0.8em] text-[20px] placeholder-gray-300 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
+                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-bold text-center tracking-[0.8em] text-[20px] placeholder-gray-300 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
                 required 
               />
             </div>
@@ -426,7 +505,7 @@ export default function Login() {
                 </button>
               )}
             </div>
-            <button type="submit" className="w-full mt-4 bg-[#eb5b27] text-white font-semibold text-[12px] py-3.5 rounded-full shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
+            <button type="submit" className="w-full mt-4 bg-[#eb5b27] text-white font-semibold text-[12px] h-12 rounded-xl flex items-center justify-center shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
               Verify Code
             </button>
           </form>
@@ -440,7 +519,7 @@ export default function Login() {
                 <input 
                   type="password" 
                   placeholder="Password" 
-                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
+                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
                   required 
                 />
               </div>
@@ -449,12 +528,12 @@ export default function Login() {
                 <input 
                   type="password" 
                   placeholder="Confirm Password" 
-                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3.5 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
+                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
                   required 
                 />
               </div>
             </div>
-            <button type="submit" className="w-full mt-8 bg-[#eb5b27] text-white font-semibold text-[12px] py-3.5 rounded-full shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
+            <button type="submit" className="w-full mt-8 bg-[#eb5b27] text-white font-semibold text-[12px] h-12 rounded-xl flex items-center justify-center shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]">
               Complete Registration
             </button>
           </form>
