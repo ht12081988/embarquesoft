@@ -345,7 +345,7 @@ export default function NewSchedulePickup() {
                 <input type="text" placeholder="Sector" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" />
               </div>
 
-              <div className="flex gap-3">
+              <div className="hidden gap-3">
                 <div className="flex flex-col gap-1.5 flex-1">
                   <label className="text-black font-normal text-[13px] ml-1">Latitude</label>
                   <input type="text" readOnly placeholder="Latitude" className="w-full bg-[#EAEAEE] text-gray-500 rounded-xl px-4 h-12 text-sm outline-none font-medium border-none cursor-not-allowed" />
