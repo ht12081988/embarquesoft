@@ -150,6 +150,19 @@ export default function Profile() {
                   <span className="text-white font-bold text-[15px] tracking-wide">Logout</span>
                 </button>
               </div>
+
+              <div className="mt-8 text-center w-full">
+                <a 
+                  href="https://embarquesoftpro.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="inline-block text-[13px] font-medium tracking-wide hover:opacity-80 active:scale-95 transition-all cursor-pointer"
+                >
+                  <span className="text-[#2C3258]">© </span>
+                  <span className="text-[#eb5b27]">Embarque</span>
+                  <span className="text-[#2C3258]">Softpro.com</span>
+                </a>
+              </div>
             </div>
           )}
 

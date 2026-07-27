@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ArrowLeft, Image as ImageIcon, Upload } from "lucide-react";
+import { ArrowLeft, Image as ImageIcon, Upload, Camera } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/components/auth";
@@ -197,10 +197,17 @@ export default function NewShipTo() {
 
           <div className="flex flex-col gap-1.5 mt-2">
             <label className="text-black font-normal text-[13px] ml-1">License Picture</label>
-            <div className="w-full bg-[#F4F5F7] border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] border-2 border-dashed border-gray-300 rounded-2xl h-32 flex flex-col items-center justify-center gap-2 cursor-pointer active:scale-[0.99] transition-transform">
-              <div className="flex items-center gap-2 bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] text-white font-bold text-xs py-2 px-5 rounded-full shadow-sm">
-                <Upload size={14} />
-                <span>Upload Picture</span>
+            <div className="w-full bg-[#F4F5F7] border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] border-2 border-dashed border-gray-300 rounded-2xl p-4 flex flex-col items-center justify-center gap-3">
+              <span className="text-gray-500 text-xs font-medium">Choose an option</span>
+              <div className="flex gap-3 w-full max-w-sm">
+                <div className="flex flex-1 justify-center items-center gap-2 bg-white text-[#2C3258] border border-gray-200 font-bold text-xs py-2.5 px-4 rounded-xl shadow-sm cursor-pointer active:scale-95 transition-all hover:bg-gray-50">
+                  <Camera size={16} className="text-[#eb5b27]" />
+                  <span className="whitespace-nowrap">Take Picture</span>
+                </div>
+                <div className="flex flex-1 justify-center items-center gap-2 bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] text-white border border-transparent font-bold text-xs py-2.5 px-4 rounded-xl shadow-sm cursor-pointer active:scale-95 transition-all">
+                  <Upload size={16} />
+                  <span className="whitespace-nowrap">Upload</span>
+                </div>
               </div>
             </div>
           </div>

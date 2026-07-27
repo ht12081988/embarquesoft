@@ -106,7 +106,7 @@ export default function Login() {
 
   return (
     <div 
-      className="flex flex-col min-h-[100dvh] bg-cover bg-center font-sans relative"
+      className="flex flex-col h-[100dvh] bg-cover bg-center font-sans relative overflow-hidden"
       style={{ backgroundImage: "url('/App_Background.png')" }}
     >
       <div className="absolute inset-0 bg-black/40 backdrop-blur-[3px] z-0 pointer-events-none"></div>
@@ -538,6 +538,19 @@ export default function Login() {
             </button>
           </form>
         )}
+
+        <div className="mt-auto pt-8 pb-2 text-center w-full shrink-0">
+          <a 
+            href="https://embarquesoftpro.com" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="inline-block text-[13px] font-medium tracking-wide hover:opacity-80 active:scale-95 transition-all cursor-pointer"
+          >
+            <span className="text-[#2C3258]">© </span>
+            <span className="text-[#eb5b27]">Embarque</span>
+            <span className="text-[#2C3258]">Softpro.com</span>
+          </a>
+        </div>
       </div>
     </div>
   );
