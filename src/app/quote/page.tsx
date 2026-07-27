@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowLeft, Upload, CheckCircle } from "lucide-react";
+import { ArrowLeft, Upload, Camera, CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/components/auth";
@@ -162,28 +162,57 @@ export default function QuotePage() {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-black font-medium text-[13px] ml-1">Attach Image</label>
-              <div className="relative">
-                <input 
-                  type="file" 
-                  accept="image/*"
-                  onChange={(e) => {
-                    if (e.target.files && e.target.files[0]) {
-                      setFile(e.target.files[0]);
-                    }
-                  }}
-                  className="hidden"
-                  id="file-upload"
-                />
-                <label 
-                  htmlFor="file-upload"
-                  className="w-full flex items-center justify-between bg-[#F4F5F7] border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] rounded-xl px-4 py-3 text-sm font-medium cursor-pointer active:scale-[0.99] transition-transform"
-                >
-                  <span className={file ? "text-[#eb5b27] font-bold" : "text-gray-400"}>
-                    {file ? file.name : "Choose an image..."}
-                  </span>
-                  <Upload size={18} className="text-[#1A1A1A]" />
-                </label>
+              <div className="w-full bg-[#f8f9fa] border-2 border-dashed border-gray-200 rounded-2xl p-4 flex flex-col items-center justify-center gap-3">
+                <span className="text-gray-500 text-[13px] font-medium">Choose an option</span>
+                <div className="flex gap-3 w-full">
+                  <div className="relative flex-1">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      capture="environment"
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files[0]) {
+                          setFile(e.target.files[0]);
+                        }
+                      }}
+                      className="hidden"
+                      id="camera-upload"
+                    />
+                    <label
+                      htmlFor="camera-upload"
+                      className="w-full flex items-center justify-center gap-2 bg-white text-[#1a2b5e] border border-gray-200 font-bold text-sm py-3 px-4 rounded-xl shadow-sm cursor-pointer active:scale-95 transition-all hover:bg-gray-50"
+                    >
+                      <Camera size={18} className="text-[#eb5b27]" />
+                      <span className="whitespace-nowrap">Take Picture</span>
+                    </label>
+                  </div>
+                  <div className="relative flex-1">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files[0]) {
+                          setFile(e.target.files[0]);
+                        }
+                      }}
+                      className="hidden"
+                      id="file-upload"
+                    />
+                    <label
+                      htmlFor="file-upload"
+                      className="w-full flex items-center justify-center gap-2 bg-[#1a2b5e] text-white font-bold text-sm py-3 px-4 rounded-xl shadow-sm cursor-pointer active:scale-95 transition-all hover:bg-[#15234d]"
+                    >
+                      <Upload size={18} />
+                      <span className="whitespace-nowrap">Upload</span>
+                    </label>
+                  </div>
+                </div>
               </div>
+              {file && (
+                <div className="text-[12px] font-medium text-[#eb5b27] text-center mt-1">
+                  Selected: {file.name}
+                </div>
+              )}
             </div>
 
             <button 

@@ -164,11 +164,14 @@ export default function NewSchedulePickup() {
           ) : activeTab === "customer" ? (
             /* CUSTOMER TAB FIELDS */
             <>
+              <div className="bg-yellow-50 text-yellow-800 text-xs p-3 rounded-xl mb-2 font-medium border border-yellow-200">
+                * Note: User details are read-only. You can change these details from your Profile if needed.
+              </div>
               <div className="flex flex-col gap-1.5">
                 <label className="text-black font-normal text-[13px] ml-1">Country <span className="text-red-500">*</span></label>
-                <select 
+                <select disabled 
                   style={selectStyle}
-                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm font-medium outline-none border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] appearance-none"
+                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm font-medium outline-none border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] appearance-none cursor-not-allowed opacity-70"
                 >
                   <option value="USA">🇺🇸 USA</option>
                 </select>
@@ -177,7 +180,7 @@ export default function NewSchedulePickup() {
               <div className="flex flex-col gap-1.5">
                 <label className="text-black font-normal text-[13px] ml-1">Select Address From The List</label>
                 <div className="flex items-center gap-2">
-                  <select 
+                  <select disabled 
                     style={selectStyle}
                     className="flex-1 bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm font-medium outline-none border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] appearance-none"
                   >
@@ -192,52 +195,52 @@ export default function NewSchedulePickup() {
               <div className="flex gap-3">
                 <div className="flex flex-col gap-1.5 flex-1">
                   <label className="text-black font-normal text-[13px] ml-1">First Name <span className="text-red-500">*</span></label>
-                  <input type="text" placeholder="Hardik" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" />
+                  <input type="text" readOnly disabled placeholder="Hardik" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] cursor-not-allowed opacity-70" />
                 </div>
                 <div className="flex flex-col gap-1.5 flex-1">
                   <label className="text-black font-normal text-[13px] ml-1">Last Name <span className="text-red-500">*</span></label>
-                  <input type="text" placeholder="Trivedi" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" />
+                  <input type="text" readOnly disabled placeholder="Trivedi" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] cursor-not-allowed opacity-70" />
                 </div>
               </div>
 
               <div className="flex flex-col gap-1.5">
                 <label className="text-black font-normal text-[13px] ml-1">Pick Up Address 1 <span className="text-red-500">*</span></label>
-                <input type="text" placeholder="Address 1" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" />
+                <input type="text" readOnly disabled placeholder="Address 1" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] cursor-not-allowed opacity-70" />
               </div>
 
               <div className="flex flex-col gap-1.5">
                 <label className="text-black font-normal text-[13px] ml-1">Pick Up Address 2</label>
-                <input type="text" placeholder="Address 2" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" />
+                <input type="text" readOnly disabled placeholder="Address 2" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] cursor-not-allowed opacity-70" />
               </div>
 
               <div className="flex gap-3">
                 <div className="flex flex-col gap-1.5 flex-1">
                   <label className="text-black font-normal text-[13px] ml-1">Apartment</label>
-                  <input type="text" placeholder="Apt" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" />
+                  <input type="text" readOnly disabled placeholder="Apt" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] cursor-not-allowed opacity-70" />
                 </div>
                 <div className="flex flex-col gap-1.5 flex-1">
                   <label className="text-black font-normal text-[13px] ml-1">City</label>
-                  <input type="text" placeholder="City" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" />
+                  <input type="text" readOnly disabled placeholder="City" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] cursor-not-allowed opacity-70" />
                 </div>
               </div>
               
               <div className="flex gap-3">
                 <div className="flex flex-col gap-1.5 flex-1">
                   <label className="text-black font-normal text-[13px] ml-1">State</label>
-                  <input type="text" placeholder="State" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" />
+                  <input type="text" readOnly disabled placeholder="State" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] cursor-not-allowed opacity-70" />
                 </div>
                 <div className="flex flex-col gap-1.5 flex-1">
                   <label className="text-black font-normal text-[13px] ml-1">Zip</label>
-                  <input type="text" placeholder="Zip Code" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" />
+                  <input type="text" readOnly disabled placeholder="Zip Code" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] cursor-not-allowed opacity-70" />
                 </div>
               </div>
 
               <div className="hidden gap-3">
                 <div className="flex flex-col gap-1.5 flex-1">
-                  <input type="text" readOnly placeholder="Latitude" className="w-full bg-[#EAEAEE] text-gray-500 rounded-xl px-4 h-12 text-sm outline-none font-medium border-none cursor-not-allowed" />
+                  <input type="text" disabled placeholder="Latitude" className="w-full bg-[#EAEAEE] text-gray-500 rounded-xl px-4 h-12 text-sm outline-none font-medium border-none cursor-not-allowed" />
                 </div>
                 <div className="flex flex-col gap-1.5 flex-1">
-                  <input type="text" readOnly placeholder="Longitude" className="w-full bg-[#EAEAEE] text-gray-500 rounded-xl px-4 h-12 text-sm outline-none font-medium border-none cursor-not-allowed" />
+                  <input type="text" disabled placeholder="Longitude" className="w-full bg-[#EAEAEE] text-gray-500 rounded-xl px-4 h-12 text-sm outline-none font-medium border-none cursor-not-allowed" />
                 </div>
               </div>
 
@@ -248,7 +251,7 @@ export default function NewSchedulePickup() {
                     <span>🇺🇸</span>
                     <span>+1</span>
                   </div>
-                  <input type="tel" placeholder="201-555-0123" className="flex-1 px-4 h-12 text-sm text-gray-900 font-medium outline-none placeholder-gray-400 bg-transparent border-none" />
+                  <input type="tel" readOnly disabled placeholder="201-555-0123" className="flex-1 px-4 h-12 text-sm text-gray-900 font-medium outline-none placeholder-gray-400 bg-transparent border-none" />
                 </div>
               </div>
 
@@ -259,13 +262,13 @@ export default function NewSchedulePickup() {
                     <span>🇺🇸</span>
                     <span>+1</span>
                   </div>
-                  <input type="tel" placeholder="201-555-0123" className="flex-1 px-4 h-12 text-sm text-gray-900 font-medium outline-none placeholder-gray-400 bg-transparent border-none" />
+                  <input type="tel" readOnly disabled placeholder="201-555-0123" className="flex-1 px-4 h-12 text-sm text-gray-900 font-medium outline-none placeholder-gray-400 bg-transparent border-none" />
                 </div>
               </div>
 
               <div className="flex flex-col gap-1.5">
                 <label className="text-black font-normal text-[13px] ml-1">Email Id <span className="text-red-500">*</span></label>
-                <input type="email" placeholder="gregory@yahoo.com" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" />
+                <input type="email" readOnly disabled placeholder="gregory@yahoo.com" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] cursor-not-allowed opacity-70" />
               </div>
 
             </>
@@ -384,27 +387,64 @@ export default function NewSchedulePickup() {
               </div>
 
               <div className="flex flex-col gap-1.5">
+                <label className="text-black font-normal text-[13px] ml-1">License ID Type</label>
+                <select 
+                  style={selectStyle}
+                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm font-medium outline-none border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] appearance-none"
+                >
+                  <option value="">Select ID Type</option>
+                  <option value="Driver's License">Driver's License</option>
+                  <option value="Passport">Passport</option>
+                  <option value="National ID">National ID</option>
+                  <option value="State ID">State ID</option>
+                </select>
+              </div>
+
+              <div className="flex flex-col gap-1.5">
                 <label className="text-black font-normal text-[13px] ml-1">License Id</label>
                 <input type="text" placeholder="132141414" className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 h-12 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]" />
               </div>
 
               <div className="flex flex-col gap-1.5 mt-2">
                 <label className="text-black font-normal text-[13px] ml-1">License Picture</label>
-                <div className="w-full bg-[#F4F5F7] border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] border-2 border-dashed border-gray-300 rounded-2xl p-4 flex flex-col items-center justify-center gap-3">
-                  <span className="text-gray-500 text-xs font-medium">Choose an option</span>
-                  <div className="flex gap-3 w-full max-w-sm">
-                    <div className="flex flex-1 justify-center items-center gap-2 bg-white text-[#2C3258] border border-gray-200 font-bold text-xs py-2.5 px-4 rounded-xl shadow-sm cursor-pointer active:scale-95 transition-all hover:bg-gray-50">
-                      <Camera size={16} className="text-[#eb5b27]" />
-                      <span className="whitespace-nowrap">Take Picture</span>
+                <div className="w-full bg-[#f8f9fa] border-2 border-dashed border-gray-200 rounded-2xl p-4 flex flex-col items-center justify-center gap-3">
+                  <span className="text-gray-500 text-[13px] font-medium">Choose an option</span>
+                  <div className="flex gap-3 w-full">
+                    <div className="relative flex-1">
+                      <input 
+                        type="file" 
+                        accept="image/*"
+                        capture="environment"
+                        className="hidden"
+                        id="camera-upload-other"
+                      />
+                      <label 
+                        htmlFor="camera-upload-other"
+                        className="w-full flex items-center justify-center gap-2 bg-white text-[#1a2b5e] border border-gray-200 font-bold text-sm py-3 px-4 rounded-xl shadow-sm cursor-pointer active:scale-95 transition-all hover:bg-gray-50"
+                      >
+                        <Camera size={18} className="text-[#eb5b27]" />
+                        <span className="whitespace-nowrap">Take Picture</span>
+                      </label>
                     </div>
-                    <div className="flex flex-1 justify-center items-center gap-2 bg-[linear-gradient(135deg,#061246_0%,#1a40b4_100%)] text-white border border-transparent font-bold text-xs py-2.5 px-4 rounded-xl shadow-sm cursor-pointer active:scale-95 transition-all">
-                      <Upload size={16} />
-                      <span className="whitespace-nowrap">Upload</span>
+                    <div className="relative flex-1">
+                      <input 
+                        type="file" 
+                        accept="image/*"
+                        className="hidden"
+                        id="file-upload-other"
+                      />
+                      <label 
+                        htmlFor="file-upload-other"
+                        className="w-full flex items-center justify-center gap-2 bg-[#1a2b5e] text-white font-bold text-sm py-3 px-4 rounded-xl shadow-sm cursor-pointer active:scale-95 transition-all hover:bg-[#15234d]"
+                      >
+                        <Upload size={18} />
+                        <span className="whitespace-nowrap">Upload</span>
+                      </label>
                     </div>
                   </div>
                 </div>
               </div>
-            </>
+</>
           )}
         </div>
         

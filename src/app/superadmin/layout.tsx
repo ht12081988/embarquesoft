@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Tag, LogOut, User, Users } from 'lucide-react';
+import { LayoutDashboard, Tag, LogOut, User, Users, Bell } from 'lucide-react';
 import '../tenantadmin/admin.css';
 
 export default function SuperAdminLayout({
@@ -16,6 +16,7 @@ export default function SuperAdminLayout({
   const navItems = [
     { name: 'Tenants', href: '/superadmin/tenants', icon: Users },
     { name: 'Deals', href: '/superadmin/deals', icon: Tag },
+    { name: 'Push Notifications', href: '/superadmin/notifications', icon: Bell },
   ];
 
   return (

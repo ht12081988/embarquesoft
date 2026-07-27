@@ -33,7 +33,10 @@ export default function SchedulePickupDetail({ params }: { params: Promise<{ id:
       lng: "-89.6542",
       cell: "+1 212-444-8574",
       phone: "+1 201-555-0123",
-      email: "ricardo@example.com"
+      email: "ricardo@example.com",
+      idType: "Passport",
+      license: "LIC-1234567",
+      licenseImage: "/placeholder.png",
     },
     shipto: {
       country: "Dominican Republic",
@@ -133,7 +136,21 @@ export default function SchedulePickupDetail({ params }: { params: Promise<{ id:
               <span className="text-gray-900 text-[13px] font-medium">{data.customer.city}, {data.customer.state} {data.customer.zip}</span>
               <span className="text-gray-500 text-[12px] mt-1">{data.customer.country}</span>
             </div>
-
+            <div className="grid grid-cols-2 gap-3 mt-3">
+              <div className="flex flex-col">
+                <span className="text-gray-500 text-[11px] font-bold uppercase">ID Type</span>
+                <span className="text-gray-900 text-[13px] font-medium">{data.customer.idType || "-"}</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-gray-500 text-[11px] font-bold uppercase">License ID</span>
+                <span className="text-gray-900 text-[13px] font-medium">{data.customer.license || "-"}</span>
+              </div>
+            </div>
+            {data.customer.licenseImage && (
+              <div className="mt-3">
+                <img src={data.customer.licenseImage} alt="License" className="w-full h-32 object-cover rounded" />
+              </div>
+            )}
             <div className="grid grid-cols-1 gap-3">
               <div className="flex flex-col border border-gray-100 rounded-lg p-2.5">
                 <span className="text-gray-500 text-[11px] font-bold uppercase mb-0.5">Cell</span>

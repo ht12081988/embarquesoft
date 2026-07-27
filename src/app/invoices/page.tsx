@@ -105,10 +105,14 @@ export default function InvoiceList() {
         {/* Content Section - scrollable list */}
         <div className="flex-1 p-5 pt-4 pb-24 flex flex-col gap-4 overflow-y-auto no-scrollbar">
           {/* Page Title */}
-          <div className="flex items-center justify-center mb-1 w-full text-white">
-            <h1 className="text-base font-normal tracking-wide">
+          <div className="flex items-center justify-between mb-1 w-full text-white">
+            <button onClick={() => router.back()} className="p-2 -ml-2 active:scale-95 transition-transform cursor-pointer">
+              <ArrowLeft size={20} />
+            </button>
+            <h1 className="text-base font-normal tracking-wide flex-1 text-center">
               Invoice List
             </h1>
+            <div className="w-10"></div>
           </div>
 
           {/* Search Bar */}

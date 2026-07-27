@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ArrowLeft, Save, Upload } from "lucide-react";
+import { ArrowLeft, Save, Upload, Camera } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/components/auth";
@@ -110,10 +110,42 @@ export default function NewClaim() {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-black font-normal text-[13px]">Attach Image</label>
-              <div className="w-full bg-[#f4f5f7]/90 border border-white rounded-xl px-4 py-3 flex items-center justify-between shadow-sm cursor-pointer active:bg-gray-200 transition-colors">
-                <span className="text-gray-400 font-medium"></span>
-                <Upload size={18} className="text-[#eb5b27]" />
-              </div>
+                <div className="w-full bg-[#f8f9fa] border-2 border-dashed border-gray-200 rounded-2xl p-4 flex flex-col items-center justify-center gap-3">
+                  <span className="text-gray-500 text-[13px] font-medium">Choose an option</span>
+                  <div className="flex gap-3 w-full">
+                    <div className="relative flex-1">
+                      <input 
+                        type="file" 
+                        accept="image/*"
+                        capture="environment"
+                        className="hidden"
+                        id="camera-upload-other"
+                      />
+                      <label 
+                        htmlFor="camera-upload-other"
+                        className="w-full flex items-center justify-center gap-2 bg-white text-[#1a2b5e] border border-gray-200 font-bold text-sm py-3 px-4 rounded-xl shadow-sm cursor-pointer active:scale-95 transition-all hover:bg-gray-50"
+                      >
+                        <Camera size={18} className="text-[#eb5b27]" />
+                        <span className="whitespace-nowrap">Take Picture</span>
+                      </label>
+                    </div>
+                    <div className="relative flex-1">
+                      <input 
+                        type="file" 
+                        accept="image/*"
+                        className="hidden"
+                        id="file-upload-other"
+                      />
+                      <label 
+                        htmlFor="file-upload-other"
+                        className="w-full flex items-center justify-center gap-2 bg-[#1a2b5e] text-white font-bold text-sm py-3 px-4 rounded-xl shadow-sm cursor-pointer active:scale-95 transition-all hover:bg-[#15234d]"
+                      >
+                        <Upload size={18} />
+                        <span className="whitespace-nowrap">Upload</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
             </div>
 
             {/* Submit Button */}
