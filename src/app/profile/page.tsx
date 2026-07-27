@@ -248,7 +248,10 @@ export default function Profile() {
                 </div>
               </div>
 
-              <button className="w-full bg-[#eb5b27] hover:bg-[#d94d1f] text-white font-semibold text-[13px] h-12 rounded-xl flex items-center justify-center mt-4 shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform mb-4">
+              <button
+                type="button"
+                className="w-full mt-2 shrink-0 bg-[#eb5b27] hover:bg-[#d94d1f] text-white font-semibold text-[13px] h-12 rounded-xl flex items-center justify-center shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform mb-4"
+              >
                 Update Profile
               </button>
             </div>
@@ -273,7 +276,7 @@ export default function Profile() {
                 <input type="password" placeholder="Confirm new password" className="w-full bg-[#f4f5f7]/90 border border-white shadow-sm rounded-xl px-4 py-2.5 text-gray-900 font-medium outline-none focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] placeholder-gray-400" />
               </div>
 
-              <button className="w-full bg-[#eb5b27] text-white font-semibold text-[13px] h-12 rounded-xl flex items-center justify-center mt-4 shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f] mb-4">
+              <button className="w-full mt-2 shrink-0 bg-[#eb5b27] hover:bg-[#d94d1f] text-white font-semibold text-[13px] h-12 rounded-xl flex items-center justify-center shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform mb-4">
                 Change Password
               </button>
             </div>
