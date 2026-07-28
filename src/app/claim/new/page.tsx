@@ -149,7 +149,9 @@ export default function NewClaim() {
             </div>
 
             {/* Submit Button */}
-            <button className="bg-[#eb5b27] hover:bg-[#d94d1f] text-white font-extrabold text-[15px] py-3.5 rounded-full mt-4 shadow-md active:scale-95 transition-transform w-full">
+            <button
+              className="w-full mt-4 bg-[#eb5b27] text-white font-bold text-[13px] h-12 rounded-xl flex items-center justify-center shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform hover:bg-[#d94d1f]"
+            >
               Submit Claim
             </button>
           </div>
@@ -158,5 +160,3 @@ export default function NewClaim() {
     </div>
   );
 }
-
-

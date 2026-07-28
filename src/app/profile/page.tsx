@@ -250,7 +250,7 @@ export default function Profile() {
 
               <button
                 type="button"
-                className="w-full mt-2 shrink-0 bg-[#eb5b27] hover:bg-[#d94d1f] text-white font-semibold text-[13px] h-12 rounded-xl flex items-center justify-center shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform mb-4"
+                className="w-full mt-2 shrink-0 bg-[#eb5b27] hover:bg-[#d94d1f] text-white font-bold text-[13px] h-12 rounded-xl flex items-center justify-center shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform mb-4"
               >
                 Update Profile
               </button>
