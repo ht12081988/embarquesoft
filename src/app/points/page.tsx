@@ -142,19 +142,19 @@ export default function MyPoints() {
 
         {/* Main Glass Section */}
         <div className="flex-1 bg-white/85 backdrop-blur-md border-t border-white/40 rounded-t-[32px] p-6 flex flex-col gap-6 relative z-0 pb-32 shadow-[0_-8px_32px_rgba(0,0,0,0.15)]">
-          {/* Gold Member & Points Earned */}
+          {/* Points Earned & Gold Member Badge */}
           <div className="flex items-center justify-between gap-4">
-            <div className="flex-1 flex justify-center">
-              <GoldBadge />
-            </div>
-            
-            {/* Vertical Line divider */}
-            <div className="w-[1px] h-16 bg-gray-200"></div>
-            
-            <div className="flex-1 flex flex-col pl-4">
+            <div className="flex-1 flex flex-col pl-2">
               <span className="text-[#061246] text-xs font-bold leading-tight">You have</span>
               <span className="text-[#eb5b27] text-[34px] font-black leading-tight tracking-tight my-0.5 drop-shadow-sm">12,450</span>
               <span className="text-[#061246] text-[15px] font-extrabold leading-tight">Points</span>
+            </div>
+
+            {/* Vertical Line divider */}
+            <div className="w-[1px] h-16 bg-gray-200"></div>
+
+            <div className="flex-1 flex justify-end animate-soft-blink">
+              <GoldBadge />
             </div>
           </div>
 
@@ -235,6 +235,16 @@ export default function MyPoints() {
           </div>
         </div>
       </div>
+      {/* Soft blinking animation style */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes soft-blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.4; }
+        }
+        .animate-soft-blink {
+          animation: soft-blink 2s ease-in-out infinite;
+        }
+      `}} />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowLeft, Upload, Camera, CheckCircle } from "lucide-react";
+import { ArrowLeft, Search, Plus, Upload, Camera, CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/components/auth";
@@ -24,26 +24,82 @@ const IconBell = () => (
   </svg>
 );
 
-export default function QuotePage() {
+export default function QuoteListPage() {
   const router = useRouter();
   const { isLoggedIn } = useAuth();
+  const [searchQuery, setSearchQuery] = useState("");
   const [language, setLanguage] = useState("ES");
   const toggleLanguage = () => setLanguage(l => l === "ES" ? "EN" : "ES");
-  
-  const [success, setSuccess] = useState(false);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    telephone: "",
-    description: "",
-  });
-  const [file, setFile] = useState<File | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Simulate API call
-    setSuccess(true);
-  };
+  const quotes = [
+    {
+      id: "QTA-000001",
+      firstName: "John",
+      lastName: "Doe",
+      telephone: "212-444-8574",
+      description: "Need a quote for shipping a 20ft container to Santo Domingo. Please include insurance options.",
+      date: "2026-07-16",
+      estimatedShipping: "2026-07-25 09:00 AM",
+      comments: [
+        {
+          id: "c1",
+          userId: "admin1",
+          userName: "Tenant Admin",
+          comment: "Yes, insurance can be added. The cost would be $50.",
+          timestamp: "2026-07-17 2:45 PM",
+          images: [] as string[],
+        },
+        {
+          id: "c2",
+          userId: "user1",
+          userName: "John Doe",
+          comment: "Thank you for the quote.",
+          timestamp: "2026-07-17 10:30 AM",
+          images: [] as string[],
+        },
+      ]
+    },
+    {
+      id: "QTA-000002",
+      firstName: "Maria",
+      lastName: "Gonzalez",
+      telephone: "809-555-1234",
+      description: "Looking to ship a refrigerator and 3 medium boxes. Image attached for reference.",
+      date: "2026-07-15",
+      estimatedShipping: "",
+      comments: [
+        {
+          id: "c3",
+          userId: "user2",
+          userName: "Maria Gonzalez",
+          comment: "I need this by Friday.",
+          timestamp: "2026-07-16 9:15 AM",
+          images: [
+            "https://placehold.co/80x80/e2e8f0/94a3b8?text=IMG",
+            "https://placehold.co/80x80/e2e8f0/94a3b8?text=IMG",
+            "https://placehold.co/80x80/e2e8f0/94a3b8?text=IMG",
+          ] as string[],
+        },
+      ]
+    },
+    {
+      id: "QTA-000003",
+      firstName: "Carlos",
+      lastName: "Smith",
+      telephone: "305-999-8888",
+      description: "Moving household items from Miami to Santiago. Need competitive rates.",
+      date: "2026-07-14",
+      estimatedShipping: "2026-07-20 02:30 PM",
+      comments: []
+    }
+  ];
+
+  const filteredQuotes = quotes.filter(quote => 
+    quote.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    quote.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    quote.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    quote.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="flex flex-col flex-1 h-full relative overflow-hidden font-sans">
@@ -83,147 +139,159 @@ export default function QuotePage() {
           </div>
         </div>
 
-        {/* Page Title */}
-        <div className="pt-4 pb-4 px-5 flex flex-col shrink-0 text-white z-10">
-          <div className="flex items-center justify-between">
+        {/* Page Title & Actions */}
+        <div className="pt-4 pb-2 px-5 flex flex-col shrink-0 text-white z-10">
+          <div className="flex items-center justify-between mb-2">
             <button onClick={() => router.back()} className="p-2 -ml-2 active:scale-95 transition-transform cursor-pointer">
               <ArrowLeft size={20} />
             </button>
-            <h1 className="text-base font-normal flex-1 text-center pr-8 tracking-wide">Request Quote</h1>
+            <h1 className="text-base font-normal flex-1 text-center pl-4 tracking-wide">My Quotes</h1>
+            <Link href="/quote/new" className="active:scale-95 transition-transform cursor-pointer p-1 -mr-1">
+              <Plus size={24} />
+            </Link>
           </div>
         </div>
 
-      {/* Main Content Area - White Card */}
-      <div className="flex-1 bg-white/[0.88] backdrop-blur-xl rounded-t-[32px] px-6 pt-8 pb-8 flex flex-col z-20 overflow-y-auto no-scrollbar shadow-[0_-8px_24px_rgba(0,0,0,0.1)]">
-        {success ? (
-          <div className="flex flex-col items-center justify-center h-full gap-4 text-center py-10">
-            <div className="w-16 h-16 bg-[#eb5b27]/10 rounded-full flex items-center justify-center text-[#eb5b27]">
-              <CheckCircle size={32} />
+        {/* Search Box */}
+        <div className="px-5 pb-4 shrink-0 z-10">
+          <div className="relative">
+            <Search 
+              size={18} 
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+            />
+            <input
+              type="text"
+              placeholder="Search quotes..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-white/95 backdrop-blur-xl border border-white/40 rounded-2xl pl-11 pr-4 py-3 text-[13px] text-gray-900 outline-none font-medium placeholder-gray-400 shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
+            />
+          </div>
+        </div>
+
+        {/* Quote List */}
+        <div className="flex-1 px-5 flex flex-col gap-4 relative z-0 overflow-y-auto no-scrollbar pb-24">
+          {filteredQuotes.length > 0 ? (
+            <div className="flex flex-col gap-4">
+              {filteredQuotes.map((quote) => (
+                <Link href={`/quote/${quote.id}`} key={quote.id} className="bg-white/95 backdrop-blur-xl border border-white/40 rounded-2xl shadow-sm flex flex-col p-5 shrink-0 hover:shadow-md transition-shadow active:scale-[0.99] block">
+                  <div className="flex items-center gap-2 mb-4 pb-4 border-b border-black/5">
+                    <span className="bg-[#eb5b27] text-white text-[11px] font-bold px-2.5 py-1 rounded-full">
+                      {quote.id}
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="mt-1 text-[#eb5b27]">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10 9 9 9 8 9"/>
+                      </svg>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-[#eb5b27] font-bold text-sm mb-1">Quote #{quote.id}</h3>
+                      <p className="text-gray-600 text-[11px] font-medium leading-snug line-clamp-2">
+                        {quote.description}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-2 mt-2">
+                    <div className="flex justify-between items-center text-[11px]">
+                      <span className="text-gray-700 font-bold">Submitted:</span>
+                      <span className="text-[#eb5b27] font-medium">{quote.date}</span>
+                    </div>
+                    {quote.estimatedShipping && (
+                      <div className="flex justify-between items-center text-[11px]">
+                        <span className="text-gray-700 font-bold">Est. Shipping:</span>
+                        <span className="text-[#eb5b27] font-medium">{quote.estimatedShipping}</span>
+                      </div>
+                    )}
+
+                    {/* Comments Section */}
+                    {quote.comments && quote.comments.length > 0 && (
+                      <div className="mt-3 border-t border-gray-200 pt-3">
+                        {/* Header: Comments title + View All */}
+                        <div className="flex items-center justify-between mb-2.5">
+                          <div className="flex items-center gap-1.5">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#eb5b27]">
+                              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                            <span className="text-gray-700 font-bold text-[11px]">Comments</span>
+                          </div>
+                          <button
+                            onClick={(e) => { e.preventDefault(); router.push(`/quote/${quote.id}`); }}
+                            className="text-[#eb5b27] text-[11px] font-semibold active:opacity-70 transition-opacity"
+                          >
+                            View All
+                          </button>
+                        </div>
+
+                        {/* Latest comment */}
+                        <div className="bg-gray-100/80 rounded-xl p-3">
+                          {/* Name · timestamp inline */}
+                          <div className="flex items-center gap-1.5 mb-1">
+                            <span className="text-[11px] font-bold text-[#1a2b5e]">{quote.comments[0].userName}</span>
+                            <span className="text-gray-400 text-[10px]">·</span>
+                            <span className="text-gray-400 text-[10px]">{quote.comments[0].timestamp}</span>
+                          </div>
+                          {/* Comment text */}
+                          <p className="text-gray-700 text-[11px] font-medium leading-snug line-clamp-2 mb-2">
+                            {quote.comments[0].comment}
+                          </p>
+                          {/* Image thumbnail strip */}
+                          {quote.comments[0].images && quote.comments[0].images.length > 0 && (
+                            <div className="flex gap-2 flex-wrap">
+                              {quote.comments[0].images.map((src: string, idx: number) => (
+                                <div
+                                  key={idx}
+                                  className="w-[60px] h-[60px] rounded-xl overflow-hidden border border-gray-200 bg-gray-200 shrink-0"
+                                >
+                                  <img
+                                    src={src}
+                                    alt={`attachment-${idx + 1}`}
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Add Comment Button */}
+                    <div className="mt-3">
+                      <button
+                        onClick={(e) => { e.preventDefault(); router.push(`/quote/${quote.id}`); }}
+                        className="w-full bg-[#eb5b27]/10 hover:bg-[#eb5b27]/20 text-[#eb5b27] font-medium text-[12px] py-2.5 rounded-xl border border-[#eb5b27]/20 active:scale-98 transition-all"
+                      >
+                        + Add Comment
+                      </button>
+                    </div>
+                  </div>
+                </Link>
+              ))}
             </div>
-            <div>
-              <h2 className="text-[#1A1A1A] font-bold text-xl mb-2">Quote Requested</h2>
-              <p className="text-black font-medium text-sm px-4">
-                We have received your quote request and will get back to you shortly.
+          ) : (
+            <div className="flex flex-col items-center justify-center py-12 text-center">
+              <div className="w-16 h-16 bg-white/20 backdrop-blur-xl rounded-full flex items-center justify-center text-white mb-4">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                  <polyline points="10 9 9 9 8 9"/>
+                </svg>
+              </div>
+              <h3 className="text-white font-medium text-[15px] mb-2">No quotes found</h3>
+              <p className="text-white/80 text-[13px] px-8">
+                {searchQuery ? "Try adjusting your search criteria." : "You haven't created any quotes yet."}
               </p>
             </div>
-            <button 
-              onClick={() => router.push("/")}
-              className="mt-6 bg-[#eb5b27] hover:bg-[#d94d1f] text-white font-semibold py-3.5 px-8 rounded-full shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform"
-            >
-              Back to Home
-            </button>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <div className="flex gap-4">
-              <div className="flex flex-col gap-1.5 flex-1">
-                <label className="text-black font-medium text-[13px] ml-1">First Name</label>
-                <input 
-                  type="text" 
-                  required
-                  value={formData.firstName}
-                  onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
-                />
-              </div>
-              <div className="flex flex-col gap-1.5 flex-1">
-                <label className="text-black font-medium text-[13px] ml-1">Last Name</label>
-                <input 
-                  type="text" 
-                  required
-                  value={formData.lastName}
-                  onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                  className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
-                />
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-1.5">
-              <label className="text-black font-medium text-[13px] ml-1">Telephone</label>
-              <input 
-                type="tel" 
-                required
-                value={formData.telephone}
-                onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
-                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
-              />
-            </div>
-
-            <div className="flex flex-col gap-1.5">
-              <label className="text-black font-medium text-[13px] ml-1">Quote Description</label>
-              <textarea 
-                required
-                rows={4}
-                value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27] resize-none"
-              />
-            </div>
-
-            <div className="flex flex-col gap-1.5">
-              <label className="text-black font-medium text-[13px] ml-1">Attach Image</label>
-              <div className="w-full bg-[#f8f9fa] border-2 border-dashed border-gray-200 rounded-2xl p-4 flex flex-col items-center justify-center gap-3">
-                <span className="text-gray-500 text-[13px] font-medium">Choose an option</span>
-                <div className="flex gap-3 w-full">
-                  <div className="relative flex-1">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      capture="environment"
-                      onChange={(e) => {
-                        if (e.target.files && e.target.files[0]) {
-                          setFile(e.target.files[0]);
-                        }
-                      }}
-                      className="hidden"
-                      id="camera-upload"
-                    />
-                    <label
-                      htmlFor="camera-upload"
-                      className="w-full flex items-center justify-center gap-2 bg-white text-[#1a2b5e] border border-gray-200 font-bold text-sm py-3 px-4 rounded-xl shadow-sm cursor-pointer active:scale-95 transition-all hover:bg-gray-50"
-                    >
-                      <Camera size={18} className="text-[#eb5b27]" />
-                      <span className="whitespace-nowrap">Take Picture</span>
-                    </label>
-                  </div>
-                  <div className="relative flex-1">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => {
-                        if (e.target.files && e.target.files[0]) {
-                          setFile(e.target.files[0]);
-                        }
-                      }}
-                      className="hidden"
-                      id="file-upload"
-                    />
-                    <label
-                      htmlFor="file-upload"
-                      className="w-full flex items-center justify-center gap-2 bg-[#1a2b5e] text-white font-bold text-sm py-3 px-4 rounded-xl shadow-sm cursor-pointer active:scale-95 transition-all hover:bg-[#15234d]"
-                    >
-                      <Upload size={18} />
-                      <span className="whitespace-nowrap">Upload</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-              {file && (
-                <div className="text-[12px] font-medium text-[#eb5b27] text-center mt-1">
-                  Selected: {file.name}
-                </div>
-              )}
-            </div>
-
-            <button 
-              type="submit" 
-              className="w-full mt-2 bg-[#eb5b27] hover:bg-[#d94d1f] text-white font-semibold text-[13px] h-12 rounded-xl flex items-center justify-center shadow-[0_4px_14px_rgba(235,91,39,0.35)] active:scale-95 transition-transform"
-            >
-              Submit Quote
-            </button>
-          </form>
-        )}
-      </div>
+          )}
+        </div>
       </div>
     </div>
   );

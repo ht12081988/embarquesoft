@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Tag, Bell, LogOut, Search, User, MapPin, ChevronDown, ChevronRight, Smartphone, MessageSquare, FileText, Calculator, Star } from 'lucide-react';
+import { LayoutDashboard, Tag, Bell, LogOut, Search, User, MapPin, ChevronDown, ChevronRight, Smartphone, MessageSquare, FileText, Calculator, Star, ShieldAlert } from 'lucide-react';
 import './admin.css';
 
 export default function TenantAdminLayout({
@@ -51,7 +51,7 @@ export default function TenantAdminLayout({
               </Link>
             </div>
 
-            <div className="admin-sidebar-group">
+            <div className="admin-sidebar-group" style={{ marginBottom: '16px' }}>
               <button
                 onClick={() => setIsCustomerAppExpanded(!isCustomerAppExpanded)}
                 className="admin-sidebar-group-btn"
@@ -80,6 +80,18 @@ export default function TenantAdminLayout({
                   })}
                 </div>
               )}
+            </div>
+            <div className="admin-sidebar-group" style={{ marginBottom: '16px' }}>
+              <Link
+                href="/tenantadmin/claims"
+                className={`admin-sidebar-group-btn ${pathname === '/tenantadmin/claims' || pathname.startsWith('/tenantadmin/claims/') ? 'active' : ''}`}
+                style={{ textDecoration: 'none' }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <ShieldAlert size={20} />
+                  Claims
+                </div>
+              </Link>
             </div>
           </nav>
         </aside>
