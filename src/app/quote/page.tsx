@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowLeft, Search, Plus, Upload, Camera, CheckCircle } from "lucide-react";
+import { ArrowLeft, Search, Plus, Upload, Camera, CheckCircle, FileText } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/components/auth";
@@ -152,146 +152,161 @@ export default function QuoteListPage() {
           </div>
         </div>
 
-        {/* Search Box */}
-        <div className="px-5 pb-4 shrink-0 z-10">
-          <div className="relative">
-            <Search 
-              size={18} 
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-            />
-            <input
-              type="text"
-              placeholder="Search quotes..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white/95 backdrop-blur-xl border border-white/40 rounded-2xl pl-11 pr-4 py-3 text-[13px] text-gray-900 outline-none font-medium placeholder-gray-400 shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
-            />
-          </div>
-        </div>
-
-        {/* Quote List */}
-        <div className="flex-1 px-5 flex flex-col gap-4 relative z-0 overflow-y-auto no-scrollbar pb-24">
-          {filteredQuotes.length > 0 ? (
-            <div className="flex flex-col gap-4">
-              {filteredQuotes.map((quote) => (
-                <Link href={`/quote/${quote.id}`} key={quote.id} className="bg-white/95 backdrop-blur-xl border border-white/40 rounded-2xl shadow-sm flex flex-col p-5 shrink-0 hover:shadow-md transition-shadow active:scale-[0.99] block">
-                  <div className="flex items-center gap-2 mb-4 pb-4 border-b border-black/5">
-                    <span className="bg-[#eb5b27] text-white text-[11px] font-bold px-2.5 py-1 rounded-full">
-                      {quote.id}
-                    </span>
-                  </div>
-                  <div className="flex items-start gap-3 mb-3">
-                    <div className="mt-1 text-[#eb5b27]">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                        <polyline points="14 2 14 8 20 8"/>
-                        <line x1="16" y1="13" x2="8" y2="13"/>
-                        <line x1="16" y1="17" x2="8" y2="17"/>
-                        <polyline points="10 9 9 9 8 9"/>
-                      </svg>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-[#eb5b27] font-bold text-sm mb-1">Quote #{quote.id}</h3>
-                      <p className="text-gray-600 text-[11px] font-medium leading-snug line-clamp-2">
-                        {quote.description}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-2 mt-2">
-                    <div className="flex justify-between items-center text-[11px]">
-                      <span className="text-gray-700 font-bold">Submitted:</span>
-                      <span className="text-[#eb5b27] font-medium">{quote.date}</span>
-                    </div>
-                    {quote.estimatedShipping && (
-                      <div className="flex justify-between items-center text-[11px]">
-                        <span className="text-gray-700 font-bold">Est. Shipping:</span>
-                        <span className="text-[#eb5b27] font-medium">{quote.estimatedShipping}</span>
-                      </div>
-                    )}
-
-                    {/* Comments Section */}
-                    {quote.comments && quote.comments.length > 0 && (
-                      <div className="mt-3 border-t border-gray-200 pt-3">
-                        {/* Header: Comments title + View All */}
-                        <div className="flex items-center justify-between mb-2.5">
-                          <div className="flex items-center gap-1.5">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#eb5b27]">
-                              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                            </svg>
-                            <span className="text-gray-700 font-bold text-[11px]">Comments</span>
-                          </div>
-                          <button
-                            onClick={(e) => { e.preventDefault(); router.push(`/quote/${quote.id}`); }}
-                            className="text-[#eb5b27] text-[11px] font-semibold active:opacity-70 transition-opacity"
-                          >
-                            View All
-                          </button>
-                        </div>
-
-                        {/* Latest comment */}
-                        <div className="bg-gray-100/80 rounded-xl p-3">
-                          {/* Name · timestamp inline */}
-                          <div className="flex items-center gap-1.5 mb-1">
-                            <span className="text-[11px] font-bold text-[#1a2b5e]">{quote.comments[0].userName}</span>
-                            <span className="text-gray-400 text-[10px]">·</span>
-                            <span className="text-gray-400 text-[10px]">{quote.comments[0].timestamp}</span>
-                          </div>
-                          {/* Comment text */}
-                          <p className="text-gray-700 text-[11px] font-medium leading-snug line-clamp-2 mb-2">
-                            {quote.comments[0].comment}
-                          </p>
-                          {/* Image thumbnail strip */}
-                          {quote.comments[0].images && quote.comments[0].images.length > 0 && (
-                            <div className="flex gap-2 flex-wrap">
-                              {quote.comments[0].images.map((src: string, idx: number) => (
-                                <div
-                                  key={idx}
-                                  className="w-[60px] h-[60px] rounded-xl overflow-hidden border border-gray-200 bg-gray-200 shrink-0"
-                                >
-                                  <img
-                                    src={src}
-                                    alt={`attachment-${idx + 1}`}
-                                    className="w-full h-full object-cover"
-                                  />
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Add Comment Button */}
-                    <div className="mt-3">
-                      <button
-                        onClick={(e) => { e.preventDefault(); router.push(`/quote/${quote.id}`); }}
-                        className="w-full bg-[#eb5b27]/10 hover:bg-[#eb5b27]/20 text-[#eb5b27] font-medium text-[12px] py-2.5 rounded-xl border border-[#eb5b27]/20 active:scale-98 transition-all"
-                      >
-                        + Add Comment
-                      </button>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="flex flex-col items-center justify-center py-12 text-center">
-              <div className="w-16 h-16 bg-white/20 backdrop-blur-xl rounded-full flex items-center justify-center text-white mb-4">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                  <line x1="16" y1="13" x2="8" y2="13"/>
-                  <line x1="16" y1="17" x2="8" y2="17"/>
-                  <polyline points="10 9 9 9 8 9"/>
-                </svg>
+        {!isLoggedIn ? (
+          <div className="flex-1 px-5 flex flex-col items-center justify-center text-center pb-24">
+            <div className="bg-white/95 backdrop-blur-xl border border-white/40 rounded-3xl p-8 shadow-md max-w-sm flex flex-col items-center gap-4">
+              <div className="w-16 h-16 bg-[#eb5b27]/10 rounded-full flex items-center justify-center text-[#eb5b27]">
+                <FileText size={32} />
               </div>
-              <h3 className="text-white font-medium text-[15px] mb-2">No quotes found</h3>
-              <p className="text-white/80 text-[13px] px-8">
-                {searchQuery ? "Try adjusting your search criteria." : "You haven't created any quotes yet."}
+              <p className="text-gray-800 text-[15px] font-semibold leading-relaxed">
+                You can create and submit a Quote by clicking on the "+" icon.
               </p>
             </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <>
+            {/* Search Box */}
+            <div className="px-5 pb-4 shrink-0 z-10">
+              <div className="relative">
+                <Search 
+                  size={18} 
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                />
+                <input
+                  type="text"
+                  placeholder="Search quotes..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-white/95 backdrop-blur-xl border border-white/40 rounded-2xl pl-11 pr-4 py-3 text-[13px] text-gray-900 outline-none font-medium placeholder-gray-400 shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
+                />
+              </div>
+            </div>
+
+            {/* Quote List */}
+            <div className="flex-1 px-5 flex flex-col gap-4 relative z-0 overflow-y-auto no-scrollbar pb-24">
+              {filteredQuotes.length > 0 ? (
+                <div className="flex flex-col gap-4">
+                  {filteredQuotes.map((quote) => (
+                    <Link href={`/quote/${quote.id}`} key={quote.id} className="bg-white/95 backdrop-blur-xl border border-white/40 rounded-2xl shadow-sm flex flex-col p-5 shrink-0 hover:shadow-md transition-shadow active:scale-[0.99] block">
+                      <div className="flex items-center gap-2 mb-4 pb-4 border-b border-black/5">
+                        <span className="bg-[#eb5b27] text-white text-[11px] font-bold px-2.5 py-1 rounded-full">
+                          {quote.id}
+                        </span>
+                      </div>
+                      <div className="flex items-start gap-3 mb-3">
+                        <div className="mt-1 text-[#eb5b27]">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10 9 9 9 8 9"/>
+                          </svg>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-[#eb5b27] font-bold text-sm mb-1">Quote #{quote.id}</h3>
+                          <p className="text-gray-600 text-[11px] font-medium leading-snug line-clamp-2">
+                            {quote.description}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-2 mt-2">
+                        <div className="flex justify-between items-center text-[11px]">
+                          <span className="text-gray-700 font-bold">Submitted:</span>
+                          <span className="text-[#eb5b27] font-medium">{quote.date}</span>
+                        </div>
+                        {quote.estimatedShipping && (
+                          <div className="flex justify-between items-center text-[11px]">
+                            <span className="text-gray-700 font-bold">Est. Shipping:</span>
+                            <span className="text-[#eb5b27] font-medium">{quote.estimatedShipping}</span>
+                          </div>
+                        )}
+
+                        {/* Comments Section */}
+                        {quote.comments && quote.comments.length > 0 && (
+                          <div className="mt-3 border-t border-gray-200 pt-3">
+                            {/* Header: Comments title + View All */}
+                            <div className="flex items-center justify-between mb-2.5">
+                              <div className="flex items-center gap-1.5">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#eb5b27]">
+                                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                                </svg>
+                                <span className="text-gray-700 font-bold text-[11px]">Comments</span>
+                              </div>
+                              <button
+                                onClick={(e) => { e.preventDefault(); router.push(`/quote/${quote.id}`); }}
+                                className="text-[#eb5b27] text-[11px] font-semibold active:opacity-70 transition-opacity"
+                              >
+                                View All
+                              </button>
+                            </div>
+
+                            {/* Latest comment */}
+                            <div className="bg-gray-100/80 rounded-xl p-3">
+                              {/* Name · timestamp inline */}
+                              <div className="flex items-center gap-1.5 mb-1">
+                                <span className="text-[11px] font-bold text-[#1a2b5e]">{quote.comments[0].userName}</span>
+                                <span className="text-gray-400 text-[10px]">·</span>
+                                <span className="text-gray-400 text-[10px]">{quote.comments[0].timestamp}</span>
+                              </div>
+                              {/* Comment text */}
+                              <p className="text-gray-700 text-[11px] font-medium leading-snug line-clamp-2 mb-2">
+                                {quote.comments[0].comment}
+                              </p>
+                              {/* Image thumbnail strip */}
+                              {quote.comments[0].images && quote.comments[0].images.length > 0 && (
+                                <div className="flex gap-2 flex-wrap">
+                                  {quote.comments[0].images.map((src: string, idx: number) => (
+                                    <div
+                                      key={idx}
+                                      className="w-[60px] h-[60px] rounded-xl overflow-hidden border border-gray-200 bg-gray-200 shrink-0"
+                                    >
+                                      <img
+                                        src={src}
+                                        alt={`attachment-${idx + 1}`}
+                                        className="w-full h-full object-cover"
+                                      />
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Add Comment Button */}
+                        <div className="mt-3">
+                          <button
+                            onClick={(e) => { e.preventDefault(); router.push(`/quote/${quote.id}`); }}
+                            className="w-full bg-[#eb5b27]/10 hover:bg-[#eb5b27]/20 text-[#eb5b27] font-medium text-[12px] py-2.5 rounded-xl border border-[#eb5b27]/20 active:scale-98 transition-all"
+                          >
+                            + Add Comment
+                          </button>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <div className="w-16 h-16 bg-white/20 backdrop-blur-xl rounded-full flex items-center justify-center text-white mb-4">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                      <line x1="16" y1="13" x2="8" y2="13"/>
+                      <line x1="16" y1="17" x2="8" y2="17"/>
+                      <polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                  </div>
+                  <h3 className="text-white font-medium text-[15px] mb-2">No quotes found</h3>
+                  <p className="text-white/80 text-[13px] px-8">
+                    {searchQuery ? "Try adjusting your search criteria." : "You haven't created any quotes yet."}
+                  </p>
+                </div>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

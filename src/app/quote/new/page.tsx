@@ -24,11 +24,19 @@ const IconBell = () => (
   </svg>
 );
 
+const countries = {
+  US: { flag: "🇺🇸", code: "+1" },
+  DO: { flag: "🇩🇴", code: "+1" },
+  IN: { flag: "🇮🇳", code: "+91" }
+};
+type CountryKey = keyof typeof countries;
+
 export default function NewQuotePage() {
   const router = useRouter();
   const { isLoggedIn } = useAuth();
   const [language, setLanguage] = useState("ES");
   const toggleLanguage = () => setLanguage(l => l === "ES" ? "EN" : "ES");
+  const [phoneCountry, setPhoneCountry] = useState<CountryKey>("US");
   
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
@@ -140,13 +148,29 @@ export default function NewQuotePage() {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-black font-medium text-[13px] ml-1">Telephone</label>
-              <input 
-                type="tel" 
-                required
-                value={formData.telephone}
-                onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
-                className="w-full bg-[#F4F5F7] text-gray-900 rounded-xl px-4 py-3 text-sm outline-none font-medium placeholder-gray-400 border border-white shadow-sm focus:border-[#eb5b27] focus:ring-1 focus:ring-[#eb5b27]"
-              />
+              <div className="flex bg-[#F4F5F7] rounded-xl overflow-hidden border border-white shadow-sm focus-within:border-[#eb5b27] focus-within:ring-1 focus-within:ring-[#eb5b27]">
+                <div className="relative bg-[#EAEAEE] px-3.5 py-3 flex items-center gap-1.5 text-sm font-bold text-black border-r border-gray-200">
+                  <span>{countries[phoneCountry].flag}</span>
+                  <span>{countries[phoneCountry].code}</span>
+                  <select 
+                    value={phoneCountry} 
+                    onChange={(e) => setPhoneCountry(e.target.value as CountryKey)}
+                    className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                  >
+                    <option value="US">🇺🇸 USA (+1)</option>
+                    <option value="DO">🇩🇴 Dominican Republic (+1)</option>
+                    <option value="IN">🇮🇳 India (+91)</option>
+                  </select>
+                </div>
+                <input 
+                  type="tel" 
+                  required
+                  value={formData.telephone}
+                  onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
+                  placeholder="Telephone"
+                  className="flex-1 px-4 py-3 text-sm text-gray-900 font-medium outline-none placeholder-gray-400 bg-transparent border-none"
+                />
+              </div>
             </div>
 
             <div className="flex flex-col gap-1.5">
