@@ -152,7 +152,7 @@ const row1Items = [
 ];
 
 const row2Items = [
-  { id: "pickup",   label: "Schedule\nPickup", Icon: IconPickup, href: "/schedule",  isProtected: true  },
+  { id: "pickup",   label: "Pickup",        Icon: IconPickup, href: "/schedule",  isProtected: true  },
   { id: "quote",    label: "Quote",         Icon: IconQuote,    href: "/quote",       isProtected: false },
   { id: "shipto",   label: "My ShipTo",     Icon: IconShipTo,   href: "/shiptos",     isProtected: true  },
 ];
