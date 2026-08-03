@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Tag, Bell, LogOut, Search, User, MapPin, ChevronDown, ChevronRight, Smartphone, MessageSquare, FileText, Calculator, Star, ShieldAlert } from 'lucide-react';
+import { LayoutDashboard, Tag, Bell, LogOut, Search, User, MapPin, ChevronDown, ChevronRight, Smartphone, MessageSquare, FileText, Calculator, Star, ShieldAlert, Settings2, UserPlus, ShoppingBag, Settings } from 'lucide-react';
 import './admin.css';
 
 export default function TenantAdminLayout({
@@ -13,6 +13,7 @@ export default function TenantAdminLayout({
 }) {
   const pathname = usePathname();
   const [isCustomerAppExpanded, setIsCustomerAppExpanded] = useState(true);
+  const [isAdministrationExpanded, setIsAdministrationExpanded] = useState(false);
 
   const navItems = [
     { name: 'Deals', href: '/tenantadmin/deals', icon: Tag },
@@ -22,6 +23,9 @@ export default function TenantAdminLayout({
     { name: 'Quotes', href: '/tenantadmin/quotes', icon: FileText },
     { name: 'Price Estimation', href: '/tenantadmin/price-estimation', icon: Calculator },
     { name: 'Points', href: '/tenantadmin/points', icon: Star },
+    { name: 'Referrals', href: '/tenantadmin/referrals', icon: UserPlus },
+    { name: 'Sales', href: '/tenantadmin/sales', icon: ShoppingBag },
+    { name: 'Settings', href: '/tenantadmin/settings', icon: Settings },
   ];
 
   return (
@@ -38,7 +42,7 @@ export default function TenantAdminLayout({
               Menu
             </div>
 
-            <div className="admin-sidebar-group" style={{ marginBottom: '16px' }}>
+            <div className="admin-sidebar-group" style={{ marginBottom: '4px' }}>
               <Link
                 href="/tenantadmin/customers"
                 className={`admin-sidebar-group-btn ${pathname === '/tenantadmin/customers' || pathname.startsWith('/tenantadmin/customers/') ? 'active' : ''}`}
@@ -51,7 +55,7 @@ export default function TenantAdminLayout({
               </Link>
             </div>
 
-            <div className="admin-sidebar-group" style={{ marginBottom: '16px' }}>
+            <div className="admin-sidebar-group" style={{ marginBottom: '4px' }}>
               <button
                 onClick={() => setIsCustomerAppExpanded(!isCustomerAppExpanded)}
                 className="admin-sidebar-group-btn"
@@ -81,7 +85,7 @@ export default function TenantAdminLayout({
                 </div>
               )}
             </div>
-            <div className="admin-sidebar-group" style={{ marginBottom: '16px' }}>
+            <div className="admin-sidebar-group" style={{ marginBottom: '4px' }}>
               <Link
                 href="/tenantadmin/claims"
                 className={`admin-sidebar-group-btn ${pathname === '/tenantadmin/claims' || pathname.startsWith('/tenantadmin/claims/') ? 'active' : ''}`}
@@ -92,6 +96,36 @@ export default function TenantAdminLayout({
                   Claims
                 </div>
               </Link>
+            </div>
+
+            <div className="admin-sidebar-group" style={{ marginBottom: '4px' }}>
+              <button
+                onClick={() => setIsAdministrationExpanded(!isAdministrationExpanded)}
+                className="admin-sidebar-group-btn"
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <Settings2 size={20} />
+                  Administration
+                </div>
+                {isAdministrationExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+              </button>
+
+              {isAdministrationExpanded && (
+                <div className="admin-sidebar-group-content">
+                  <Link
+                    href="/tenantadmin/administration/roles"
+                    className={`admin-nav-item ${pathname.startsWith('/tenantadmin/administration/roles') ? 'active' : ''}`}
+                  >
+                    - Roles
+                  </Link>
+                  <Link
+                    href="/tenantadmin/administration/users"
+                    className={`admin-nav-item ${pathname.startsWith('/tenantadmin/administration/users') ? 'active' : ''}`}
+                  >
+                    - Users
+                  </Link>
+                </div>
+              )}
             </div>
           </nav>
         </aside>

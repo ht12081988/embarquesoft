@@ -45,5 +45,6 @@ next-env.d.ts
 /Docs
 /src/app/promo
 /scratch
+uiux-review/
 
 .aider*

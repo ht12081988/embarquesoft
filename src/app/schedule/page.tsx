@@ -40,8 +40,12 @@ export default function SchedulePickupList() {
       cell: "+1 212-444-8574",
       phone: "+1 201-555-0123",
       notes: "Please call 30 mins before arrival.",
-      pickupDate: "2025-12-29",
-      status: "Not Done"
+      pickupDate: "2026-08-05",
+      status: "Not Done",
+      driver: {
+        name: "John Smith",
+        image: "https://i.pravatar.cc/150?u=a042581f4e29026704d"
+      }
     },
     {
       id: "PUA-007989",
@@ -50,7 +54,7 @@ export default function SchedulePickupList() {
       cell: "+1 212-555-1234",
       phone: "-",
       notes: "Leave at front desk if not available.",
-      pickupDate: "2025-12-30",
+      pickupDate: "2026-08-01",
       status: "Done"
     }
   ];
@@ -104,7 +108,7 @@ export default function SchedulePickupList() {
             <button onClick={() => router.back()} className="p-2 -ml-2 active:scale-95 transition-transform cursor-pointer">
               <ArrowLeft size={20} />
             </button>
-            <h1 className="text-base font-normal flex-1 text-center pl-4 tracking-wide">Schedule Pickup</h1>
+            <h1 className="text-base font-normal flex-1 text-center pl-4 tracking-wide">Pickups</h1>
             <Link href="/schedule/new" className="active:scale-95 transition-transform cursor-pointer p-1 -mr-1">
               <Plus size={24} />
             </Link>
@@ -154,6 +158,21 @@ export default function SchedulePickupList() {
                 <div className="mt-2 bg-black/5 rounded-xl p-3">
                   <span className="text-gray-700 font-bold text-[11px] block mb-1 uppercase tracking-wide">Notes</span>
                   <p className="text-gray-700 text-[11px] font-medium leading-snug">{pickup.notes}</p>
+                </div>
+              )}
+              {pickup.driver && (
+                <div className="mt-2 flex items-center gap-3 bg-[#eb5b27]/10 rounded-xl p-3 border border-[#eb5b27]/30">
+                  {pickup.driver.image ? (
+                    <img src={pickup.driver.image} alt={pickup.driver.name} className="w-8 h-8 rounded-full object-cover" />
+                  ) : (
+                    <div className="w-8 h-8 rounded-full bg-[#eb5b27]/20 flex items-center justify-center">
+                      <span className="text-[#eb5b27] font-bold text-[10px]">{pickup.driver.name.substring(0, 2).toUpperCase()}</span>
+                    </div>
+                  )}
+                  <div>
+                    <span className="text-[#c24a20] font-bold text-[10px] uppercase tracking-wide block">Assigned Driver</span>
+                    <span className="text-gray-900 font-bold text-sm">{pickup.driver.name}</span>
+                  </div>
                 </div>
               )}
             </Link>

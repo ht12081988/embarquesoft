@@ -386,6 +386,22 @@ export default function EditCustomerPage() {
             </div>
           </div>
 
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <label style={{ width: '140px', fontSize: '0.85rem', color: '#1e293b', fontWeight: 500, textAlign: 'right', paddingRight: '16px' }}>
+              Referred By Customer
+            </label>
+            <div style={{ flex: 1, position: 'relative', display: 'flex', border: '1px solid #e2e8f0', borderRadius: '4px', backgroundColor: 'white' }}>
+              <select style={{ flex: 1, padding: '8px 12px', border: 'none', outline: 'none', color: '#1e293b', appearance: 'none', backgroundColor: 'transparent', width: '100%' }}>
+                <option value="">Select Customer</option>
+                <option value="1">CUST-8492 - Ricardo Guerrero</option>
+                <option value="2">CUST-1029 - Maria Gonzalez</option>
+              </select>
+              <div style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#64748b', display: 'flex', alignItems: 'center' }}>
+                 <ChevronDown size={14} />
+              </div>
+            </div>
+          </div>
+
           <div style={{ display: 'flex', alignItems: 'flex-start' }}>
             <label style={{ width: '140px', fontSize: '0.85rem', color: '#1e293b', fontWeight: 500, textAlign: 'right', paddingRight: '16px', paddingTop: '8px' }}>
               Write Comment

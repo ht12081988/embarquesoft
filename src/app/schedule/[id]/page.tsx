@@ -45,6 +45,10 @@ export default function SchedulePickupDetail({ params }: { params: Promise<{ id:
       tentativeDate: "2025-12-29 10:00 AM",
       comments: "Please call 30 mins before arrival.",
     },
+    driver: {
+      name: "John Smith",
+      image: "https://i.pravatar.cc/150?u=a042581f4e29026704d"
+    },
     customer: {
       country: "USA",
       name: "Ricardo Sinha",
@@ -173,6 +177,22 @@ export default function SchedulePickupDetail({ params }: { params: Promise<{ id:
               <span className="text-gray-500 font-bold uppercase">Comments</span>
               <span className="text-gray-900 font-medium leading-relaxed">{data.pickup.comments || "-"}</span>
             </div>
+            
+            {data.driver && (
+              <div className="mt-2 flex items-center gap-3 bg-[#eb5b27]/10 rounded-xl p-3 border border-[#eb5b27]/30">
+                {data.driver.image ? (
+                  <img src={data.driver.image} alt={data.driver.name} className="w-10 h-10 rounded-full object-cover" />
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-[#eb5b27]/20 flex items-center justify-center">
+                    <span className="text-[#eb5b27] font-bold text-xs">{data.driver.name.substring(0, 2).toUpperCase()}</span>
+                  </div>
+                )}
+                <div>
+                  <span className="text-[#c24a20] font-bold text-[10px] uppercase tracking-wide block">Assigned Driver</span>
+                  <span className="text-gray-900 font-bold text-sm">{data.driver.name}</span>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Customer Section */}

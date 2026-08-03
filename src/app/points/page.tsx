@@ -8,19 +8,19 @@ import { useAuth } from "@/components/auth";
 
 const IconWhatsapp = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
   </svg>
 );
 const IconGlobe = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
-    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    <circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" />
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
   </svg>
 );
 const IconBell = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
   </svg>
 );
 
@@ -33,12 +33,12 @@ const GoldBadge = () => (
     <circle cx="50" cy="50" r="40" fill="#eab308" />
     <circle cx="50" cy="50" r="37" fill="#ca8a04" />
     <circle cx="50" cy="50" r="34" fill="#0f172a" />
-    
+
     {/* Stars */}
     <path d="M50 20 l1.5 3.5 3.5.5-2.5 2.5 1 3.5-3.5-2-3.5 2 1-3.5-2.5-2.5 3.5-.5Z" fill="#eab308" />
     <path d="M38 24 l1 2.5 2.5.3-1.8 1.8.5 2.5-2.2-1.3-2.2 1.3.5-2.5-1.8-1.8 2.5-.3Z" fill="#eab308" />
     <path d="M62 24 l1 2.5 2.5.3-1.8 1.8.5 2.5-2.2-1.3-2.2 1.3.5-2.5-1.8-1.8 2.5-.3Z" fill="#eab308" />
-    
+
     {/* Text */}
     <text x="50" y="52" fill="#eab308" fontSize="9" fontWeight="900" textAnchor="middle" letterSpacing="0.05em">GOLD</text>
     <text x="50" y="62" fill="#eab308" fontSize="7.5" fontWeight="800" textAnchor="middle" letterSpacing="0.05em">MEMBER</text>
@@ -55,12 +55,12 @@ const PlatinumBadge = () => (
     <circle cx="50" cy="50" r="40" fill="#cbd5e1" />
     <circle cx="50" cy="50" r="37" fill="#94a3b8" />
     <circle cx="50" cy="50" r="34" fill="#0f172a" />
-    
+
     {/* Stars */}
     <path d="M50 20 l1.5 3.5 3.5.5-2.5 2.5 1 3.5-3.5-2-3.5 2 1-3.5-2.5-2.5 3.5-.5Z" fill="#cbd5e1" />
     <path d="M38 24 l1 2.5 2.5.3-1.8 1.8.5 2.5-2.2-1.3-2.2 1.3.5-2.5-1.8-1.8 2.5-.3Z" fill="#cbd5e1" />
     <path d="M62 24 l1 2.5 2.5.3-1.8 1.8.5 2.5-2.2-1.3-2.2 1.3.5-2.5-1.8-1.8 2.5-.3Z" fill="#cbd5e1" />
-    
+
     {/* Text */}
     <text x="50" y="52" fill="#cbd5e1" fontSize="7" fontWeight="950" textAnchor="middle" letterSpacing="0.03em">PLATINUM</text>
     <text x="50" y="62" fill="#cbd5e1" fontSize="7.5" fontWeight="800" textAnchor="middle" letterSpacing="0.03em">MEMBER</text>
@@ -72,13 +72,13 @@ export default function MyPoints() {
   const router = useRouter();
   const { isLoggedIn } = useAuth();
   const [language, setLanguage] = useState("ES");
-  
+
   const toggleLanguage = () => setLanguage(l => l === "ES" ? "EN" : "ES");
 
   return (
     <div className="flex flex-col flex-1 relative font-sans">
       {/* Background Image & Overlay */}
-      <div 
+      <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/App_Background.png')" }}
       >
@@ -134,7 +134,7 @@ export default function MyPoints() {
             <Calendar size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#eb5b27] pointer-events-none" />
             <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-white/70">
-                <path d="m6 9 6 6 6-6"/>
+                <path d="m6 9 6 6 6-6" />
               </svg>
             </div>
           </div>
@@ -165,8 +165,8 @@ export default function MyPoints() {
                 5,550 <span className="text-gray-500 font-bold">points to reach Platinum</span>
               </span>
               <div className="w-full bg-gray-200/80 rounded-full h-3.5 relative overflow-hidden border border-black/5">
-                <div 
-                  className="bg-gradient-to-r from-[#eab308] to-[#eb5b27] h-full rounded-full flex items-center justify-end pr-2 transition-all duration-500 shadow-sm" 
+                <div
+                  className="bg-gradient-to-r from-[#eab308] to-[#eb5b27] h-full rounded-full flex items-center justify-end pr-2 transition-all duration-500 shadow-sm"
                   style={{ width: "69%" }}
                 >
                   <span className="text-[8px] font-black text-white leading-none">69%</span>
@@ -191,7 +191,7 @@ export default function MyPoints() {
           {/* Points Summary Section */}
           <div className="flex flex-col gap-4">
             <h3 className="text-[#061246] font-black text-[13px] tracking-wide">Points Summary</h3>
-            
+
             <div className="grid grid-cols-2 gap-3">
               {/* Box 1: Total */}
               <div className="flex flex-col items-center text-center p-3 bg-white/60 rounded-xl border border-white/50 shadow-sm">
@@ -201,7 +201,7 @@ export default function MyPoints() {
                 <span className="text-gray-500 text-[9px] font-bold leading-tight">Invoice Points</span>
                 <span className="text-[#eb5b27] text-[15px] font-black mt-1">12,450</span>
               </div>
-              
+
               {/* Box 2: Earned */}
               <div className="flex flex-col items-center text-center p-3 bg-white/60 rounded-xl border border-white/50 shadow-sm">
                 <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center mb-2">
@@ -236,7 +236,8 @@ export default function MyPoints() {
         </div>
       </div>
       {/* Soft blinking animation style */}
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes soft-blink {
           0%, 100% { opacity: 1; }
           50% { opacity: 0.4; }

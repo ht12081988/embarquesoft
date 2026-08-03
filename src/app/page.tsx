@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/components/auth";
@@ -120,6 +120,21 @@ const IconPhone = () => (
     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.84a16 16 0 0 0 6.29 6.29l1.62-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
   </svg>
 );
+const IconRefer = () => (
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+    <circle cx="16" cy="16" r="11" fill="#061246"/>
+    <path d="M12 14c0-1.5 1.5-3 4-3s4 1.5 4 3c0 2-2 2.5-4 4-2-1.5-4-2-4-4z" fill="#eb5b27"/>
+    <circle cx="16" cy="11" r="2" fill="#eb5b27"/>
+    <path d="M12 18h8v2h-8z" fill="#eb5b27"/>
+  </svg>
+);
+const IconSales = () => (
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+    <path d="M8 12L6 26h20l-2-14H8z" fill="#061246" />
+    <path d="M12 12V8a4 4 0 0 1 8 0v4" stroke="#eb5b27" strokeWidth="2.5" strokeLinecap="round" />
+    <circle cx="16" cy="18" r="3" fill="#eb5b27" />
+  </svg>
+);
 
 
 // ─── Deals Data ───────────────────────────────────────────────────────────────
@@ -148,11 +163,32 @@ const row3Items = [
   { id: "points",   label: "My Points",     Icon: IconPoints,   href: "/points",      isProtected: true  },
 ];
 
+const row4Items = [
+  { id: "refer",    label: "Refer\nA Friend", Icon: IconRefer,  href: "/refer",       isProtected: true  },
+  { id: "sales",    label: "Sale",            Icon: IconSales,  href: "/sales",       isProtected: false },
+];
+
 export default function Home() {
   const router = useRouter();
   const { isLoggedIn, setIsPopupOpen } = useAuth();
   const [language, setLanguage] = useState("ES");
   const [activeDeal, setActiveDeal] = useState(0);
+  const [appSettings, setAppSettings] = useState({
+    claims: true,
+    points: true,
+    sales: true,
+  });
+
+  useEffect(() => {
+    const saved = localStorage.getItem('customer_app_settings');
+    if (saved) {
+      try {
+        setAppSettings(JSON.parse(saved));
+      } catch (e) {
+        console.error("Error parsing settings", e);
+      }
+    }
+  }, []);
 
   const toggleLanguage = () => setLanguage(l => l === "ES" ? "EN" : "ES");
 
@@ -377,8 +413,20 @@ export default function Home() {
               </div>
 
               {/* Row 3 Grid */}
+              <div className="grid grid-cols-3 gap-3 px-6 py-1.5">
+                {row3Items.filter(item => {
+                  if (item.id === 'claim') return appSettings.claims;
+                  if (item.id === 'points') return appSettings.points;
+                  return true;
+                }).map(renderCardItem)}
+              </div>
+
+              {/* Row 4 Grid */}
               <div className="grid grid-cols-3 gap-3 px-6 pt-1.5 pb-3">
-                {row3Items.map(renderCardItem)}
+                {row4Items.filter(item => {
+                  if (item.id === 'sales') return appSettings.sales;
+                  return true;
+                }).map(renderCardItem)}
               </div>
             </>
           );
